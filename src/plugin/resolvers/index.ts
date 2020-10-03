@@ -27,19 +27,32 @@ const findResolver = (input: string) => {
 };
 
 // KEEP AN EYE ON THIS
-export const resolve = memoize(
-  (input: string, baseConfig: any, userConfig: any) => {
-    const found = findResolver(input);
+export const resolve = (input: string) => {
+  const found = findResolver(input);
 
-    if (!found) {
-      console.warn(`Could not resolve ${input} style name.`);
-      return {};
-    }
-
-    const { resolver, groups } = found;
-
-    const theme = createThemeFunction(baseConfig, userConfig);
-
-    return resolver.fn({ input, groups, theme });
+  if (!found) {
+    console.warn(`Could not resolve ${input} style name.`);
+    return {};
   }
-);
+
+  const { resolver, groups } = found;
+
+  const theme = createThemeFunction();
+
+  return resolver.fn({ input, groups, theme });
+};
+
+// export const resolve = memoize((input: string) => {
+//   const found = findResolver(input);
+
+//   if (!found) {
+//     console.warn(`Could not resolve ${input} style name.`);
+//     return {};
+//   }
+
+//   const { resolver, groups } = found;
+
+//   const theme = createThemeFunction();
+
+//   return resolver.fn({ input, groups, theme });
+// });

@@ -5,4 +5,7 @@ type Breeze =
   | StyleProp<ImageStyle>
   | StyleProp<TextStyle>;
 
-export const br = (...args: []): Breeze => ({});
+export const br = (
+  stylesArray: TemplateStringsArray,
+  ...variables: string[]
+): Breeze => ({});
