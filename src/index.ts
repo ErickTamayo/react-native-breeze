@@ -1,4 +1,8 @@
-export * from "./components";
-export * from "./withBreeze";
+import { StyleProp, ViewStyle, ImageStyle, TextStyle } from "react-native";
 
-export const br = (...args: []) => {};
+type Breeze =
+  | StyleProp<ViewStyle>
+  | StyleProp<ImageStyle>
+  | StyleProp<TextStyle>;
+
+export const br = (...args: []): Breeze => ({});
