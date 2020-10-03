@@ -2,10 +2,11 @@
   "name": "react-native-breeze",
   "version": "0.0.1",
   "description": "Utility-first style framework for React Native projects",
-  "main": "index.js",
+  "main": "dist/commonjs/index.js",
   "scripts": {
     "build": "bob build",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "bob build"
   },
   "keywords": [
     "react",
@@ -39,5 +40,28 @@
     "jest": "^26.4.2",
     "ts-jest": "^26.4.1",
     "typescript": "^4.0.3"
-  }
+  },
+  "react-native": "src/index.ts",
+  "module": "dist/module/index.js",
+  "types": "dist/typescript/src/index.d.ts",
+  "files": [
+    "src",
+    "dist",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "dist",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "dist/"
+  ]
 }
