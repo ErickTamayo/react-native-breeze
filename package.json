@@ -1,10 +1,12 @@
 {
   "name": "react-native-breeze",
   "version": "0.0.1",
-  "description": "Utility-first styles framework for React Native projects",
-  "main": "index.js",
+  "description": "Utility-first style framework for React Native projects",
+  "main": "dist/commonjs/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "bob build",
+    "test": "jest",
+    "prepare": "bob build"
   },
   "keywords": [
     "react",
@@ -15,6 +17,51 @@
   "author": "Erick Tamayo",
   "license": "ISC",
   "dependencies": {
+    "@babel/types": "^7.11.5",
+    "babel-template": "^6.26.0",
+    "deepmerge": "^4.2.2",
+    "fast-memoize": "^2.5.2",
     "react-native": "^0.63.3"
-  }
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-transform-react-jsx": "^7.10.4",
+    "@babel/preset-env": "^7.11.5",
+    "@react-native-community/bob": "^0.16.2",
+    "@types/babel-core": "^6.25.6",
+    "@types/jest": "^26.0.14",
+    "@types/react": "^16.9.50",
+    "@types/react-native": "^0.63.23",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^26.3.0",
+    "babel-preset-expo": "^8.3.0",
+    "babel-preset-react-native": "^4.0.1",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.4.1",
+    "typescript": "^4.0.3"
+  },
+  "react-native": "src/index.ts",
+  "module": "dist/module/index.js",
+  "types": "dist/typescript/src/index.d.ts",
+  "files": [
+    "src",
+    "dist",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "dist",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "dist/"
+  ]
 }

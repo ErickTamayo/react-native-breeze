@@ -6,7 +6,7 @@
     "skipLibCheck": true,
     "noImplicitAny": true,
     "sourceMap": true,
-    "allowJs": false,
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
