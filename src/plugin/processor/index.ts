@@ -1,4 +1,3 @@
-import path from "path";
 import template from "@babel/template";
 import { resolve } from "../plugins";
 

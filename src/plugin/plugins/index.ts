@@ -1,8 +1,10 @@
 import path from "path";
 import memoize from "fast-memoize";
 import { Configuration } from "../types";
-import { config, theme } from "../utils/config";
+import Config from "../utils/config";
 import { PluginFunction } from "./types";
+
+const { config, theme } = Config;
 
 const corePluginsConfiguration = config(
   "corePlugins"
