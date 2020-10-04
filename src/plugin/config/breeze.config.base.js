@@ -124,10 +124,17 @@ module.exports = {
       },
     },
     backgroundColor: (theme) => theme("colors"),
+    inset: {
+      0: 0,
+    },
   },
   variants: {},
   corePlugins: {
     backgroundColor: true,
+    boxSizing: true,
+    display: true,
+    overflow: true,
+    inset: true,
   },
   plugins: [],
 };

@@ -11,7 +11,7 @@ const corePluginsConfiguration = config(
 ) as Configuration["corePlugins"];
 
 const enabledCorePlugins = Object.keys(corePluginsConfiguration).reduce<
-  { pattern?: RegExp; plugin?: PluginFunction }[]
+  { pattern?: RegExp; plugin?: PluginFunction<any> }[]
 >((acc, pluginName) => {
   if (corePluginsConfiguration[pluginName]) {
     return [...acc, require(path.resolve(__dirname, pluginName))];

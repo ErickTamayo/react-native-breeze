@@ -1,9 +1,11 @@
 import Config from "../utils/config";
 
-export type PluginFunctionParams = {
+export type PluginFunctionParams<T> = {
   input: string;
-  groups: { [group: string]: string };
+  groups: T;
   theme: typeof Config.theme;
 };
 
-export type PluginFunction = (params: PluginFunctionParams) => object;
+export type PluginFunction<T = {}> = (
+  params: PluginFunctionParams<T>
+) => object;
