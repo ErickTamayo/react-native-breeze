@@ -7,6 +7,7 @@ describe.only("boxSizing", () => {
     expect(pattern.exec("-inset-99")).toBeTruthy();
     expect(pattern.exec("inset-y-0")).toBeTruthy();
     expect(pattern.exec("inset-x-0")).toBeTruthy();
+    expect(pattern.exec("-inset-x-key")).toBeTruthy();
     expect(pattern.exec("top-0")).toBeTruthy();
     expect(pattern.exec("right-0")).toBeTruthy();
     expect(pattern.exec("bottom-0")).toBeTruthy();
@@ -14,13 +15,21 @@ describe.only("boxSizing", () => {
     expect(pattern.exec("start-0")).toBeTruthy();
     expect(pattern.exec("end-0")).toBeTruthy();
     expect(pattern.exec("-end-0")).toBeTruthy();
-    expect(pattern.exec("top-y-2")).toBeFalsy();
-    expect(pattern.exec("inset-y-y")).toBeFalsy();
-    expect(pattern.exec("inset-top-0")).toBeFalsy();
-    expect(pattern.exec("top-top")).toBeFalsy();
+    expect(pattern.exec("inset-y-y")).toBeTruthy();
+    expect(pattern.exec("top-y-2")).toBeTruthy();
+    expect(pattern.exec("inset-top-0")).toBeTruthy();
+    expect(pattern.exec("top-top-test")).toBeTruthy();
+
+    expect(pattern.exec("inset")).toBeFalsy();
+    expect(pattern.exec("-inset")).toBeFalsy();
     expect(pattern.exec("-end")).toBeFalsy();
+    expect(pattern.exec("-start")).toBeFalsy();
     expect(pattern.exec("top")).toBeFalsy();
+    expect(pattern.exec("left")).toBeFalsy();
+    expect(pattern.exec("right")).toBeFalsy();
     expect(pattern.exec("bottom")).toBeFalsy();
+    expect(pattern.exec("start")).toBeFalsy();
+    expect(pattern.exec("end")).toBeFalsy();
   });
 
   // negative?: "-";
@@ -29,7 +38,7 @@ describe.only("boxSizing", () => {
   // value: string;
 
   // prettier-ignore
-  it.only.each<[string, number, string[], any]>([
+  it.each<[string, number, string[], any]>([
     ["inset-0", 0, ["inset", "0"], { top: 0, right: 0, bottom: 0, left: 0 }],
     [ "-inset-2", -2, ["inset", "-2"], { top: -2, right: -2, bottom: -2, left: -2 }, ],
     ["inset-y-3", 3, ["inset", "3"], { top: 3, bottom: 3 }],

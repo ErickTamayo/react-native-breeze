@@ -1,23 +1,20 @@
+import { colorToKey } from "../utils/misc";
+import { validate } from "../utils/validation";
 import { PluginFunction } from "./types";
 
-export type PluginGroups = { color: string; number?: string };
+export type PluginGroups = { color: string };
 
-export const pattern = /^bg-(?<color>\w+)-?(?<number>\w+)?$/;
+export const pattern = /^bg-(?<color>[\w\d-]+)$/;
 
 export const plugin: PluginFunction<PluginGroups> = ({
   input,
   groups,
   theme,
 }) => {
-  const { color, number } = groups;
+  const { color } = groups;
+  const value = theme(colorToKey(color));
 
-  const path = number ? ["colors", color, number] : ["colors", color];
-  const colorString = theme(path);
+  if (!validate(input, value, ["string"])) return {};
 
-  if (typeof colorString !== "string") {
-    console.error(`Invalid color [${typeof colorString}] for ${input}`);
-    return {};
-  }
-
-  return { backgroundColor: colorString };
+  return { backgroundColor: value };
 };

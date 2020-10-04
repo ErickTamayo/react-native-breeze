@@ -1,7 +1,8 @@
+import { withNegativePrefix } from "../utils/misc";
+import { validate } from "../utils/validation";
 import { PluginFunction } from "./types";
-
 export type PluginGroups = {
-  negative?: "-";
+  prefix?: "-";
   position:
     | "inset"
     | "inset-x"
@@ -12,25 +13,21 @@ export type PluginGroups = {
     | "left"
     | "start"
     | "end";
-  value: string;
+  key: string;
 };
 
-export const pattern = /^(?<negative>-)?(?<position>(inset(-[xy])?)|top|right|bottom|left|start|end)?-?(?<value>\d+)$/;
+export const pattern = /^(?<prefix>-)?(?<position>(inset(-[xy])?)|top|right|bottom|left|start|end)-(?<key>[\d\w-]+)$/;
 
 export const plugin: PluginFunction<PluginGroups> = ({
   input,
   groups,
   theme,
 }) => {
-  const { negative, position, value } = groups;
+  const { prefix, position, key } = groups;
 
-  const key = `${negative || ""}${value}`;
-  const number = theme(["inset", key]);
+  const number = theme(["inset", withNegativePrefix(prefix, key)]);
 
-  if (typeof number !== "number") {
-    console.error(`Invalid value [${typeof number}] for ${input}`);
-    return {};
-  }
+  if (!validate(input, number, ["number"])) return {};
 
   if (position === "inset") {
     return { top: number, right: number, bottom: number, left: number };
