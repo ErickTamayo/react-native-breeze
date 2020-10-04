@@ -1,12 +1,12 @@
 {
   "name": "react-native-breeze",
-  "version": "0.0.3-alpha-6",
+  "version": "0.0.3-alpha-7",
   "description": "Utility-first style framework for React Native projects",
   "main": "dist/commonjs/index.js",
   "scripts": {
-    "build": "bob build",
     "test": "jest",
-    "prepare": "bob build"
+    "prepare": "bob build; npm run copy:plugin",
+    "copy:plugin": "cpr ./dist/commonjs/plugin ./plugin -d"
   },
   "keywords": [
     "react",
@@ -19,6 +19,7 @@
   "dependencies": {
     "@babel/types": "^7.11.5",
     "babel-template": "^6.26.0",
+    "cpr": "^3.0.1",
     "deepmerge": "^4.2.2",
     "fast-memoize": "^2.5.2",
     "react-native": "^0.63.3"
@@ -37,6 +38,7 @@
     "babel-jest": "^26.3.0",
     "babel-preset-expo": "^8.3.0",
     "babel-preset-react-native": "^4.0.1",
+    "cpy-cli": "^3.1.1",
     "jest": "^26.4.2",
     "ts-jest": "^26.4.1",
     "typescript": "^4.0.3"

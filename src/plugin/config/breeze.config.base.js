@@ -126,5 +126,8 @@ module.exports = {
     backgroundColor: (theme) => theme("colors"),
   },
   variants: {},
-  resolvers: ["backgroudColorResolver"],
+  corePlugins: {
+    backgroundColor: true,
+  },
+  plugins: [],
 };

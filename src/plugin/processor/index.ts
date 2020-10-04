@@ -1,10 +1,10 @@
 import path from "path";
 import template from "@babel/template";
-import { resolve } from "../resolvers";
+import { resolve } from "../plugins";
 
 export const processStyles = (path: any, styles: string[]) => {
-  const style = styles.reduce((acc, s) => {
-    return { ...acc, ...resolve(s) };
+  const style = styles.reduce((acc, style) => {
+    return { ...acc, ...resolve(style) };
   }, {});
 
   const code = JSON.stringify(style).replace(/\"([^(\")"]+)\":/g, "$1:");

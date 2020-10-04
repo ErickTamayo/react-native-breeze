@@ -1,6 +1,17 @@
 import { StyleProp, ViewStyle, ImageStyle, TextStyle } from "react-native";
 
-type Breeze =
+let warningEmitted = false;
+
+const emitError = () => {
+  if (!warningEmitted) {
+    console.error(
+      "react-native-breeze could not apply the style or get the style value. Perhaps you missed setting up the babel plugin?"
+    );
+    warningEmitted = true;
+  }
+};
+
+type BreezeStyle =
   | StyleProp<ViewStyle>
   | StyleProp<ImageStyle>
   | StyleProp<TextStyle>;
@@ -8,4 +19,17 @@ type Breeze =
 export const br = (
   stylesArray: TemplateStringsArray,
   ...variables: string[]
-): Breeze => ({});
+): BreezeStyle => {
+  emitError();
+  return {};
+};
+
+type ValueType = string | number | undefined;
+
+br.value = <T extends ValueType>(
+  stylesArray: TemplateStringsArray,
+  ...variables: string[]
+): T => {
+  emitError();
+  return undefined as any;
+};
