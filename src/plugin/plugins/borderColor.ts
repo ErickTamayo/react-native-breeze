@@ -6,7 +6,7 @@ export type PluginGroups = { color: string };
 
 export const pattern: PluginPattern = ({ theme }) => {
   const colors = Object.keys(flattenColors(theme("colors")));
-  return new RegExp(`^bg-(?<color>${colors.join("|")})$`);
+  return new RegExp(`^border-(?<color>${colors.join("|")})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({
@@ -20,5 +20,5 @@ export const plugin: PluginFunction<PluginGroups> = ({
 
   if (!validate(input, value, ["string"])) return {};
 
-  return { backgroundColor: value };
+  return { borderColor: value };
 };

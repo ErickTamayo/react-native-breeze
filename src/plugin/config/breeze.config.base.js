@@ -127,14 +127,22 @@ module.exports = {
     inset: {
       0: 0,
     },
+    zIndex: {
+      0: 0,
+      10: 10,
+      20: 20,
+      30: 30,
+      40: 40,
+      50: 50,
+    },
   },
   variants: {},
   corePlugins: {
     backgroundColor: true,
-    boxSizing: true,
     display: true,
     overflow: true,
     inset: true,
+    zIndex: true,
   },
   plugins: [],
 };

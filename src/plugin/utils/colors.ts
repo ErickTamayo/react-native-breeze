@@ -1,19 +1,20 @@
 import memoize from "fast-memoize";
+import { memo } from "react";
 
-const flattenColors = memoize((colors: any) => {
-  const flattened = Object.entries(colors).reduce((acc, [colorKey, color]) => {
-    if (color && typeof color === "object") {
-      const colorVariants = Object.entries(color).reduce(
-        (acc, [variantKey, variant]) => {
-          return { ...acc, [`${colorKey}-${variantKey}`]: variant };
-        },
-        {}
-      );
-      return { ...acc, ...colorVariants };
-    }
+export interface ColorObject {
+  [key: string]: string | ColorObject;
+}
 
-    return { ...acc, [colorKey]: color };
-  }, {});
+export const flattenColors = memoize(
+  (colors: ColorObject, prefix: string = ""): { [key: string]: string } => {
+    return Object.keys(colors).reduce((acc, color) => {
+      const key = prefix ? `${prefix}-${color}` : color;
 
-  return flattened;
-});
+      if (typeof colors[color] === "object") {
+        return { ...acc, ...flattenColors(colors[color] as ColorObject, key) };
+      }
+
+      return { ...acc, [key]: colors[color] };
+    }, {});
+  }
+);

@@ -1,75 +1,116 @@
 import { pattern, plugin, PluginGroups } from "../inset";
+import { PatternCallable, PluginFunctionReturnType } from "../types";
 
-describe.only("boxSizing", () => {
+describe("inset", () => {
   it("Should match the correct inset pattern", () => {
-    expect(pattern.exec("inset-0")).toBeTruthy();
-    expect(pattern.exec("inset-99")).toBeTruthy();
-    expect(pattern.exec("-inset-99")).toBeTruthy();
-    expect(pattern.exec("inset-y-0")).toBeTruthy();
-    expect(pattern.exec("inset-x-0")).toBeTruthy();
-    expect(pattern.exec("-inset-x-key")).toBeTruthy();
-    expect(pattern.exec("top-0")).toBeTruthy();
-    expect(pattern.exec("right-0")).toBeTruthy();
-    expect(pattern.exec("bottom-0")).toBeTruthy();
-    expect(pattern.exec("left-0")).toBeTruthy();
-    expect(pattern.exec("start-0")).toBeTruthy();
-    expect(pattern.exec("end-0")).toBeTruthy();
-    expect(pattern.exec("-end-0")).toBeTruthy();
-    expect(pattern.exec("inset-y-y")).toBeTruthy();
-    expect(pattern.exec("top-y-2")).toBeTruthy();
-    expect(pattern.exec("inset-top-0")).toBeTruthy();
-    expect(pattern.exec("top-top-test")).toBeTruthy();
+    const theme = jest.fn().mockReturnValue({ 0: 0, "-1": -1 });
+    const callable = pattern as PatternCallable;
 
-    expect(pattern.exec("inset")).toBeFalsy();
-    expect(pattern.exec("-inset")).toBeFalsy();
-    expect(pattern.exec("-end")).toBeFalsy();
-    expect(pattern.exec("-start")).toBeFalsy();
-    expect(pattern.exec("top")).toBeFalsy();
-    expect(pattern.exec("left")).toBeFalsy();
-    expect(pattern.exec("right")).toBeFalsy();
-    expect(pattern.exec("bottom")).toBeFalsy();
-    expect(pattern.exec("start")).toBeFalsy();
-    expect(pattern.exec("end")).toBeFalsy();
+    expect(callable({ theme }).exec("inset-0")).toBeTruthy();
+    expect(callable({ theme }).exec("-inset-1")).toBeTruthy();
+
+    expect(callable({ theme }).exec("inset-y-0")).toBeTruthy();
+    expect(callable({ theme }).exec("inset-x-0")).toBeTruthy();
+    expect(callable({ theme }).exec("-inset-y-1")).toBeTruthy();
+    expect(callable({ theme }).exec("-inset-x-1")).toBeTruthy();
+
+    expect(callable({ theme }).exec("top-0")).toBeTruthy();
+    expect(callable({ theme }).exec("right-0")).toBeTruthy();
+    expect(callable({ theme }).exec("left-0")).toBeTruthy();
+    expect(callable({ theme }).exec("bottom-0")).toBeTruthy();
+    expect(callable({ theme }).exec("start-0")).toBeTruthy();
+    expect(callable({ theme }).exec("end-0")).toBeTruthy();
+
+    expect(callable({ theme }).exec("-top-1")).toBeTruthy();
+    expect(callable({ theme }).exec("-right-1")).toBeTruthy();
+    expect(callable({ theme }).exec("-start-1")).toBeTruthy();
+    expect(callable({ theme }).exec("-end-1")).toBeTruthy();
+
+    expect(callable({ theme }).exec("inset")).toBeFalsy();
+    expect(callable({ theme }).exec("inset-y")).toBeFalsy();
+    expect(callable({ theme }).exec("inset-x")).toBeFalsy();
+    expect(callable({ theme }).exec("left")).toBeFalsy();
+    expect(callable({ theme }).exec("right")).toBeFalsy();
+    expect(callable({ theme }).exec("bottom")).toBeFalsy();
+    expect(callable({ theme }).exec("start")).toBeFalsy();
+    expect(callable({ theme }).exec("end")).toBeFalsy();
+
+    expect(callable({ theme }).exec("inset-")).toBeFalsy();
+    expect(callable({ theme }).exec("inset-y-")).toBeFalsy();
+    expect(callable({ theme }).exec("inset-x-")).toBeFalsy();
+    expect(callable({ theme }).exec("left-")).toBeFalsy();
+    expect(callable({ theme }).exec("right-")).toBeFalsy();
+    expect(callable({ theme }).exec("bottom-")).toBeFalsy();
+    expect(callable({ theme }).exec("start-")).toBeFalsy();
+    expect(callable({ theme }).exec("end-")).toBeFalsy();
   });
 
-  // negative?: "-";
-  // position: "inset" | "top" | "right" | "bottom" | "left" | "start" | "end";
-  // axis?: "x" | "y";
-  // value: string;
-
   // prettier-ignore
-  it.each<[string, number, string[], any]>([
-    ["inset-0", 0, ["inset", "0"], { top: 0, right: 0, bottom: 0, left: 0 }],
-    [ "-inset-2", -2, ["inset", "-2"], { top: -2, right: -2, bottom: -2, left: -2 }, ],
-    ["inset-y-3", 3, ["inset", "3"], { top: 3, bottom: 3 }],
-    ["-inset-y-3", -3, ["inset", "-3"], { top: -3, bottom: -3 }],
-    ["inset-x-4", 4, ["inset", "4"], { left: 4, right: 4 }],
-    ["-inset-x-4", -4, ["inset", "-4"], { left: -4, right: -4 }],
-    ["top-5", 5, ["inset", "5"], { top: 5 }],
-    ["-top-5", -5, ["inset", "-5"], { top: -5 }],
-    ["right-5", 5, ["inset", "5"], { right: 5 }],
-    ["-right-5", -5, ["inset", "-5"], { right: -5 }],
-    ["bottom-5", 5, ["inset", "5"], { bottom: 5 }],
-    ["-bottom-5", -5, ["inset", "-5"], { bottom: -5 }],
-    ["left-5", 5, ["inset", "5"], { left: 5 }],
-    ["-left-5", -5, ["inset", "-5"], { left: -5 }],
-    ["start-5", 5, ["inset", "5"], { start: 5 }],
-    ["-start-5", -5, ["inset", "-5"], { start: -5 }],
-    ["end-5", 5, ["inset", "5"], { end: 5 }],
-    ["-end-5", -5, ["inset", "-5"], { end: -5 }],
+  it.each<[input: string, inset: { [key: string]: number }, value: number, expected: PluginFunctionReturnType]>([
+    ["inset-0", { 0: -1 }, 0, { top: 0, right: 0, bottom: 0, left: 0 }],
+    ["inset-x-0", { 0: 0 }, 0, { right: 0, left: 0 }],
+    ["inset-y-0", { 0: 0 }, 0, { top: 0, bottom: 0 }],
+    ["top-0", { 0: 0 }, 0, { top: 0 }],
+    ["right-0", { 0: 0 }, 0, { right: 0 }],
+    ["bottom-0", { 0: 0 }, 0, { bottom: 0}],
+    ["left-0", { 0: 0 }, 0, { left: 0}],
+    ["start-0", { 0: 0 }, 0, { start: 0}],
+    ["end-0", { 0: 0 }, 0, { end: 0}],
+
+    ["-inset-1", { "-1": -1 }, -1, { top: -1, right: -1, bottom: -1, left: -1 }],
+    ["-inset-x-1", { "-1": -1 }, -1, { right: -1, left: -1 }],
+    ["-inset-y-1", { "-1": -1 }, -1, { top: -1, bottom: -1 }],
+    ["-top-1", { "-1": -1 }, -1, { top: -1 }],
+    ["-right-1", { "-1": -1 }, -1, { right: -1 }],
+    ["-bottom-1", { "-1": -1 }, -1, { bottom: -1}],
+    ["-left-1", { "-1": -1 }, -1, { left: -1}],
+    ["-start-1", { "-1": -1 }, -1, { start: -1}],
+    ["-end-1", { "-1": -1 }, -1, { end: -1}],
   ])(
     "Should parse %s style correctly",
-    (input, themeReturnValue, themeArgs, expected) => {
-      const theme = jest.fn().mockImplementation(() => {
-        return themeReturnValue;
-      });
+    (input, inset, value , expected) => {
+      const theme = jest.fn();
+      theme.mockReturnValueOnce(inset)
+      const callable = pattern as PatternCallable;
+      const groups = callable({ theme }).exec(input)!.groups! as PluginGroups;
 
-      const groups = pattern.exec(input)!.groups! as PluginGroups;
-
+      theme.mockReturnValueOnce(value);
       const result = plugin({ input, groups, theme });
 
       expect(result).toEqual(expected);
-      expect(theme.mock.calls[0][0]).toEqual(themeArgs);
     }
   );
+
+  it.only("Should log error if the inset value is not valid", () => {
+    const theme = jest.fn();
+
+    theme.mockReturnValueOnce({ 0: undefined });
+    const input = "inset-0";
+    const callable = pattern as PatternCallable;
+    const groups = callable({ theme }).exec(input)!.groups! as PluginGroups;
+    const spy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+    theme.mockReturnValueOnce(undefined);
+    const result = plugin({ input, groups, theme });
+
+    expect(result).toEqual({});
+    expect(spy).toHaveBeenCalled();
+
+    spy.mockRestore();
+  });
+
+  // it("Should log error if the color is not valid", () => {
+  //   const theme = jest.fn().mockReturnValue({ red: { 500: 0 } });
+  //   const input = "bg-red-500";
+  //   const callable = pattern as PatternCallable;
+  //   const groups = callable({ theme }).exec(input)!.groups! as PluginGroups;
+  //   const spy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+  //   const result = plugin({ input, groups, theme });
+
+  //   expect(result).toEqual({});
+  //   expect(spy).toHaveBeenCalled();
+
+  //   spy.mockRestore();
+  // });
 });

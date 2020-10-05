@@ -49,12 +49,12 @@ class Config {
     this.configuration = mergedConfig;
   };
 
-  config = (key: Parameters<typeof get>[1]) => {
-    return get(this.configuration, key);
+  config = <T>(key: Parameters<typeof get>[1]) => {
+    return get(this.configuration, key) as T;
   };
 
-  theme = (key: Parameters<typeof get>[1]) => {
-    return get(this.configuration.theme, key);
+  theme = <T = unknown>(key: Parameters<typeof get>[1]) => {
+    return get(this.configuration.theme, key) as T;
   };
 }
 
