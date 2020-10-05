@@ -81,7 +81,7 @@ describe("inset", () => {
     }
   );
 
-  it.only("Should log error if the inset value is not valid", () => {
+  it("Should log error if the inset value is not valid", () => {
     const theme = jest.fn();
 
     theme.mockReturnValueOnce({ 0: undefined });
@@ -98,19 +98,4 @@ describe("inset", () => {
 
     spy.mockRestore();
   });
-
-  // it("Should log error if the color is not valid", () => {
-  //   const theme = jest.fn().mockReturnValue({ red: { 500: 0 } });
-  //   const input = "bg-red-500";
-  //   const callable = pattern as PatternCallable;
-  //   const groups = callable({ theme }).exec(input)!.groups! as PluginGroups;
-  //   const spy = jest.spyOn(console, "error").mockImplementation(() => {});
-
-  //   const result = plugin({ input, groups, theme });
-
-  //   expect(result).toEqual({});
-  //   expect(spy).toHaveBeenCalled();
-
-  //   spy.mockRestore();
-  // });
 });

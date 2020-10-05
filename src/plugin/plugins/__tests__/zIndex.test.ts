@@ -1,7 +1,7 @@
 import { PluginFunctionReturnType } from "../types";
 import { pattern, plugin, PluginGroups } from "../zIndex";
 
-describe.only("zIndex", () => {
+describe("zIndex", () => {
   it("Should match the correct inset pattern", () => {
     expect(pattern.exec("z-10")).toBeTruthy();
     expect(pattern.exec("-z-10")).toBeTruthy();

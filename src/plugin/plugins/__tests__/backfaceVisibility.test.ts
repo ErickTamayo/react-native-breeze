@@ -1,16 +1,16 @@
-import { pattern, plugin, PluginGroups } from "../display";
+import { pattern, plugin, PluginGroups } from "../backfaceVisibility";
 import { PluginFunctionReturnType } from "../types";
 
-describe("display", () => {
+describe("backface", () => {
   it("Should match the correct display pattern", () => {
-    expect((pattern as RegExp).exec("hidden")).toBeTruthy();
-    expect((pattern as RegExp).exec("flex")).toBeTruthy();
+    expect((pattern as RegExp).exec("backface-hidden")).toBeTruthy();
+    expect((pattern as RegExp).exec("backface-visible")).toBeTruthy();
     expect((pattern as RegExp).exec("other")).toBeFalsy();
   });
 
   it.each<[input: string, expected: PluginFunctionReturnType]>([
-    ["hidden", { display: "none" }],
-    ["flex", { display: "flex" }],
+    ["backface-hidden", { backfaceVisibility: "hidden" }],
+    ["backface-visible", { backfaceVisibility: "visible" }],
   ])("Should parse %s style correctly", (input, expected) => {
     const theme = jest.fn();
     const groups = (pattern as RegExp).exec(input)!.groups! as PluginGroups;

@@ -42,41 +42,24 @@ export const plugin: PluginFunction<PluginGroups> = ({
 
   if (!validate(input, value, ["number"])) return {};
 
-  if (position === "inset") {
-    return { top: value, right: value, bottom: value, left: value };
+  switch (position) {
+    case "inset-x":
+      return { right: value, left: value };
+    case "inset-y":
+      return { top: value, bottom: value };
+    case "top":
+      return { top: value };
+    case "bottom":
+      return { bottom: value };
+    case "left":
+      return { left: value };
+    case "right":
+      return { right: value };
+    case "start":
+      return { start: value };
+    case "end":
+      return { end: value };
+    default:
+      return { top: value, right: value, bottom: value, left: value };
   }
-
-  if (position === "inset-x") {
-    return { right: value, left: value };
-  }
-
-  if (position === "inset-y") {
-    return { top: value, bottom: value };
-  }
-
-  if (position === "top") {
-    return { top: value };
-  }
-
-  if (position === "right") {
-    return { right: value };
-  }
-
-  if (position === "bottom") {
-    return { bottom: value };
-  }
-
-  if (position === "left") {
-    return { left: value };
-  }
-
-  if (position === "start") {
-    return { start: value };
-  }
-
-  if (position === "end") {
-    return { end: value };
-  }
-
-  return {};
 };

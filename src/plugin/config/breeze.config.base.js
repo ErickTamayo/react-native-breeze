@@ -124,6 +124,14 @@ module.exports = {
       },
     },
     backgroundColor: (theme) => theme("colors"),
+    borderRadius: {
+      none: 0,
+      sm: 2,
+      default: 4,
+      md: 6,
+      lg: 8,
+      full: 9999,
+    },
     inset: {
       0: 0,
     },
@@ -143,6 +151,9 @@ module.exports = {
     overflow: true,
     inset: true,
     zIndex: true,
+    borderColor: true,
+    backfaceVisibility: true,
+    borderRadius: true,
   },
   plugins: [],
 };
