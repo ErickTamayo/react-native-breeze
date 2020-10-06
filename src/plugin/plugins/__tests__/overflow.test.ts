@@ -1,7 +1,7 @@
 import { pattern, plugin, PluginGroups } from "../overflow";
 
 describe("overflow", () => {
-  it("Should match the correct overflow pattern", () => {
+  it("Should match the correct pattern", () => {
     expect(pattern.exec("overflow-hidden")).toBeTruthy();
     expect(pattern.exec("overflow-visible")).toBeTruthy();
     expect(pattern.exec("overflow-scroll")).toBeTruthy();

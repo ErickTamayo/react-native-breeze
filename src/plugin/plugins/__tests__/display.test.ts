@@ -2,7 +2,7 @@ import { pattern, plugin, PluginGroups } from "../display";
 import { PluginFunctionReturnType } from "../types";
 
 describe("display", () => {
-  it("Should match the correct display pattern", () => {
+  it("Should match the correct pattern", () => {
     expect((pattern as RegExp).exec("hidden")).toBeTruthy();
     expect((pattern as RegExp).exec("flex")).toBeTruthy();
     expect((pattern as RegExp).exec("other")).toBeFalsy();

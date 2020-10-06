@@ -2,7 +2,7 @@ import { pattern, plugin, PluginGroups } from "../inset";
 import { PatternCallable, PluginFunctionReturnType } from "../types";
 
 describe("inset", () => {
-  it("Should match the correct inset pattern", () => {
+  it("Should match the correct pattern", () => {
     const theme = jest.fn().mockReturnValue({ 0: 0, "-1": -1 });
     const callable = pattern as PatternCallable;
 

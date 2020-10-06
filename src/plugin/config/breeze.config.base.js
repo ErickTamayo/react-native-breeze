@@ -132,8 +132,22 @@ module.exports = {
       lg: 8,
       full: 9999,
     },
+    borderWidth: {
+      default: 1,
+      0: 0,
+      2: 2,
+      4: 4,
+      8: 8,
+    },
     inset: {
       0: 0,
+    },
+    opacity: {
+      0: 0,
+      25: 0.25,
+      50: 0.5,
+      75: 0.75,
+      100: 1,
     },
     zIndex: {
       0: 0,
@@ -154,6 +168,9 @@ module.exports = {
     borderColor: true,
     backfaceVisibility: true,
     borderRadius: true,
+    borderWidth: true,
+    borderStyle: true,
+    opacity: true,
   },
   plugins: [],
 };

@@ -3,7 +3,7 @@ import { pattern, plugin, PluginGroups } from "../borderColor";
 import { PatternCallable, PluginFunctionReturnType } from "../types";
 
 describe("borderColor", () => {
-  it("Should match the correct color pattern", () => {
+  it("Should match the correct pattern", () => {
     const theme = jest
       .fn()
       .mockReturnValue({ black: "#000000", green: { 500: "#00ff00" } });
