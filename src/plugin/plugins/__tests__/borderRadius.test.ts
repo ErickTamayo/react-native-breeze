@@ -53,9 +53,28 @@ describe("borderRadius", () => {
   // prettier-ignore
   it.each<[input: string, radii: { [key: string]: number }, returned: number, expected: PluginFunctionReturnType]>([
     ["rounded", { default: 4, md: 2 }, 4, { borderRadius: 4 }],
+    ["rounded-t", { default: 4, md: 2 }, 4, { borderTopRadius: 4 } as any], //TODO check why this typing is failing
+    ["rounded-r", { default: 4, md: 2 }, 4, { borderRightRadius: 4 }],
+    ["rounded-b", { default: 4, md: 2 }, 4, { borderBottomRadius: 4 }],
+    ["rounded-l", { default: 4, md: 2 }, 4, { borderLeftRadius: 4 }],
+    ["rounded-s", { default: 4, md: 2 }, 4, { borderStartRadius: 4 }],
+    ["rounded-e", { default: 4, md: 2 }, 4, { borderEndRadius: 4 }],
+    ["rounded-tl", { default: 4, md: 2 }, 4, { borderTopLeftRadius: 4 }],
+    ["rounded-tr", { default: 4, md: 2 }, 4, { borderTopRightRadius: 4 }],
+    ["rounded-br", { default: 4, md: 2 }, 4, { borderBottomRightRadius: 4 }],
+    ["rounded-bl", { default: 4, md: 2 }, 4, { borderBottomLeftRadius: 4 }],
     ["rounded-md", { default: 4, md: 2 }, 2, { borderRadius: 2 }],
-    ["rounded-t", { default: 4, md: 2 }, 4, { borderTopRadius: 4 } as any], //TODO check why tf this typing is failing
-  ])(
+    ["rounded-t-md", { default: 4, md: 2 }, 2, { borderTopRadius: 2 } as any], //TODO check why this typing is failing
+    ["rounded-r-md", { default: 4, md: 2 }, 2, { borderRightRadius: 2 }],
+    ["rounded-b-md", { default: 4, md: 2 }, 2, { borderBottomRadius: 2 }],
+    ["rounded-l-md", { default: 4, md: 2 }, 2, { borderLeftRadius: 2 }],
+    ["rounded-s-md", { default: 4, md: 2 }, 2, { borderStartRadius: 2 }],
+    ["rounded-e-md", { default: 4, md: 2 }, 2, { borderEndRadius: 2 }],
+    ["rounded-tl-md", { default: 4, md: 2 }, 2, { borderTopLeftRadius: 2 }],
+    ["rounded-tr-md", { default: 4, md: 2 }, 2, { borderTopRightRadius: 2 }],
+    ["rounded-br-md", { default: 4, md: 2 }, 2, { borderBottomRightRadius: 2 }],
+    ["rounded-bl-md", { default: 4, md: 2 }, 2, { borderBottomLeftRadius: 2 }],
+   ])(
     "Should parse (%s) correctly",
     (input, radii, returned, expected) => {
       const theme = jest.fn()

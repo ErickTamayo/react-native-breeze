@@ -41,11 +41,11 @@ export const plugin: PluginFunction<PluginGroups> = ({
     case "t":
       return { borderTopRadius: value };
     case "r":
-      return { borderBottomRadius: value };
-    case "b":
-      return { borderLeftRadius: value };
-    case "l":
       return { borderRightRadius: value };
+    case "b":
+      return { borderBottomRadius: value };
+    case "l":
+      return { borderLeftRadius: value };
     case "s":
       return { borderStartRadius: value };
     case "e":
