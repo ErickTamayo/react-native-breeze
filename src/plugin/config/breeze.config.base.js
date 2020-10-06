@@ -139,6 +139,15 @@ module.exports = {
       4: 4,
       8: 8,
     },
+    elevation: {
+      default: 1,
+      sm: 2,
+      md: 4,
+      lg: 6,
+      lg: 8,
+      xl: 16,
+      "2xl": 24,
+    },
     inset: {
       0: 0,
     },
@@ -171,6 +180,7 @@ module.exports = {
     borderWidth: true,
     borderStyle: true,
     opacity: true,
+    elevation: true,
   },
   plugins: [],
 };
