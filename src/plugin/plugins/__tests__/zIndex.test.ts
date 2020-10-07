@@ -10,7 +10,7 @@ describe("zIndex", () => {
   });
 
   // prettier-ignore
-  it.each<[string, number, string[], PluginFunctionReturnType]>([
+  it.each<[input: string, zIndex: number, key: string[], expected: PluginFunctionReturnType]>([
     ["z-10", 10, ["zIndex", "10"], { zIndex: 10 }],
     ["-z-20", -20, ["zIndex", "-20"], { zIndex: -20 }],
   ])(
