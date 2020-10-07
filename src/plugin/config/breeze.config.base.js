@@ -1,3 +1,5 @@
+const { tryStatement } = require("@babel/types");
+
 module.exports = {
   theme: {
     screens: {
@@ -148,6 +150,15 @@ module.exports = {
       extrabold: "800",
       black: "900",
     },
+    fontFamily: {},
+    letterSpacing: {
+      tighter: -0.8,
+      tight: -0.4,
+      normal: 0,
+      wide: 0.4,
+      wider: 0.8,
+      widest: 1.6,
+    },
     borderRadius: {
       none: 0,
       sm: 2,
@@ -220,6 +231,14 @@ module.exports = {
     fontStyle: true,
     fontWeight: true,
     lineHeight: true,
+    textAlign: true,
+    textDecoration: true,
+    fontFamily: true,
+    includeFontPadding: true,
+    verticalAlign: true,
+    fontVariant: true,
+    letterSpacing: true,
+    textTransform: true,
   },
   plugins: [],
 };

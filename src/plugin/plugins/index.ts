@@ -62,5 +62,5 @@ export const resolve = (input: string) => {
 
   const { groups, plugin } = found;
 
-  return plugin.plugin!({ input, groups, theme });
+  return plugin.plugin!({ input, groups, theme }) || {};
 };
