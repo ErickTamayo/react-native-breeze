@@ -37,7 +37,7 @@ describe("backgroundColor", () => {
     }
   );
 
-  it("Should log error if the color is not valid", () => {
+  it("Should log error if the backgroundColor value is not valid", () => {
     const theme = jest.fn().mockReturnValue({ red: { 500: 0 } });
     const input = "bg-red-500";
     const callable = pattern as PatternCallable;

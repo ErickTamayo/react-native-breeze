@@ -32,7 +32,7 @@ describe("elevation", () => {
     }
   );
 
-  it("Should log error if the elevation is not valid", () => {
+  it("Should log error if the elevation value is not valid", () => {
     const theme = jest.fn();
 
     theme.mockReturnValueOnce({ md: "2" });

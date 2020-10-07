@@ -90,7 +90,7 @@ describe("borderRadius", () => {
     }
   );
 
-  it("Should log error if the borderRadius is not valid", () => {
+  it("Should log error if the borderRadius value is not valid", () => {
     const theme = jest.fn();
 
     theme.mockReturnValueOnce({ default: "0" });

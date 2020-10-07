@@ -90,7 +90,7 @@ describe("borderWidth", () => {
     }
   );
 
-  it("Should log error if the borderWidth is not valid", () => {
+  it("Should log error if the borderWidth value is not valid", () => {
     const theme = jest.fn();
 
     theme.mockReturnValueOnce({ default: "0" });

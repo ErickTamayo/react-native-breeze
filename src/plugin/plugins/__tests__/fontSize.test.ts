@@ -32,7 +32,7 @@ describe("fontSize", () => {
     }
   );
 
-  it("Should log error if the text is not valid", () => {
+  it("Should log error if the fontSize value is not valid", () => {
     const theme = jest.fn();
 
     theme.mockReturnValueOnce({ 10: "0.1" });

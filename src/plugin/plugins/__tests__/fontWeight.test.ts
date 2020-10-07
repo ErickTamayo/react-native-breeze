@@ -32,7 +32,7 @@ describe("fontWeight", () => {
     }
   );
 
-  it("Should log error if the text is not valid", () => {
+  it("Should log error if the fontWeight value is not valid", () => {
     const theme = jest.fn();
 
     theme.mockReturnValueOnce({ normal: 400, medium: "500" });

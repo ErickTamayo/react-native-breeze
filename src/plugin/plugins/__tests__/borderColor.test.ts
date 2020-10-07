@@ -55,7 +55,7 @@ describe("borderColor", () => {
     }
   );
 
-  it("Should log error if the color is not valid", () => {
+  it("Should log error if the borderColor value is not valid", () => {
     const theme = jest.fn().mockReturnValue({ red: { 500: 0 } });
     const input = "border-red-500";
     const callable = pattern as PatternCallable;
