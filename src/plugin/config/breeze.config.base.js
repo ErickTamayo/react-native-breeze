@@ -239,6 +239,10 @@ module.exports = {
     fontVariant: true,
     letterSpacing: true,
     textTransform: true,
+    writingDirection: true,
+    alignContent: true,
+    alignItems: true,
+    alignSelf: true,
   },
   plugins: [],
 };
