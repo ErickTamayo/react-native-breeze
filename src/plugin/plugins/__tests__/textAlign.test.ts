@@ -1,27 +1,19 @@
-import { pattern, plugin, PluginGroups } from "../textAlign";
-import { PluginFunctionReturnType } from "../types";
+import {
+  shouldEvaluateTheCorrectPatternTest,
+  shouldParseCorrectlyTest,
+} from "../../utils/tests";
+import { pattern, plugin } from "../textAlign";
 
 describe("textAlign", () => {
-  it("Should match the correct pattern", () => {
-    expect(pattern.exec("text-auto")).toBeTruthy();
-    expect(pattern.exec("text-left")).toBeTruthy();
-    expect(pattern.exec("text-right")).toBeTruthy();
-    expect(pattern.exec("text-center")).toBeTruthy();
-
-    expect(pattern.exec("text-unknown")).toBeFalsy();
+  shouldEvaluateTheCorrectPatternTest(pattern, {
+    shouldMatch: ["text-auto", "text-left", "text-right", "text-center"],
+    shouldNotMatch: ["text-unknown"],
   });
 
-  // prettier-ignore
-  it.each<[input: string, expected:PluginFunctionReturnType]>([
+  shouldParseCorrectlyTest(pattern, plugin, [
     ["text-auto", { textAlign: "auto" }],
     ["text-left", { textAlign: "left" }],
     ["text-right", { textAlign: "right" }],
     ["text-center", { textAlign: "center" }],
-  ])("Should parse %s style correctly", (input, expected) => {
-    const theme = jest.fn();
-    const groups = (pattern as RegExp).exec(input)!.groups! as PluginGroups;
-    const result = plugin({ input, groups, theme });
-
-    expect(result).toEqual(expected);
-  });
+  ]);
 });

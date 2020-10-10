@@ -5,9 +5,9 @@ export type PluginGroups = {
   key: string;
 };
 
-export const pattern: PluginPattern = ({ theme }) => {
-  const opacities = Object.keys(theme("opacity")).join("|");
-  return new RegExp(`^opacity-(?<key>${opacities})$`);
+export const pattern: PluginPattern = ({ keys }) => {
+  const opacityKeys = keys("opacity", "|");
+  return new RegExp(`^opacity-(?<key>${opacityKeys})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({

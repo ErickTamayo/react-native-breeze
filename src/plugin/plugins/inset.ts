@@ -16,16 +16,12 @@ export type PluginGroups = {
   key: string;
 };
 
-export const pattern: PluginPattern = ({ theme }) => {
-  const keys = (Object.keys(theme("inset")) || [])
-    .map((key) => {
-      return key.startsWith("-") ? key.slice(1) : key;
-    })
-    .join("|");
+export const pattern: PluginPattern = ({ keys }) => {
+  const insetKeys = keys("inset", "|");
   // prettier-ignore
   const positions = ["inset", "inset-x", "inset-y", "top", "right", "bottom", "left", "start", "end"].join('|');
   // prettier-ignore
-  return new RegExp(`^(?<prefix>-)?(?<position>${positions})-(?<key>${keys})$`);
+  return new RegExp(`^(?<prefix>-)?(?<position>${positions})-(?<key>${insetKeys})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({

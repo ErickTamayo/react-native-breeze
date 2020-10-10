@@ -1,22 +1,17 @@
-import { pattern, plugin, PluginGroups } from "../fontStyle";
-import { PluginFunctionReturnType } from "../types";
+import {
+  shouldEvaluateTheCorrectPatternTest,
+  shouldParseCorrectlyTest,
+} from "../../utils/tests";
+import { pattern, plugin } from "../fontStyle";
 
 describe("fontStyle", () => {
-  it("Should match the correct pattern", () => {
-    expect(pattern.exec("italic")).toBeTruthy();
-    expect(pattern.exec("not-italic")).toBeTruthy();
-
-    expect(pattern.exec("unknown")).toBeFalsy();
+  shouldEvaluateTheCorrectPatternTest(pattern, {
+    shouldMatch: ["italic", "not-italic"],
+    shouldNotMatch: ["unknown"],
   });
 
-  it.each<[string, PluginFunctionReturnType]>([
+  shouldParseCorrectlyTest(pattern, plugin, [
     ["italic", { fontStyle: "italic" }],
     ["not-italic", { fontStyle: "normal" }],
-  ])("Should parse %s style correctly", (input, expected) => {
-    const theme = jest.fn();
-    const groups = (pattern as RegExp).exec(input)!.groups! as PluginGroups;
-    const result = plugin({ input, groups, theme });
-
-    expect(result).toEqual(expected);
-  });
+  ]);
 });

@@ -5,9 +5,9 @@ export type PluginGroups = {
   key: string;
 };
 
-export const pattern: PluginPattern = ({ theme }) => {
-  const sizes = Object.keys(theme("fontFamily")).join("|");
-  return new RegExp(`^font-(?<key>${sizes})$`);
+export const pattern: PluginPattern = ({ keys }) => {
+  const fontFamilyKeys = keys("fontFamily", "|");
+  return new RegExp(`^font-(?<key>${fontFamilyKeys})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({

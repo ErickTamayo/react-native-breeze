@@ -5,9 +5,9 @@ export type PluginGroups = {
   key?: string;
 };
 
-export const pattern: PluginPattern = ({ theme }) => {
-  const elevations = Object.keys(theme("elevation")).join("|");
-  return new RegExp(`^elevated-?(?<key>${elevations})?$`);
+export const pattern: PluginPattern = ({ keys }) => {
+  const elevationKeys = keys("elevation", "|");
+  return new RegExp(`^elevated-?(?<key>${elevationKeys})?$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({

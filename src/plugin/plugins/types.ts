@@ -1,11 +1,11 @@
 import { ImageStyle, StyleProp, TextStyle, ViewStyle } from "react-native";
 import Config from "../utils/config";
 
-export type PatternCallable = ({
-  theme,
-}: {
-  theme: typeof Config.theme;
-}) => RegExp;
+type PatterCallableParams = {
+  keys: typeof Config.keys;
+};
+
+export type PatternCallable = (params: PatterCallableParams) => RegExp;
 
 export type PluginPattern = RegExp | PatternCallable;
 

@@ -6,8 +6,8 @@ export type PluginGroups = {
 };
 
 export const pattern: PluginPattern = ({ keys }) => {
-  const sizeKeys = keys("fontSize", "|");
-  return new RegExp(`^text-(?<key>${sizeKeys})$`);
+  const flexKeys = keys("flex", "|");
+  return new RegExp(`^flex-(?<key>${flexKeys})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({
@@ -16,9 +16,9 @@ export const plugin: PluginFunction<PluginGroups> = ({
   theme,
 }) => {
   const { key } = groups;
-  const value = theme<number>(["fontSize", key]);
+  const value = theme<number>(["flex", key]);
 
   if (!validate(input, value, ["number"])) return {};
 
-  return { fontSize: value };
+  return { flex: value };
 };

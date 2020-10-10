@@ -3,23 +3,23 @@ import {
   shouldParseCorrectlyTest,
   wrongValueTest,
 } from "../../utils/tests";
-import { pattern, plugin } from "../zIndex";
+import { pattern, plugin } from "../flex";
 
-describe("zIndex", () => {
+describe("flex", () => {
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["z-10", "z-20"],
-    shouldNotMatch: ["unknown"],
+    shouldMatch: ["flex-1", "flex-2"],
+    shouldNotMatch: ["unknown", "flex-unknown"],
   });
 
   shouldParseCorrectlyTest(pattern, plugin, [
-    ["z-10", { zIndex: 10 }],
-    ["z-20", { zIndex: 20 }],
+    ["flex-1", { flex: 1 }],
+    ["flex-10", { flex: 10 }],
   ]);
 
   wrongValueTest({
     pattern,
     plugin,
-    input: "z-10",
-    themeReturnType: { 10: "10" },
+    input: "flex-1",
+    themeReturnType: { 1: "1" },
   });
 });

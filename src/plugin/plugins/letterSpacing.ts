@@ -5,9 +5,9 @@ export type PluginGroups = {
   key: string;
 };
 
-export const pattern: PluginPattern = ({ theme }) => {
-  const spacings = Object.keys(theme("letterSpacing")).join("|");
-  return new RegExp(`^tracking-(?<key>${spacings})$`);
+export const pattern: PluginPattern = ({ keys }) => {
+  const spacingKeys = keys("letterSpacing", "|");
+  return new RegExp(`^tracking-(?<key>${spacingKeys})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({

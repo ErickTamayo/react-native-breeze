@@ -1,4 +1,3 @@
-import { flattenColors } from "../utils/colors";
 import { validate } from "../utils/validation";
 import { PluginFunction, PluginPattern } from "./types";
 
@@ -7,10 +6,10 @@ export type PluginGroups = {
   color: string;
 };
 
-export const pattern: PluginPattern = ({ theme }) => {
-  const colors = (Object.keys(flattenColors(theme("colors"))) || []).join("|");
+export const pattern: PluginPattern = ({ keys }) => {
+  const colorKeys = keys("colors", "|");
   // prettier-ignore
-  return new RegExp(`^border-((?<position>x|y|t|b|l|r|e|s)-)?(?<color>${colors})$`);
+  return new RegExp(`^border-((?<position>x|y|t|b|l|r|e|s)-)?(?<color>${colorKeys})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({
@@ -19,8 +18,7 @@ export const plugin: PluginFunction<PluginGroups> = ({
   theme,
 }) => {
   const { position, color } = groups;
-  const colors = flattenColors(theme("colors"));
-  const value = colors[color];
+  const value = theme<string>(["colors", color], undefined);
 
   if (!validate(input, value, ["string"])) return {};
 

@@ -20,10 +20,10 @@ export type PluginGroups = {
   width?: string;
 };
 
-export const pattern: PluginPattern = ({ theme }) => {
-  const widths = Object.keys(theme("borderWidth")).join("|");
+export const pattern: PluginPattern = ({ keys }) => {
+  const widthKeys = keys("borderWidth", "|");
   return new RegExp(
-    `^border-?(?<position>t|r|b|l|s|e|tl|tr|ts|te|br|bl|bs|be)?-?(?<width>${widths})?$`
+    `^border-?(?<position>t|r|b|l|s|e|tl|tr|ts|te|br|bl|bs|be)?-?(?<width>${widthKeys})?$`
   );
 };
 

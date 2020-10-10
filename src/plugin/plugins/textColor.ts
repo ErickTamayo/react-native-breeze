@@ -1,12 +1,11 @@
-import { flattenColors } from "../utils/colors";
 import { validate } from "../utils/validation";
 import { PluginFunction, PluginPattern } from "./types";
 
 export type PluginGroups = { color: string };
 
-export const pattern: PluginPattern = ({ theme }) => {
-  const colors = Object.keys(flattenColors(theme("colors")));
-  return new RegExp(`^text-(?<color>${colors.join("|")})$`);
+export const pattern: PluginPattern = ({ keys }) => {
+  const colorKeys = keys("colors", "|");
+  return new RegExp(`^text-(?<color>${colorKeys})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({
@@ -15,8 +14,7 @@ export const plugin: PluginFunction<PluginGroups> = ({
   theme,
 }) => {
   const { color } = groups;
-  const colors = flattenColors(theme("colors"));
-  const value = colors[color];
+  const value = theme<string>(["colors", color], undefined, true);
 
   if (!validate(input, value, ["string"])) return {};
 

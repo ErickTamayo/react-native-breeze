@@ -20,10 +20,11 @@ export type PluginGroups = {
   radius?: string;
 };
 
-export const pattern: PluginPattern = ({ theme }) => {
-  const radii = Object.keys(theme("borderRadius")).join("|");
+export const pattern: PluginPattern = ({ keys }) => {
+  const radiusKeys = keys("borderRadius", "|");
+
   return new RegExp(
-    `^rounded-?(?<position>t|r|b|l|s|e|tl|tr|ts|te|br|bl|bs|be)?-?(?<radius>${radii})?$`
+    `^rounded-?(?<position>t|r|b|l|s|e|tl|tr|ts|te|br|bl|bs|be)?-?(?<radius>${radiusKeys})?$`
   );
 };
 

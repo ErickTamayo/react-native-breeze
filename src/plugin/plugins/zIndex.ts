@@ -1,10 +1,14 @@
 import { withNegativePrefix } from "../utils/misc";
 import { validate } from "../utils/validation";
-import { PluginFunction } from "./types";
+import { PluginFunction, PluginPattern } from "./types";
 
 export type PluginGroups = { prefix?: "-"; key: string };
 
-export const pattern = /^(?<prefix>-)?z-(?<key>[\d\w-]+)$/;
+export const pattern: PluginPattern = ({ keys }) => {
+  const zKeys = keys("zIndex", "|");
+
+  return new RegExp(`^(?<prefix>-)?z-(?<key>${zKeys})$`);
+};
 
 export const plugin: PluginFunction<PluginGroups> = ({
   input,

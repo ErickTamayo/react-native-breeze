@@ -1,24 +1,18 @@
-import { pattern, plugin, PluginGroups } from "../borderStyle";
-import { PluginFunctionReturnType } from "../types";
+import {
+  shouldEvaluateTheCorrectPatternTest,
+  shouldParseCorrectlyTest,
+} from "../../utils/tests";
+import { pattern, plugin } from "../borderStyle";
 
 describe("borderStyle", () => {
-  it("Should match the correct pattern", () => {
-    expect((pattern as RegExp).exec("border-solid")).toBeTruthy();
-    expect((pattern as RegExp).exec("border-dotted")).toBeTruthy();
-    expect((pattern as RegExp).exec("border-dashed")).toBeTruthy();
-    expect((pattern as RegExp).exec("other")).toBeFalsy();
+  shouldEvaluateTheCorrectPatternTest(pattern, {
+    shouldMatch: ["border-solid", "border-dotted", "border-dashed"],
+    shouldNotMatch: ["unknown"],
   });
 
-  it.each<[input: string, expected: PluginFunctionReturnType]>([
+  shouldParseCorrectlyTest(pattern, plugin, [
     ["border-solid", { borderStyle: "solid" }],
     ["border-dotted", { borderStyle: "dotted" }],
     ["border-dashed", { borderStyle: "dashed" }],
-  ])("Should parse %s style correctly", (input, expected) => {
-    const theme = jest.fn();
-    const groups = (pattern as RegExp).exec(input)!.groups! as PluginGroups;
-
-    const result = plugin({ input, groups, theme });
-
-    expect(result).toEqual(expected);
-  });
+  ]);
 });

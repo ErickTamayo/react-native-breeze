@@ -11,8 +11,8 @@ module.exports = {
     colors: {
       transparent: "transparent",
 
-      black: "#000",
-      white: "#fff",
+      black: "#000000",
+      white: "#ffffff",
 
       gray: {
         100: "#f7fafc",
@@ -150,7 +150,10 @@ module.exports = {
       extrabold: "800",
       black: "900",
     },
-    fontFamily: {},
+    fontFamily: {
+      sans: "",
+      serif: "",
+    },
     letterSpacing: {
       tighter: -0.8,
       tight: -0.4,
@@ -211,6 +214,18 @@ module.exports = {
       9: 36,
       10: 40,
     },
+    flex: {
+      1: 1,
+      2: 2,
+      3: 3,
+      4: 4,
+      5: 5,
+      6: 6,
+      7: 7,
+      8: 8,
+      9: 9,
+      10: 10,
+    },
   },
   variants: {},
   corePlugins: {
@@ -243,6 +258,8 @@ module.exports = {
     alignContent: true,
     alignItems: true,
     alignSelf: true,
+    direction: true,
+    flex: true,
   },
   plugins: [],
 };
