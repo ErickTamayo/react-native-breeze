@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`includeFontPadding Should parse (font-padding) correctly 1`] = `
+Object {
+  "includeFontPadding": true,
+}
+`;
+
+exports[`includeFontPadding Should parse (no-font-padding) correctly 1`] = `
+Object {
+  "includeFontPadding": false,
+}
+`;

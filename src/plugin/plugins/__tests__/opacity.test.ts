@@ -1,25 +1,17 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
-  wrongValueTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../opacity";
 
 describe("opacity", () => {
+  const shouldMatch = generateInput("opacity", ["0", "25", "50", "75", "100"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["opacity-25", "opacity-100"],
+    shouldMatch,
     shouldNotMatch: ["opacity-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["opacity-25", { opacity: 0.25 }],
-    ["opacity-100", { opacity: 1 }],
-  ]);
-
-  wrongValueTest({
-    pattern,
-    plugin,
-    themeReturnType: { "25": "0.25" },
-    input: "opacity-25",
-  });
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

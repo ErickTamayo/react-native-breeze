@@ -1,25 +1,18 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
-  wrongValueTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../letterSpacing";
 
 describe("letterSpacing", () => {
+  // prettier-ignore
+  const shouldMatch = generateInput("tracking", ["tighter", "tight", "normal", "wide", "wider", "widest"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["tracking-normal", "tracking-wider"],
+    shouldMatch,
     shouldNotMatch: ["tracking-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["tracking-normal", { letterSpacing: 0 }],
-    ["tracking-wider", { letterSpacing: 0.8 }],
-  ]);
-
-  wrongValueTest({
-    pattern,
-    plugin,
-    input: "tracking-normal",
-    themeReturnType: { normal: "1" },
-  });
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

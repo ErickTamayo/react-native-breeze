@@ -1,23 +1,15 @@
 import {
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
-  wrongValueTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../inset";
 
 describe("inset", () => {
+  // prettier-ignore
+  const shouldMatch = [ "inset-0", "inset-y-0", "inset-x-0", "top-0", "right-0", "left-0", "bottom-0", "start-0", "end-0"];
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: [
-      "inset-0",
-      "inset-y-0",
-      "inset-x-0",
-      "top-0",
-      "right-0",
-      "left-0",
-      "bottom-0",
-      "start-0",
-      "end-0",
-    ],
+    shouldMatch,
     shouldNotMatch: [
       "inset",
       "inset-y",
@@ -30,22 +22,5 @@ describe("inset", () => {
     ],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["inset-0", { top: 0, right: 0, bottom: 0, left: 0 }],
-    ["inset-x-0", { right: 0, left: 0 }],
-    ["inset-y-0", { top: 0, bottom: 0 }],
-    ["top-0", { top: 0 }],
-    ["right-0", { right: 0 }],
-    ["bottom-0", { bottom: 0 }],
-    ["left-0", { left: 0 }],
-    ["start-0", { start: 0 }],
-    ["end-0", { end: 0 }],
-  ]);
-
-  wrongValueTest({
-    pattern,
-    plugin,
-    input: "inset-0",
-    themeReturnType: { 0: "0" },
-  });
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`inset Should parse (bottom-0) correctly 1`] = `
+Object {
+  "bottom": 0,
+}
+`;
+
+exports[`inset Should parse (end-0) correctly 1`] = `
+Object {
+  "end": 0,
+}
+`;
+
+exports[`inset Should parse (inset-0) correctly 1`] = `
+Object {
+  "bottom": 0,
+  "left": 0,
+  "right": 0,
+  "top": 0,
+}
+`;
+
+exports[`inset Should parse (inset-x-0) correctly 1`] = `
+Object {
+  "left": 0,
+  "right": 0,
+}
+`;
+
+exports[`inset Should parse (inset-y-0) correctly 1`] = `
+Object {
+  "bottom": 0,
+  "top": 0,
+}
+`;
+
+exports[`inset Should parse (left-0) correctly 1`] = `
+Object {
+  "left": 0,
+}
+`;
+
+exports[`inset Should parse (right-0) correctly 1`] = `
+Object {
+  "right": 0,
+}
+`;
+
+exports[`inset Should parse (start-0) correctly 1`] = `
+Object {
+  "start": 0,
+}
+`;
+
+exports[`inset Should parse (top-0) correctly 1`] = `
+Object {
+  "top": 0,
+}
+`;

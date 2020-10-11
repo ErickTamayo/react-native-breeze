@@ -1,25 +1,17 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
-  wrongValueTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../height";
 
 describe("height", () => {
+  const shouldMatch = generateInput("h", ["1", "2", "3", "4", "5", "6", "8"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["h-1", "h-2"],
+    shouldMatch,
     shouldNotMatch: ["unknown", "h-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["h-1", { height: 4 }],
-    ["h-2", { height: 8 }],
-  ]);
-
-  wrongValueTest({
-    pattern,
-    plugin,
-    input: "h-1",
-    themeReturnType: { 1: "1" },
-  });
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`flex Should parse (flex-1) correctly 1`] = `
+Object {
+  "flex": 1,
+}
+`;
+
+exports[`flex Should parse (flex-2) correctly 1`] = `
+Object {
+  "flex": 2,
+}
+`;
+
+exports[`flex Should parse (flex-3) correctly 1`] = `
+Object {
+  "flex": 3,
+}
+`;
+
+exports[`flex Should parse (flex-4) correctly 1`] = `
+Object {
+  "flex": 4,
+}
+`;
+
+exports[`flex Should parse (flex-5) correctly 1`] = `
+Object {
+  "flex": 5,
+}
+`;
+
+exports[`flex Should parse (flex-6) correctly 1`] = `
+Object {
+  "flex": 6,
+}
+`;
+
+exports[`flex Should parse (flex-7) correctly 1`] = `
+Object {
+  "flex": 7,
+}
+`;
+
+exports[`flex Should parse (flex-8) correctly 1`] = `
+Object {
+  "flex": 8,
+}
+`;
+
+exports[`flex Should parse (flex-9) correctly 1`] = `
+Object {
+  "flex": 9,
+}
+`;
+
+exports[`flex Should parse (flex-10) correctly 1`] = `
+Object {
+  "flex": 10,
+}
+`;

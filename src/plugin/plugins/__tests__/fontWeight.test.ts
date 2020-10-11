@@ -1,25 +1,18 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
-  wrongValueTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../fontWeight";
 
 describe("fontWeight", () => {
+  // prettier-ignore
+  const shouldMatch = generateInput("font", ["hairline", "thin", "light", "normal", "medium", "semibold", "bold", "extrabold", "black"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["font-normal", "font-medium"],
+    shouldMatch,
     shouldNotMatch: ["font-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["font-normal", { fontWeight: "400" }],
-    ["font-medium", { fontWeight: "500" }],
-  ]);
-
-  wrongValueTest({
-    pattern,
-    plugin,
-    input: "font-normal",
-    themeReturnType: { normal: 0 },
-  });
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

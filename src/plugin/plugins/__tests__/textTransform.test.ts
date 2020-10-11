@@ -1,19 +1,16 @@
 import {
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../textTransform";
 
 describe("textTransform", () => {
+  const shouldMatch = ["uppercase", "lowercase", "capitalize", "normal-case"];
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["uppercase", "lowercase", "capitalize", "normal-case"],
+    shouldMatch,
     shouldNotMatch: ["unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["uppercase", { textTransform: "uppercase" }],
-    ["lowercase", { textTransform: "lowercase" }],
-    ["capitalize", { textTransform: "capitalize" }],
-    ["normal-case", { textTransform: "none" }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

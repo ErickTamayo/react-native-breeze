@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`verticalAlign Should parse (align-auto) correctly 1`] = `
+Object {
+  "textAlignVertical": "auto",
+}
+`;
+
+exports[`verticalAlign Should parse (align-bottom) correctly 1`] = `
+Object {
+  "textAlignVertical": "bottom",
+}
+`;
+
+exports[`verticalAlign Should parse (align-center) correctly 1`] = `
+Object {
+  "textAlignVertical": "center",
+}
+`;
+
+exports[`verticalAlign Should parse (align-top) correctly 1`] = `
+Object {
+  "textAlignVertical": "top",
+}
+`;

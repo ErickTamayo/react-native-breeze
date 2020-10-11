@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`display Should parse (flex) correctly 1`] = `
+Object {
+  "display": "flex",
+}
+`;
+
+exports[`display Should parse (hidden) correctly 1`] = `
+Object {
+  "display": "none",
+}
+`;

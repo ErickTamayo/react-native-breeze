@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`zIndex Should parse (z-0) correctly 1`] = `
+Object {
+  "zIndex": 0,
+}
+`;
+
+exports[`zIndex Should parse (z-10) correctly 1`] = `
+Object {
+  "zIndex": 10,
+}
+`;
+
+exports[`zIndex Should parse (z-20) correctly 1`] = `
+Object {
+  "zIndex": 20,
+}
+`;
+
+exports[`zIndex Should parse (z-30) correctly 1`] = `
+Object {
+  "zIndex": 30,
+}
+`;
+
+exports[`zIndex Should parse (z-40) correctly 1`] = `
+Object {
+  "zIndex": 40,
+}
+`;
+
+exports[`zIndex Should parse (z-50) correctly 1`] = `
+Object {
+  "zIndex": 50,
+}
+`;

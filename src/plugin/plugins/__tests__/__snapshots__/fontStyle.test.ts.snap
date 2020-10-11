@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fontStyle Should parse (italic) correctly 1`] = `
+Object {
+  "fontStyle": "italic",
+}
+`;
+
+exports[`fontStyle Should parse (not-italic) correctly 1`] = `
+Object {
+  "fontStyle": "normal",
+}
+`;

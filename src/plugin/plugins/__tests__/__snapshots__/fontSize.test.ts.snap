@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fontSize Should parse (text-2xl) correctly 1`] = `
+Object {
+  "fontSize": 24,
+}
+`;
+
+exports[`fontSize Should parse (text-3xl) correctly 1`] = `
+Object {
+  "fontSize": 30,
+}
+`;
+
+exports[`fontSize Should parse (text-4xl) correctly 1`] = `
+Object {
+  "fontSize": 36,
+}
+`;
+
+exports[`fontSize Should parse (text-5xl) correctly 1`] = `
+Object {
+  "fontSize": 48,
+}
+`;
+
+exports[`fontSize Should parse (text-6xl) correctly 1`] = `
+Object {
+  "fontSize": 64,
+}
+`;
+
+exports[`fontSize Should parse (text-base) correctly 1`] = `
+Object {
+  "fontSize": 16,
+}
+`;
+
+exports[`fontSize Should parse (text-lg) correctly 1`] = `
+Object {
+  "fontSize": 18,
+}
+`;
+
+exports[`fontSize Should parse (text-sm) correctly 1`] = `
+Object {
+  "fontSize": 14,
+}
+`;
+
+exports[`fontSize Should parse (text-xl) correctly 1`] = `
+Object {
+  "fontSize": 20,
+}
+`;
+
+exports[`fontSize Should parse (text-xs) correctly 1`] = `
+Object {
+  "fontSize": 12,
+}
+`;

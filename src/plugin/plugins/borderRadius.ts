@@ -1,22 +1,8 @@
-import { validate } from "../utils/validation";
 import { PluginFunction, PluginPattern } from "./types";
 
+// prettier-ignore
 export type PluginGroups = {
-  position?:
-    | "t"
-    | "r"
-    | "b"
-    | "l"
-    | "s"
-    | "e"
-    | "tl"
-    | "tr"
-    | "ts"
-    | "te"
-    | "br"
-    | "bl"
-    | "bs"
-    | "be";
+  position?: "t" | "r" | "b" | "l" | "s" | "e" | "tl" | "tr" | "ts" | "te" | "br" | "bl" | "bs" | "be";
   radius?: string;
 };
 
@@ -25,15 +11,9 @@ export const pattern: PluginPattern = ({ keys }) => {
   return new RegExp(`^rounded-?(?<position>t|r|b|l|s|e|tl|tr|ts|te|br|bl|bs|be)?-?(?<radius>${keys("borderRadius")})?$`);
 };
 
-export const plugin: PluginFunction<PluginGroups> = ({
-  input,
-  groups,
-  theme,
-}) => {
+export const plugin: PluginFunction<PluginGroups> = ({ groups, theme }) => {
   const { position, radius } = groups;
-  const value = theme<number>(["borderRadius", radius || "default"]);
-
-  if (!validate(input, value, ["number"])) return {};
+  const value = theme(["borderRadius", radius || "default"]);
 
   switch (position) {
     case "t":

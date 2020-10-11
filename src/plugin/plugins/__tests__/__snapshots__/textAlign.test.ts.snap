@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`textAlign Should parse (text-auto) correctly 1`] = `
+Object {
+  "textAlign": "auto",
+}
+`;
+
+exports[`textAlign Should parse (text-center) correctly 1`] = `
+Object {
+  "textAlign": "center",
+}
+`;
+
+exports[`textAlign Should parse (text-left) correctly 1`] = `
+Object {
+  "textAlign": "left",
+}
+`;
+
+exports[`textAlign Should parse (text-right) correctly 1`] = `
+Object {
+  "textAlign": "right",
+}
+`;

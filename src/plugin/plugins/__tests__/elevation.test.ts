@@ -1,25 +1,18 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
-  wrongValueTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../elevation";
 
 describe("elevation", () => {
+  // prettier-ignore
+  const shouldMatch = generateInput("elevated", [ "", "sm", "md", "lg", "xl", "2xl"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["elevated", "elevated-md"],
+    shouldMatch,
     shouldNotMatch: ["unkwnown", "elevated-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["elevated", { elevation: 1 }],
-    ["elevated-md", { elevation: 4 }],
-  ]);
-
-  wrongValueTest({
-    pattern,
-    plugin,
-    input: "elevated",
-    themeReturnType: { default: "2" },
-  });
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

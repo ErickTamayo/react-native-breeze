@@ -2,8 +2,6 @@ import {
   generateInput,
   shouldEvaluateTheCorrectPatternTest,
   shouldMatchOutputSnapshot,
-  shouldParseCorrectlyTest,
-  wrongValueTest,
 } from "../../utils/tests";
 import { pattern, plugin } from "../borderColor";
 

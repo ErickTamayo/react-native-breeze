@@ -1,18 +1,17 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../borderStyle";
 
 describe("borderStyle", () => {
+  const shouldMatch = generateInput("border", ["solid", "dotted", "dashed"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["border-solid", "border-dotted", "border-dashed"],
-    shouldNotMatch: ["unknown"],
+    shouldMatch,
+    shouldNotMatch: ["unknown", "border-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["border-solid", { borderStyle: "solid" }],
-    ["border-dotted", { borderStyle: "dotted" }],
-    ["border-dashed", { borderStyle: "dashed" }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

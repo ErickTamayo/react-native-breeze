@@ -1,18 +1,11 @@
 import { withNegativePrefix } from "../utils/misc";
 import { validate } from "../utils/validation";
 import { PluginFunction, PluginPattern } from "./types";
+
+// prettier-ignore
 export type PluginGroups = {
   prefix?: "-";
-  position:
-    | "inset"
-    | "inset-x"
-    | "inset-y"
-    | "top"
-    | "right"
-    | "bottom"
-    | "left"
-    | "start"
-    | "end";
+  position: "inset" | "inset-x" | "inset-y" | "top" | "right" | "bottom" | "left" | "start" | "end";
   key: string;
 };
 
@@ -29,13 +22,7 @@ export const plugin: PluginFunction<PluginGroups> = ({
   theme,
 }) => {
   const { prefix, position, key } = groups;
-
-  const value = theme<number | string>([
-    "inset",
-    withNegativePrefix(prefix, key),
-  ]);
-
-  if (!validate(input, value, ["number"])) return {};
+  const value = theme(["inset", withNegativePrefix(prefix, key)]);
 
   switch (position) {
     case "inset-x":

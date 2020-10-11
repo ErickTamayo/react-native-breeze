@@ -1,26 +1,17 @@
 import {
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../fontVariant";
 
 describe("fontVariant", () => {
+  // prettier-ignore
+  const shouldMatch = ["small-caps", "oldstyle-nums", "lining-nums", "tabular-nums", "proportional-nums"];
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: [
-      "small-caps",
-      "oldstyle-nums",
-      "lining-nums",
-      "tabular-nums",
-      "proportional-nums",
-    ],
+    shouldMatch,
     shouldNotMatch: ["unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["small-caps", { fontVariant: ["small-caps"] }],
-    ["oldstyle-nums", { fontVariant: ["oldstyle-nums"] }],
-    ["lining-nums", { fontVariant: ["lining-nums"] }],
-    ["tabular-nums", { fontVariant: ["tabular-nums"] }],
-    ["proportional-nums", { fontVariant: ["proportional-nums"] }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

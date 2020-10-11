@@ -1,4 +1,3 @@
-import { validate } from "../utils/validation";
 import { PluginFunction, PluginPattern } from "./types";
 
 export type PluginGroups = {
@@ -11,11 +10,7 @@ export const pattern: PluginPattern = ({ keys }) => {
   return new RegExp(`^border-((?<position>x|y|t|b|l|r|e|s)-)?(?<key>${keys("borderColor")})$`);
 };
 
-export const plugin: PluginFunction<PluginGroups> = ({
-  input,
-  groups,
-  color,
-}) => {
+export const plugin: PluginFunction<PluginGroups> = ({ groups, color }) => {
   const { position, key } = groups;
   const value = color("borderColor", key);
   switch (position) {

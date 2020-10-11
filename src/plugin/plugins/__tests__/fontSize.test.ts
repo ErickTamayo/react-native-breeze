@@ -1,25 +1,18 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
-  wrongValueTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../fontSize";
 
 describe("fontSize", () => {
+  // prettier-ignore
+  const shouldMatch = generateInput("text", ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["text-xs", "text-sm"],
+    shouldMatch,
     shouldNotMatch: ["unknown", "text-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["text-xs", { fontSize: 12 }],
-    ["text-sm", { fontSize: 14 }],
-  ]);
-
-  wrongValueTest({
-    pattern,
-    plugin,
-    input: "text-xs",
-    themeReturnType: { xs: "1" },
-  });
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

@@ -1,16 +1,8 @@
 import { PluginFunction } from "./types";
 
+// prettier-ignore
 export type PluginGroups = {
-  decoration:
-    | "no-underline"
-    | "underline"
-    | "line-through"
-    | "underline-double"
-    | "line-through-double"
-    | "underline-dotted"
-    | "line-through-dotted"
-    | "underline-dashed"
-    | "line-through-dashed";
+  decoration: "no-underline" | "underline" | "line-through" | "underline-double" | "line-through-double" | "underline-dotted" | "line-through-dotted" | "underline-dashed" | "line-through-dashed";
 };
 
 export const pattern = /^(?<decoration>no-underline|underline|line-through|underline-double|line-through-double|underline-dotted|line-through-dotted|underline-dashed|line-through-dashed)$/;

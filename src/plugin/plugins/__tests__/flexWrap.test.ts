@@ -1,18 +1,18 @@
 import { pattern, plugin } from "../flexWrap";
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 
 describe("flexWrap", () => {
+  // prettier-ignore
+  const shouldMatch = generateInput("flex", [ "wrap", "no-wrap", "wrap-reverse"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["flex-wrap", "flex-no-wrap", "flex-wrap-reverse"],
+    shouldMatch,
     shouldNotMatch: ["unknown", "flex-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["flex-wrap", { flexWrap: "wrap" }],
-    ["flex-no-wrap", { flexWrap: "nowrap" }],
-    ["flex-wrap-reverse", { flexWrap: "wrap-reverse" }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

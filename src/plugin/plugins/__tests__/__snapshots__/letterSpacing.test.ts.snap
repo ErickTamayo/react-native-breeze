@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`letterSpacing Should parse (tracking-normal) correctly 1`] = `
+Object {
+  "letterSpacing": 0,
+}
+`;
+
+exports[`letterSpacing Should parse (tracking-tight) correctly 1`] = `
+Object {
+  "letterSpacing": -0.4,
+}
+`;
+
+exports[`letterSpacing Should parse (tracking-tighter) correctly 1`] = `
+Object {
+  "letterSpacing": -0.8,
+}
+`;
+
+exports[`letterSpacing Should parse (tracking-wide) correctly 1`] = `
+Object {
+  "letterSpacing": 0.4,
+}
+`;
+
+exports[`letterSpacing Should parse (tracking-wider) correctly 1`] = `
+Object {
+  "letterSpacing": 0.8,
+}
+`;
+
+exports[`letterSpacing Should parse (tracking-widest) correctly 1`] = `
+Object {
+  "letterSpacing": 1.6,
+}
+`;

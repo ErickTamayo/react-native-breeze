@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`flexGrow Should parse (flex-grow) correctly 1`] = `
+Object {
+  "flexGrow": 1,
+}
+`;
+
+exports[`flexGrow Should parse (flex-grow-0) correctly 1`] = `
+Object {
+  "flexGrow": 0,
+}
+`;
+
+exports[`flexGrow Should parse (flex-grow-2) correctly 1`] = `
+Object {
+  "flexGrow": 2,
+}
+`;
+
+exports[`flexGrow Should parse (flex-grow-3) correctly 1`] = `
+Object {
+  "flexGrow": 3,
+}
+`;
+
+exports[`flexGrow Should parse (flex-grow-4) correctly 1`] = `
+Object {
+  "flexGrow": 4,
+}
+`;
+
+exports[`flexGrow Should parse (flex-grow-5) correctly 1`] = `
+Object {
+  "flexGrow": 5,
+}
+`;

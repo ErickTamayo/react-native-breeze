@@ -2,7 +2,7 @@ import { pattern, plugin } from "../flexDirection";
 import {
   generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 
 describe("flexDirection", () => {
@@ -14,10 +14,5 @@ describe("flexDirection", () => {
     shouldNotMatch: ["unknown", "flex-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["flex-row", { flexDirection: "row" }],
-    ["flex-row-reverse", { flexDirection: "row-reverse" }],
-    ["flex-column", { flexDirection: "column" }],
-    ["flex-column-reverse", { flexDirection: "column-reverse" }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

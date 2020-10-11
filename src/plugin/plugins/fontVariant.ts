@@ -1,12 +1,8 @@
 import { PluginFunction } from "./types";
 
+// prettier-ignore
 export type PluginGroups = {
-  variant:
-    | "small-caps"
-    | "oldstyle-nums"
-    | "lining-nums"
-    | "tabular-nums"
-    | "proportional-nums";
+  variant: "small-caps" | "oldstyle-nums" | "lining-nums" | "tabular-nums" | "proportional-nums";
 };
 
 export const pattern = /^(?<variant>small-caps|oldstyle-nums|lining-nums|tabular-nums|proportional-nums)$/;

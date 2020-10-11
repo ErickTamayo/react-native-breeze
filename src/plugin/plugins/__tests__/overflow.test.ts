@@ -1,15 +1,13 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
   shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../overflow";
 
 describe("overflow", () => {
-  const shouldMatch = [
-    "overflow-hidden",
-    "overflow-visible",
-    "overflow-scroll",
-  ];
+  // prettier-ignore
+  const shouldMatch = generateInput("overflow", ["hidden", "visible", "scroll"]);
 
   shouldEvaluateTheCorrectPatternTest(pattern, {
     shouldMatch,

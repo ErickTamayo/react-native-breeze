@@ -1,4 +1,3 @@
-import { validate } from "../utils/validation";
 import { PluginFunction, PluginPattern } from "./types";
 
 export type PluginGroups = {

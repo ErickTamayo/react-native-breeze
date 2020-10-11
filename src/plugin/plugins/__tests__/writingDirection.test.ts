@@ -1,18 +1,17 @@
 import { pattern, plugin } from "../writingDirection";
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 
 describe("writingDirection", () => {
+  const shouldMatch = generateInput("writing", ["auto", "ltr", "rtl"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["writing-auto", "writing-ltr", "writing-rtl"],
+    shouldMatch,
     shouldNotMatch: ["unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["writing-auto", { writingDirection: "auto" }],
-    ["writing-ltr", { writingDirection: "ltr" }],
-    ["writing-rtl", { writingDirection: "rtl" }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

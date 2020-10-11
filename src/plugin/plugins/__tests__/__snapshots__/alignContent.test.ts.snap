@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`alignContent Should parse (content-around) correctly 1`] = `
+Object {
+  "alignContent": "space-around",
+}
+`;
+
+exports[`alignContent Should parse (content-between) correctly 1`] = `
+Object {
+  "alignContent": "space-between",
+}
+`;
+
+exports[`alignContent Should parse (content-center) correctly 1`] = `
+Object {
+  "alignContent": "center",
+}
+`;
+
+exports[`alignContent Should parse (content-end) correctly 1`] = `
+Object {
+  "alignContent": "flex-end",
+}
+`;
+
+exports[`alignContent Should parse (content-start) correctly 1`] = `
+Object {
+  "alignContent": "flex-start",
+}
+`;
+
+exports[`alignContent Should parse (content-stretch) correctly 1`] = `
+Object {
+  "alignContent": "stretch",
+}
+`;

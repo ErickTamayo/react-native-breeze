@@ -1,26 +1,18 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../alignItems";
 
 describe("alignItems", () => {
+  // prettier-ignore
+  const shouldMatch = generateInput('items', ['start', 'end', 'center', 'baseline', 'stretch'])
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: [
-      "items-start",
-      "items-end",
-      "items-center",
-      "items-baseline",
-      "items-stretch",
-    ],
+    shouldMatch,
     shouldNotMatch: ["unknown", "items-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["items-center", { alignItems: "center" }],
-    ["items-start", { alignItems: "flex-start" }],
-    ["items-end", { alignItems: "flex-end" }],
-    ["items-stretch", { alignItems: "stretch" }],
-    ["items-baseline", { alignItems: "baseline" }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

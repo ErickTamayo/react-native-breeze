@@ -1,5 +1,4 @@
 import {
-  PatternCallable,
   PluginPattern,
   PluginFunction,
   PluginFunctionReturnType,
@@ -29,26 +28,6 @@ export const shouldEvaluateTheCorrectPatternTest = (
     });
   });
 
-export type ShouldParseCorrectlyTestCase = [
-  input: string,
-  expected: PluginFunctionReturnType
-];
-
-export const shouldParseCorrectlyTest = <T>(
-  pattern: PluginPattern,
-  plugin: PluginFunction<T>,
-  cases: ShouldParseCorrectlyTestCase[]
-) =>
-  it.each(cases)("Should parse (%s) correctly", (input, expected) => {
-    const regex = typeof pattern === "function" ? pattern({ keys }) : pattern;
-    const groups = regex.exec(input)!.groups! as any;
-
-    // TODO fix typing
-    const result = plugin({ input, groups, theme, color } as any);
-
-    expect(result).toEqual(expected);
-  });
-
 export const shouldMatchOutputSnapshot = <T>(
   pattern: PluginPattern,
   plugin: PluginFunction<T>,
@@ -62,36 +41,6 @@ export const shouldMatchOutputSnapshot = <T>(
     const result = plugin({ input, groups, theme, color } as any);
 
     expect(result).toMatchSnapshot();
-  });
-
-export type WrongValueTestParams<T> = {
-  pattern: PluginPattern;
-  plugin: PluginFunction<T>;
-  input: string;
-  themeReturnType: any;
-};
-
-export const wrongValueTest = ({
-  pattern,
-  plugin,
-  input,
-  themeReturnType,
-}: WrongValueTestParams<any>) =>
-  it("Should log error if the value is not valid", () => {
-    const theme = jest.fn().mockReturnValue(themeReturnType);
-    const color = jest.fn().mockReturnValue(themeReturnType);
-    const groups = (pattern as PatternCallable)({ keys: Config.keys }).exec(
-      input
-    )!.groups! as any;
-    const spy = jest.spyOn(console, "error").mockImplementation(() => {});
-
-    // TODO fix typing
-    const result = plugin({ input, groups, theme, color } as any);
-
-    expect(result).toEqual({});
-    expect(spy).toHaveBeenCalled();
-
-    spy.mockRestore();
   });
 
 export const generateInput = (

@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fontWeight Should parse (font-black) correctly 1`] = `
+Object {
+  "fontWeight": "900",
+}
+`;
+
+exports[`fontWeight Should parse (font-bold) correctly 1`] = `
+Object {
+  "fontWeight": "700",
+}
+`;
+
+exports[`fontWeight Should parse (font-extrabold) correctly 1`] = `
+Object {
+  "fontWeight": "800",
+}
+`;
+
+exports[`fontWeight Should parse (font-hairline) correctly 1`] = `
+Object {
+  "fontWeight": "100",
+}
+`;
+
+exports[`fontWeight Should parse (font-light) correctly 1`] = `
+Object {
+  "fontWeight": "300",
+}
+`;
+
+exports[`fontWeight Should parse (font-medium) correctly 1`] = `
+Object {
+  "fontWeight": "500",
+}
+`;
+
+exports[`fontWeight Should parse (font-normal) correctly 1`] = `
+Object {
+  "fontWeight": "400",
+}
+`;
+
+exports[`fontWeight Should parse (font-semibold) correctly 1`] = `
+Object {
+  "fontWeight": "600",
+}
+`;
+
+exports[`fontWeight Should parse (font-thin) correctly 1`] = `
+Object {
+  "fontWeight": "200",
+}
+`;

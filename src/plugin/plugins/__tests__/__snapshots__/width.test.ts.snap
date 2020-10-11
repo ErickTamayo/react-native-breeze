@@ -11,3 +11,33 @@ Object {
   "width": 8,
 }
 `;
+
+exports[`width Should parse (w-3) correctly 1`] = `
+Object {
+  "width": 12,
+}
+`;
+
+exports[`width Should parse (w-4) correctly 1`] = `
+Object {
+  "width": 16,
+}
+`;
+
+exports[`width Should parse (w-5) correctly 1`] = `
+Object {
+  "width": 20,
+}
+`;
+
+exports[`width Should parse (w-6) correctly 1`] = `
+Object {
+  "width": 24,
+}
+`;
+
+exports[`width Should parse (w-8) correctly 1`] = `
+Object {
+  "width": 32,
+}
+`;

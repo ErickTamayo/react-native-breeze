@@ -1,25 +1,18 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
-  wrongValueTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../flex";
 
 describe("flex", () => {
+  // prettier-ignore
+  const shouldMatch = generateInput("flex", ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["flex-1", "flex-2"],
+    shouldMatch,
     shouldNotMatch: ["unknown", "flex-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["flex-1", { flex: 1 }],
-    ["flex-10", { flex: 10 }],
-  ]);
-
-  wrongValueTest({
-    pattern,
-    plugin,
-    input: "flex-1",
-    themeReturnType: { 1: "1" },
-  });
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`alignSelf Should parse (self-auto) correctly 1`] = `
+Object {
+  "alignSelf": "auto",
+}
+`;
+
+exports[`alignSelf Should parse (self-baseline) correctly 1`] = `
+Object {
+  "alignSelf": "baseline",
+}
+`;
+
+exports[`alignSelf Should parse (self-center) correctly 1`] = `
+Object {
+  "alignSelf": "center",
+}
+`;
+
+exports[`alignSelf Should parse (self-end) correctly 1`] = `
+Object {
+  "alignSelf": "flex-end",
+}
+`;
+
+exports[`alignSelf Should parse (self-start) correctly 1`] = `
+Object {
+  "alignSelf": "flex-start",
+}
+`;
+
+exports[`alignSelf Should parse (self-stretch) correctly 1`] = `
+Object {
+  "alignSelf": "stretch",
+}
+`;

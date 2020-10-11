@@ -1,7 +1,6 @@
 import {
   shouldEvaluateTheCorrectPatternTest,
   shouldMatchOutputSnapshot,
-  shouldParseCorrectlyTest,
 } from "../../utils/tests";
 import { pattern, plugin } from "../position";
 

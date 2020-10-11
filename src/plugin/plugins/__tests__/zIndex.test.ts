@@ -1,25 +1,17 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
-  wrongValueTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../zIndex";
 
 describe("zIndex", () => {
+  const shouldMatch = generateInput("z", ["0", "10", "20", "30", "40", "50"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["z-10", "z-20"],
+    shouldMatch,
     shouldNotMatch: ["unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["z-10", { zIndex: 10 }],
-    ["z-20", { zIndex: 20 }],
-  ]);
-
-  wrongValueTest({
-    pattern,
-    plugin,
-    input: "z-10",
-    themeReturnType: { 10: "10" },
-  });
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

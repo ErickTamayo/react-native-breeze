@@ -1,20 +1,18 @@
-import { pattern, plugin, PluginGroups } from "../verticalAlign";
-import { PluginFunctionReturnType } from "../types";
+import { pattern, plugin } from "../verticalAlign";
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 
 describe("verticalAlign", () => {
+  // prettier-ignore
+  const shouldMatch = generateInput("align", ["auto", "top", "bottom", "center"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["align-auto", "align-top", "align-bottom", "align-center"],
+    shouldMatch,
     shouldNotMatch: ["align-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["align-auto", { textAlignVertical: "auto" }],
-    ["align-top", { textAlignVertical: "top" }],
-    ["align-bottom", { textAlignVertical: "bottom" }],
-    ["align-center", { textAlignVertical: "center" }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

@@ -1,17 +1,16 @@
 import {
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../fontStyle";
 
 describe("fontStyle", () => {
+  const shouldMatch = ["italic", "not-italic"];
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["italic", "not-italic"],
+    shouldMatch,
     shouldNotMatch: ["unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["italic", { fontStyle: "italic" }],
-    ["not-italic", { fontStyle: "normal" }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

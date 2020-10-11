@@ -1,17 +1,16 @@
 import {
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../display";
 
 describe("display", () => {
+  const shouldMatch = ["hidden", "flex"];
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["hidden", "flex"],
+    shouldMatch,
     shouldNotMatch: ["unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["hidden", { display: "none" }],
-    ["flex", { display: "flex" }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

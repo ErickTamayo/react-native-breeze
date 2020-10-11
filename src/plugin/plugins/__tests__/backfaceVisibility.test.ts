@@ -1,17 +1,17 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../backfaceVisibility";
 
 describe("backface", () => {
+  const shouldMatch = generateInput("backface", ["hidden", "visible"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["backface-hidden", "backface-visible"],
+    shouldMatch,
     shouldNotMatch: ["unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["backface-hidden", { backfaceVisibility: "hidden" }],
-    ["backface-visible", { backfaceVisibility: "visible" }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

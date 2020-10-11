@@ -1,28 +1,18 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../alignContent";
 
 describe("alignContent", () => {
+  // prettier-ignore
+  const shouldMatch = generateInput('content', ['center', 'start', 'end', 'between', 'around', 'stretch'])
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: [
-      "content-center",
-      "content-start",
-      "content-end",
-      "content-between",
-      "content-around",
-      "content-stretch",
-    ],
+    shouldMatch,
     shouldNotMatch: ["unknown", "content-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["content-center", { alignContent: "center" }],
-    ["content-start", { alignContent: "flex-start" }],
-    ["content-end", { alignContent: "flex-end" }],
-    ["content-stretch", { alignContent: "stretch" }],
-    ["content-between", { alignContent: "space-between" }],
-    ["content-around", { alignContent: "space-around" }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

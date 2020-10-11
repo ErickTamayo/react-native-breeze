@@ -1,25 +1,17 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
-  wrongValueTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../lineHeight";
 
 describe("lineHeight", () => {
+  const shouldMatch = generateInput("leading", ["3", "4", "5", "6", "7", "8"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["leading-3", "leading-4"],
+    shouldMatch,
     shouldNotMatch: ["unknown", "leading-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["leading-3", { lineHeight: 12 }],
-    ["leading-4", { lineHeight: 16 }],
-  ]);
-
-  wrongValueTest({
-    pattern,
-    plugin,
-    input: "leading-3",
-    themeReturnType: { 3: "12" },
-  });
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

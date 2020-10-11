@@ -1,19 +1,18 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../textAlign";
 
 describe("textAlign", () => {
+  // prettier-ignore
+  const shouldMatch = generateInput("text", ["auto", "left", "right", "center"]);
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["text-auto", "text-left", "text-right", "text-center"],
+    shouldMatch,
     shouldNotMatch: ["text-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["text-auto", { textAlign: "auto" }],
-    ["text-left", { textAlign: "left" }],
-    ["text-right", { textAlign: "right" }],
-    ["text-center", { textAlign: "center" }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

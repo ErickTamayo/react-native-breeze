@@ -1,17 +1,16 @@
 import {
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../includeFontPadding";
 
 describe("includeFontPadding", () => {
+  const shouldMatch = ["no-font-padding", "font-padding"];
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["no-font-padding", "font-padding"],
+    shouldMatch,
     shouldNotMatch: ["unknown", "font-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["no-font-padding", { includeFontPadding: false }],
-    ["font-padding", { includeFontPadding: true }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`flexDirection Should parse (flex-column) correctly 1`] = `
+Object {
+  "flexDirection": "column",
+}
+`;
+
+exports[`flexDirection Should parse (flex-column-reverse) correctly 1`] = `
+Object {
+  "flexDirection": "column-reverse",
+}
+`;
+
+exports[`flexDirection Should parse (flex-row) correctly 1`] = `
+Object {
+  "flexDirection": "row",
+}
+`;
+
+exports[`flexDirection Should parse (flex-row-reverse) correctly 1`] = `
+Object {
+  "flexDirection": "row-reverse",
+}
+`;
