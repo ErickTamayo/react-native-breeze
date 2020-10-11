@@ -21,10 +21,8 @@ export type PluginGroups = {
 };
 
 export const pattern: PluginPattern = ({ keys }) => {
-  const widthKeys = keys("borderWidth", "|");
-  return new RegExp(
-    `^border-?(?<position>t|r|b|l|s|e|tl|tr|ts|te|br|bl|bs|be)?-?(?<width>${widthKeys})?$`
-  );
+  // prettier-ignore
+  return new RegExp(`^border-?(?<position>t|r|b|l|s|e|tl|tr|ts|te|br|bl|bs|be)?-?(?<width>${keys("borderWidth")})?$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({

@@ -6,8 +6,7 @@ export type PluginGroups = {
 };
 
 export const pattern: PluginPattern = ({ keys }) => {
-  const sizeKeys = keys("fontSize", "|");
-  return new RegExp(`^text-(?<key>${sizeKeys})$`);
+  return new RegExp(`^text-(?<key>${keys("fontSize")})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({

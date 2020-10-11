@@ -6,8 +6,7 @@ export type PluginGroups = {
 };
 
 export const pattern: PluginPattern = ({ keys }) => {
-  const opacityKeys = keys("lineHeight", "|");
-  return new RegExp(`^leading-(?<key>${opacityKeys})$`);
+  return new RegExp(`^leading-(?<key>${keys("lineHeight")})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({

@@ -6,7 +6,7 @@ import {
 } from "../plugins/types";
 import Config from "./config";
 
-// const { theme, keys } = Config;
+const { theme, keys, color } = Config;
 
 export type shouldEvaluateTheCorrectPatternTestCases = {
   shouldMatch: string[];
@@ -18,8 +18,7 @@ export const shouldEvaluateTheCorrectPatternTest = (
   { shouldMatch, shouldNotMatch }: shouldEvaluateTheCorrectPatternTestCases
 ) =>
   describe("Should match the correct pattern", () => {
-    const regex =
-      typeof pattern === "function" ? pattern({ keys: Config.keys }) : pattern;
+    const regex = typeof pattern === "function" ? pattern({ keys }) : pattern;
 
     it.each(shouldMatch)("should match %s", (input) => {
       expect(regex.exec(input)).toBeTruthy();
@@ -41,14 +40,28 @@ export const shouldParseCorrectlyTest = <T>(
   cases: ShouldParseCorrectlyTestCase[]
 ) =>
   it.each(cases)("Should parse (%s) correctly", (input, expected) => {
-    const regex =
-      typeof pattern === "function" ? pattern({ keys: Config.keys }) : pattern;
+    const regex = typeof pattern === "function" ? pattern({ keys }) : pattern;
     const groups = regex.exec(input)!.groups! as any;
 
     // TODO fix typing
-    const result = plugin({ input, groups, theme: Config.theme } as any);
+    const result = plugin({ input, groups, theme, color } as any);
 
     expect(result).toEqual(expected);
+  });
+
+export const shouldMatchOutputSnapshot = <T>(
+  pattern: PluginPattern,
+  plugin: PluginFunction<T>,
+  cases: string[]
+) =>
+  it.each(cases)("Should parse (%s) correctly", (input) => {
+    const regex = typeof pattern === "function" ? pattern({ keys }) : pattern;
+    const groups = regex.exec(input)!.groups! as any;
+
+    // TODO fix typing
+    const result = plugin({ input, groups, theme, color } as any);
+
+    expect(result).toMatchSnapshot();
   });
 
 export type WrongValueTestParams<T> = {
@@ -66,13 +79,14 @@ export const wrongValueTest = ({
 }: WrongValueTestParams<any>) =>
   it("Should log error if the value is not valid", () => {
     const theme = jest.fn().mockReturnValue(themeReturnType);
+    const color = jest.fn().mockReturnValue(themeReturnType);
     const groups = (pattern as PatternCallable)({ keys: Config.keys }).exec(
       input
     )!.groups! as any;
     const spy = jest.spyOn(console, "error").mockImplementation(() => {});
 
     // TODO fix typing
-    const result = plugin({ input, groups, theme } as any);
+    const result = plugin({ input, groups, theme, color } as any);
 
     expect(result).toEqual({});
     expect(spy).toHaveBeenCalled();
@@ -83,7 +97,7 @@ export const wrongValueTest = ({
 export const generateInput = (
   base: string,
   sides: string[],
-  variations: string[]
+  variations: string[] = [""]
 ) => {
   return sides.reduce<string[]>((acc, side) => {
     return [

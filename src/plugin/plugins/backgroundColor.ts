@@ -1,20 +1,19 @@
 import { validate } from "../utils/validation";
 import { PluginFunction, PluginPattern } from "./types";
 
-export type PluginGroups = { color: string };
+export type PluginGroups = { key: string };
 
 export const pattern: PluginPattern = ({ keys }) => {
-  const colorKeys = keys("colors", "|");
-  return new RegExp(`^bg-(?<color>${colorKeys})$`);
+  return new RegExp(`^bg-(?<key>${keys("colors")})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({
   input,
   groups,
-  theme,
+  color,
 }) => {
-  const { color } = groups;
-  const value = theme<string>(["colors", color], undefined, true);
+  const { key } = groups;
+  const value = color(key);
 
   if (!validate(input, value, ["string"])) return {};
 

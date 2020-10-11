@@ -5,6 +5,8 @@ export const withNegativePrefix = (
   return `${negative || ""}${key}`;
 };
 
-export const colorToKey = (color: string) => {
-  return ["colors", ...color.split("-").filter(Boolean)];
+export const negative = (obj: { [key: string]: number }) => {
+  return Object.keys(obj).reduce((acc, key) => {
+    return { ...acc, [`-${key}`]: obj[key] * -1 };
+  }, {});
 };

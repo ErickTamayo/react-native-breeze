@@ -21,11 +21,8 @@ export type PluginGroups = {
 };
 
 export const pattern: PluginPattern = ({ keys }) => {
-  const radiusKeys = keys("borderRadius", "|");
-
-  return new RegExp(
-    `^rounded-?(?<position>t|r|b|l|s|e|tl|tr|ts|te|br|bl|bs|be)?-?(?<radius>${radiusKeys})?$`
-  );
+  // prettier-ignore
+  return new RegExp(`^rounded-?(?<position>t|r|b|l|s|e|tl|tr|ts|te|br|bl|bs|be)?-?(?<radius>${keys("borderRadius")})?$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({

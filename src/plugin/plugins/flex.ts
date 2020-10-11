@@ -6,8 +6,7 @@ export type PluginGroups = {
 };
 
 export const pattern: PluginPattern = ({ keys }) => {
-  const flexKeys = keys("flex", "|");
-  return new RegExp(`^flex-(?<key>${flexKeys})$`);
+  return new RegExp(`^flex-(?<key>${keys("flex")})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({

@@ -1,0 +1,433 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`margin Should parse (-m-1) correctly 1`] = `
+Object {
+  "margin": -4,
+}
+`;
+
+exports[`margin Should parse (-m-2) correctly 1`] = `
+Object {
+  "margin": -8,
+}
+`;
+
+exports[`margin Should parse (-m-3) correctly 1`] = `
+Object {
+  "margin": -12,
+}
+`;
+
+exports[`margin Should parse (-m-4) correctly 1`] = `
+Object {
+  "margin": -16,
+}
+`;
+
+exports[`margin Should parse (-mb-1) correctly 1`] = `
+Object {
+  "marginBottom": -4,
+}
+`;
+
+exports[`margin Should parse (-mb-2) correctly 1`] = `
+Object {
+  "marginBottom": -8,
+}
+`;
+
+exports[`margin Should parse (-mb-3) correctly 1`] = `
+Object {
+  "marginBottom": -12,
+}
+`;
+
+exports[`margin Should parse (-mb-4) correctly 1`] = `
+Object {
+  "marginBottom": -16,
+}
+`;
+
+exports[`margin Should parse (-me-1) correctly 1`] = `
+Object {
+  "marginEnd": -4,
+}
+`;
+
+exports[`margin Should parse (-me-2) correctly 1`] = `
+Object {
+  "marginEnd": -8,
+}
+`;
+
+exports[`margin Should parse (-me-3) correctly 1`] = `
+Object {
+  "marginEnd": -12,
+}
+`;
+
+exports[`margin Should parse (-me-4) correctly 1`] = `
+Object {
+  "marginEnd": -16,
+}
+`;
+
+exports[`margin Should parse (-ml-1) correctly 1`] = `
+Object {
+  "marginLeft": -4,
+}
+`;
+
+exports[`margin Should parse (-ml-2) correctly 1`] = `
+Object {
+  "marginLeft": -8,
+}
+`;
+
+exports[`margin Should parse (-ml-3) correctly 1`] = `
+Object {
+  "marginLeft": -12,
+}
+`;
+
+exports[`margin Should parse (-ml-4) correctly 1`] = `
+Object {
+  "marginLeft": -16,
+}
+`;
+
+exports[`margin Should parse (-mr-1) correctly 1`] = `
+Object {
+  "marginRight": -4,
+}
+`;
+
+exports[`margin Should parse (-mr-2) correctly 1`] = `
+Object {
+  "marginRight": -8,
+}
+`;
+
+exports[`margin Should parse (-mr-3) correctly 1`] = `
+Object {
+  "marginRight": -12,
+}
+`;
+
+exports[`margin Should parse (-mr-4) correctly 1`] = `
+Object {
+  "marginRight": -16,
+}
+`;
+
+exports[`margin Should parse (-ms-1) correctly 1`] = `
+Object {
+  "marginStart": -4,
+}
+`;
+
+exports[`margin Should parse (-ms-2) correctly 1`] = `
+Object {
+  "marginStart": -8,
+}
+`;
+
+exports[`margin Should parse (-ms-3) correctly 1`] = `
+Object {
+  "marginStart": -12,
+}
+`;
+
+exports[`margin Should parse (-ms-4) correctly 1`] = `
+Object {
+  "marginStart": -16,
+}
+`;
+
+exports[`margin Should parse (-mt-1) correctly 1`] = `
+Object {
+  "marginTop": -4,
+}
+`;
+
+exports[`margin Should parse (-mt-2) correctly 1`] = `
+Object {
+  "marginTop": -8,
+}
+`;
+
+exports[`margin Should parse (-mt-3) correctly 1`] = `
+Object {
+  "marginTop": -12,
+}
+`;
+
+exports[`margin Should parse (-mt-4) correctly 1`] = `
+Object {
+  "marginTop": -16,
+}
+`;
+
+exports[`margin Should parse (-mx-1) correctly 1`] = `
+Object {
+  "marginHorizontal": -4,
+}
+`;
+
+exports[`margin Should parse (-mx-2) correctly 1`] = `
+Object {
+  "marginHorizontal": -8,
+}
+`;
+
+exports[`margin Should parse (-mx-3) correctly 1`] = `
+Object {
+  "marginHorizontal": -12,
+}
+`;
+
+exports[`margin Should parse (-mx-4) correctly 1`] = `
+Object {
+  "marginHorizontal": -16,
+}
+`;
+
+exports[`margin Should parse (-my-1) correctly 1`] = `
+Object {
+  "marginVertical": -4,
+}
+`;
+
+exports[`margin Should parse (-my-2) correctly 1`] = `
+Object {
+  "marginVertical": -8,
+}
+`;
+
+exports[`margin Should parse (-my-3) correctly 1`] = `
+Object {
+  "marginVertical": -12,
+}
+`;
+
+exports[`margin Should parse (-my-4) correctly 1`] = `
+Object {
+  "marginVertical": -16,
+}
+`;
+
+exports[`margin Should parse (m-1) correctly 1`] = `
+Object {
+  "margin": 4,
+}
+`;
+
+exports[`margin Should parse (m-2) correctly 1`] = `
+Object {
+  "margin": 8,
+}
+`;
+
+exports[`margin Should parse (m-3) correctly 1`] = `
+Object {
+  "margin": 12,
+}
+`;
+
+exports[`margin Should parse (m-4) correctly 1`] = `
+Object {
+  "margin": 16,
+}
+`;
+
+exports[`margin Should parse (mb-1) correctly 1`] = `
+Object {
+  "marginBottom": 4,
+}
+`;
+
+exports[`margin Should parse (mb-2) correctly 1`] = `
+Object {
+  "marginBottom": 8,
+}
+`;
+
+exports[`margin Should parse (mb-3) correctly 1`] = `
+Object {
+  "marginBottom": 12,
+}
+`;
+
+exports[`margin Should parse (mb-4) correctly 1`] = `
+Object {
+  "marginBottom": 16,
+}
+`;
+
+exports[`margin Should parse (me-1) correctly 1`] = `
+Object {
+  "marginEnd": 4,
+}
+`;
+
+exports[`margin Should parse (me-2) correctly 1`] = `
+Object {
+  "marginEnd": 8,
+}
+`;
+
+exports[`margin Should parse (me-3) correctly 1`] = `
+Object {
+  "marginEnd": 12,
+}
+`;
+
+exports[`margin Should parse (me-4) correctly 1`] = `
+Object {
+  "marginEnd": 16,
+}
+`;
+
+exports[`margin Should parse (ml-1) correctly 1`] = `
+Object {
+  "marginLeft": 4,
+}
+`;
+
+exports[`margin Should parse (ml-2) correctly 1`] = `
+Object {
+  "marginLeft": 8,
+}
+`;
+
+exports[`margin Should parse (ml-3) correctly 1`] = `
+Object {
+  "marginLeft": 12,
+}
+`;
+
+exports[`margin Should parse (ml-4) correctly 1`] = `
+Object {
+  "marginLeft": 16,
+}
+`;
+
+exports[`margin Should parse (mr-1) correctly 1`] = `
+Object {
+  "marginRight": 4,
+}
+`;
+
+exports[`margin Should parse (mr-2) correctly 1`] = `
+Object {
+  "marginRight": 8,
+}
+`;
+
+exports[`margin Should parse (mr-3) correctly 1`] = `
+Object {
+  "marginRight": 12,
+}
+`;
+
+exports[`margin Should parse (mr-4) correctly 1`] = `
+Object {
+  "marginRight": 16,
+}
+`;
+
+exports[`margin Should parse (ms-1) correctly 1`] = `
+Object {
+  "marginStart": 4,
+}
+`;
+
+exports[`margin Should parse (ms-2) correctly 1`] = `
+Object {
+  "marginStart": 8,
+}
+`;
+
+exports[`margin Should parse (ms-3) correctly 1`] = `
+Object {
+  "marginStart": 12,
+}
+`;
+
+exports[`margin Should parse (ms-4) correctly 1`] = `
+Object {
+  "marginStart": 16,
+}
+`;
+
+exports[`margin Should parse (mt-1) correctly 1`] = `
+Object {
+  "marginTop": 4,
+}
+`;
+
+exports[`margin Should parse (mt-2) correctly 1`] = `
+Object {
+  "marginTop": 8,
+}
+`;
+
+exports[`margin Should parse (mt-3) correctly 1`] = `
+Object {
+  "marginTop": 12,
+}
+`;
+
+exports[`margin Should parse (mt-4) correctly 1`] = `
+Object {
+  "marginTop": 16,
+}
+`;
+
+exports[`margin Should parse (mx-1) correctly 1`] = `
+Object {
+  "marginHorizontal": 4,
+}
+`;
+
+exports[`margin Should parse (mx-2) correctly 1`] = `
+Object {
+  "marginHorizontal": 8,
+}
+`;
+
+exports[`margin Should parse (mx-3) correctly 1`] = `
+Object {
+  "marginHorizontal": 12,
+}
+`;
+
+exports[`margin Should parse (mx-4) correctly 1`] = `
+Object {
+  "marginHorizontal": 16,
+}
+`;
+
+exports[`margin Should parse (my-1) correctly 1`] = `
+Object {
+  "marginVertical": 4,
+}
+`;
+
+exports[`margin Should parse (my-2) correctly 1`] = `
+Object {
+  "marginVertical": 8,
+}
+`;
+
+exports[`margin Should parse (my-3) correctly 1`] = `
+Object {
+  "marginVertical": 12,
+}
+`;
+
+exports[`margin Should parse (my-4) correctly 1`] = `
+Object {
+  "marginVertical": 16,
+}
+`;

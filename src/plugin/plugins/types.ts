@@ -13,6 +13,7 @@ export type PluginFunctionParams<T> = {
   input: string;
   groups: T;
   theme: typeof Config.theme;
+  color: typeof Config.color;
 };
 
 export type PluginFunctionReturnType =

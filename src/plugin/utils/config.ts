@@ -6,11 +6,12 @@ import stealthyRequire from "stealthy-require";
 import { Configuration } from "../types";
 import baseConfig from "../config/breeze.config.base";
 import { flattenObject } from "./objects";
+import { negative } from "./misc";
 
 const userConfigPath = path.resolve(process.cwd(), "breeze.config.js");
 
-type Key = Parameters<typeof get>[1];
-type Path = [style: string, key?: string];
+// type Key = Parameters<typeof get>[1];
+type Path = Parameters<typeof get>[1]; //[style: string, key?: string] | string;
 
 class Config {
   watcher: fs.FSWatcher | undefined;
@@ -22,6 +23,7 @@ class Config {
     this.config = this.config.bind(this);
     this.theme = this.theme.bind(this);
     this.keys = this.keys.bind(this);
+    this.color = this.color.bind(this);
 
     const userConfigExists = fs.existsSync(userConfigPath);
 
@@ -56,52 +58,38 @@ class Config {
     this.configuration = mergedConfig;
   }
 
-  // loadTheme(theme: { [key: string]: any }) {
-  //   this.themeConfiguration = Object.keys(theme).reduce((acc, key) => {
-  //     const themeObjectOrFunction = theme[key];
-
-  // const themeObject =
-  //   typeof themeObjectOrFunction === "function"
-  //     ? themeObjectOrFunction(this.theme)
-  //     : themeObjectOrFunction;
-
-  //     const flattened = flattenObject(themeObject);
-
-  //     return { ...acc, [key]: flattened };
-  //   }, {});
-  // }
-
-  config<T>(key: Key) {
-    return get(this.configuration, key) as T;
+  config<T>(path: Path) {
+    return get(this.configuration, path) as T;
   }
 
   theme<T>(path: Path, defaultValue?: any) {
-    const [style, key] = path;
+    const root = Array.isArray(path) ? path[0] : (path as string).split(".")[0];
 
-    const themeObjectOrFunction = this.configuration.theme[style];
+    if (!root) throw new Error("Invalid path for theme");
+
+    const themeObjectOrFunction = get(this.configuration.theme, root);
 
     const themeObject =
       typeof themeObjectOrFunction === "function"
-        ? themeObjectOrFunction(this.theme)
+        ? themeObjectOrFunction(this.theme, { negative })
         : themeObjectOrFunction;
 
-    const flattened = flattenObject(themeObject);
-
-    return !key ? flattened : flattened[key] ?? defaultValue;
+    return get({ [root]: themeObject }, path, defaultValue);
   }
 
-  keys(themeKey: string, joinWith: string): string;
-  keys(themeKey: string, joinWith: undefined): string[];
-  keys(themeKey: string, joinWith: any) {
-    const keys = Object.keys(this.theme([themeKey], {}))
+  keys(path: Path) {
+    const flattened = flattenObject(this.theme(path, {}));
+
+    const keys = Object.keys(flattened)
       .filter((key) => key !== "default")
       .map((key) => (key.startsWith("-") ? key.slice(1) : key));
 
-    if (joinWith) {
-      return keys.join(joinWith);
-    }
+    return keys.join("|");
+  }
 
-    return keys;
+  color<T>(color: string): string {
+    const flattened = flattenObject(this.theme("colors", {}));
+    return flattened[color];
   }
 }
 

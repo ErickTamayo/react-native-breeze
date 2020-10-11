@@ -3,22 +3,21 @@ import { PluginFunction, PluginPattern } from "./types";
 
 export type PluginGroups = {
   position?: "x" | "y" | "t" | "b" | "l" | "r" | "e" | "s";
-  color: string;
+  key: string;
 };
 
 export const pattern: PluginPattern = ({ keys }) => {
-  const colorKeys = keys("colors", "|");
   // prettier-ignore
-  return new RegExp(`^border-((?<position>x|y|t|b|l|r|e|s)-)?(?<color>${colorKeys})$`);
+  return new RegExp(`^border-((?<position>x|y|t|b|l|r|e|s)-)?(?<key>${keys("colors")})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({
   input,
   groups,
-  theme,
+  color,
 }) => {
-  const { position, color } = groups;
-  const value = theme<string>(["colors", color], undefined);
+  const { position, key } = groups;
+  const value = color(key);
 
   if (!validate(input, value, ["string"])) return {};
 

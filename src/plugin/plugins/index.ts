@@ -4,7 +4,7 @@ import { Configuration } from "../types";
 import Config from "../utils/config";
 import { PluginFunction, PluginPattern } from "./types";
 
-const { config, theme, keys } = Config;
+const { config, theme, keys, color } = Config;
 
 const corePluginsConfiguration = config(
   "corePlugins"
@@ -32,7 +32,7 @@ const findPluginForStylename = memoize(
 
       const result =
         typeof pattern === "function"
-          ? pattern({ theme, keys }).exec(input)
+          ? pattern({ keys }).exec(input)
           : pattern.exec(input);
 
       if (result) {
@@ -62,5 +62,5 @@ export const resolve = (input: string) => {
 
   const { groups, plugin } = found;
 
-  return plugin.plugin!({ input, groups, theme }) || {};
+  return plugin.plugin!({ input, groups, theme, color }) || {};
 };

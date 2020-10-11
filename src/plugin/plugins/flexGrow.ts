@@ -6,7 +6,7 @@ export type PluginGroups = {
 };
 
 export const pattern: PluginPattern = ({ keys }) => {
-  return new RegExp(`^font-(?<key>${keys("fontFamily")})$`);
+  return new RegExp(`^flex-grow-?(?<key>${keys("flexGrow")})?$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({
@@ -15,9 +15,9 @@ export const plugin: PluginFunction<PluginGroups> = ({
   theme,
 }) => {
   const { key } = groups;
-  const value = theme<string>(["fontFamily", key]);
+  const value = theme<number>(["flexGrow", key || "default"]);
 
-  if (!validate(input, value, ["string"])) return {};
+  if (!validate(input, value, ["number"])) return {};
 
-  return { fontFamily: value };
+  return { flexGrow: value };
 };

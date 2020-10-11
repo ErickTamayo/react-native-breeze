@@ -6,7 +6,7 @@ export type PluginGroups = {
 };
 
 export const pattern: PluginPattern = ({ keys }) => {
-  return new RegExp(`^font-(?<key>${keys("fontFamily")})$`);
+  return new RegExp(`^h-(?<key>${keys("height")})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({
@@ -15,9 +15,9 @@ export const plugin: PluginFunction<PluginGroups> = ({
   theme,
 }) => {
   const { key } = groups;
-  const value = theme<string>(["fontFamily", key]);
+  const value = theme<number | string>(["height", key]);
 
-  if (!validate(input, value, ["string"])) return {};
+  if (!validate(input, value, ["number", "string"])) return {};
 
-  return { fontFamily: value };
+  return { height: value };
 };
