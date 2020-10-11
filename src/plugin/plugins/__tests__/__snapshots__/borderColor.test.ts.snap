@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`borderColor Should parse (border-b-red-500) correctly 1`] = `
+Object {
+  "borderBottomColor": "#f56565",
+}
+`;
+
+exports[`borderColor Should parse (border-e-red-500) correctly 1`] = `
+Object {
+  "borderEndColor": "#f56565",
+}
+`;
+
+exports[`borderColor Should parse (border-l-red-500) correctly 1`] = `
+Object {
+  "borderLeftColor": "#f56565",
+}
+`;
+
+exports[`borderColor Should parse (border-r-red-500) correctly 1`] = `
+Object {
+  "borderRightColor": "#f56565",
+}
+`;
+
+exports[`borderColor Should parse (border-red-500) correctly 1`] = `
+Object {
+  "borderColor": "#f56565",
+}
+`;
+
+exports[`borderColor Should parse (border-s-red-500) correctly 1`] = `
+Object {
+  "borderStartColor": "#f56565",
+}
+`;
+
+exports[`borderColor Should parse (border-t-red-500) correctly 1`] = `
+Object {
+  "borderTopColor": "#f56565",
+}
+`;
+
+exports[`borderColor Should parse (border-x-red-500) correctly 1`] = `
+Object {
+  "borderLeftColor": "#f56565",
+  "borderRightColor": "#f56565",
+}
+`;
+
+exports[`borderColor Should parse (border-y-red-500) correctly 1`] = `
+Object {
+  "borderBottomColor": "#f56565",
+  "borderTopColor": "#f56565",
+}
+`;

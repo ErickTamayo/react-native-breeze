@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tintColor Should parse (tint-black) correctly 1`] = `
+Object {
+  "tintColor": "#000000",
+}
+`;
+
+exports[`tintColor Should parse (tint-green-500) correctly 1`] = `
+Object {
+  "tintColor": "#48bb78",
+}
+`;

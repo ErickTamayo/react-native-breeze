@@ -1,15 +1,17 @@
 import {
+  generateInput,
   shouldEvaluateTheCorrectPatternTest,
   shouldMatchOutputSnapshot,
 } from "../../utils/tests";
-import { pattern, plugin } from "../backgroundColor";
+import { pattern, plugin } from "../minWidth";
 
-describe("backgroundColor", () => {
-  const shouldMatch = ["bg-green-500", "bg-black"];
+describe("minWidth", () => {
+  // prettier-ignore
+  const shouldMatch = generateInput('min-w', ['0', 'full']);
 
   shouldEvaluateTheCorrectPatternTest(pattern, {
     shouldMatch,
-    shouldNotMatch: ["bg-unknown"],
+    shouldNotMatch: ["min-w-unknown"],
   });
 
   shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);

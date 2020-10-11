@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`maxWidth Should parse (max-w-2xl) correctly 1`] = `
+Object {
+  "maxWidth": 672,
+}
+`;
+
+exports[`maxWidth Should parse (max-w-3xl) correctly 1`] = `
+Object {
+  "maxWidth": 768,
+}
+`;
+
+exports[`maxWidth Should parse (max-w-4xl) correctly 1`] = `
+Object {
+  "maxWidth": 896,
+}
+`;
+
+exports[`maxWidth Should parse (max-w-5xl) correctly 1`] = `
+Object {
+  "maxWidth": 1024,
+}
+`;
+
+exports[`maxWidth Should parse (max-w-6xl) correctly 1`] = `
+Object {
+  "maxWidth": 1152,
+}
+`;
+
+exports[`maxWidth Should parse (max-w-lg) correctly 1`] = `
+Object {
+  "maxWidth": 512,
+}
+`;
+
+exports[`maxWidth Should parse (max-w-md) correctly 1`] = `
+Object {
+  "maxWidth": 448,
+}
+`;
+
+exports[`maxWidth Should parse (max-w-sm) correctly 1`] = `
+Object {
+  "maxWidth": 384,
+}
+`;
+
+exports[`maxWidth Should parse (max-w-xl) correctly 1`] = `
+Object {
+  "maxWidth": 576,
+}
+`;
+
+exports[`maxWidth Should parse (max-w-xs) correctly 1`] = `
+Object {
+  "maxWidth": 320,
+}
+`;

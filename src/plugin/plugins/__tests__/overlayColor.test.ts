@@ -2,14 +2,14 @@ import {
   shouldEvaluateTheCorrectPatternTest,
   shouldMatchOutputSnapshot,
 } from "../../utils/tests";
-import { pattern, plugin } from "../backgroundColor";
+import { pattern, plugin } from "../overlayColor";
 
-describe("backgroundColor", () => {
-  const shouldMatch = ["bg-green-500", "bg-black"];
+describe("overlayColor", () => {
+  const shouldMatch = ["overlay-green-500", "overlay-black"];
 
   shouldEvaluateTheCorrectPatternTest(pattern, {
     shouldMatch,
-    shouldNotMatch: ["bg-unknown"],
+    shouldNotMatch: ["overlay-unknown"],
   });
 
   shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);

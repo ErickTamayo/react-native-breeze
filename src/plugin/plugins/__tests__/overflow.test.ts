@@ -1,18 +1,20 @@
 import {
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../overflow";
 
 describe("overflow", () => {
+  const shouldMatch = [
+    "overflow-hidden",
+    "overflow-visible",
+    "overflow-scroll",
+  ];
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["overflow-hidden", "overflow-visible", "overflow-scroll"],
+    shouldMatch,
     shouldNotMatch: ["overflow-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["overflow-hidden", { overflow: "hidden" }],
-    ["overflow-visible", { overflow: "visible" }],
-    ["overflow-scroll", { overflow: "scroll" }],
-  ]);
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

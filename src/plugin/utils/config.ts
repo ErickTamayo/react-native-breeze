@@ -87,8 +87,8 @@ class Config {
     return keys.join("|");
   }
 
-  color<T>(color: string): string {
-    const flattened = flattenObject(this.theme("colors", {}));
+  color<T>(path: Path, color: string): string {
+    const flattened = flattenObject(this.theme(path, {}));
     return flattened[color];
   }
 }

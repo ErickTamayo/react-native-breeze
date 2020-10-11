@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`width Should parse (w-1) correctly 1`] = `
+Object {
+  "width": 4,
+}
+`;
+
+exports[`width Should parse (w-2) correctly 1`] = `
+Object {
+  "width": 8,
+}
+`;

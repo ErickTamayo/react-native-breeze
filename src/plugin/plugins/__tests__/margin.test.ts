@@ -2,8 +2,6 @@ import {
   generateInput,
   shouldEvaluateTheCorrectPatternTest,
   shouldMatchOutputSnapshot,
-  shouldParseCorrectlyTest,
-  wrongValueTest,
 } from "../../utils/tests";
 import { pattern, plugin } from "../margin";
 
@@ -35,11 +33,4 @@ describe("margin", () => {
   });
 
   shouldMatchOutputSnapshot(pattern, plugin, inputs);
-
-  wrongValueTest({
-    pattern,
-    plugin,
-    input: "m-1",
-    themeReturnType: { 1: "4" },
-  });
 });

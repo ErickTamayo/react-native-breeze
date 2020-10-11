@@ -2,14 +2,14 @@ import {
   shouldEvaluateTheCorrectPatternTest,
   shouldMatchOutputSnapshot,
 } from "../../utils/tests";
-import { pattern, plugin } from "../backgroundColor";
+import { pattern, plugin } from "../width";
 
-describe("backgroundColor", () => {
-  const shouldMatch = ["bg-green-500", "bg-black"];
+describe("width", () => {
+  const shouldMatch = ["w-1", "w-2"];
 
   shouldEvaluateTheCorrectPatternTest(pattern, {
     shouldMatch,
-    shouldNotMatch: ["bg-unknown"],
+    shouldNotMatch: ["unknown", "w-unknown"],
   });
 
   shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);

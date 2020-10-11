@@ -1,5 +1,4 @@
 import { withNegativePrefix } from "../utils/misc";
-import { validate } from "../utils/validation";
 import { PluginFunction, PluginPattern } from "./types";
 
 export type PluginGroups = {
@@ -13,15 +12,9 @@ export const pattern: PluginPattern = ({ keys }) => {
   return new RegExp(`^(?<prefix>-)?m(?<position>x|y|t|r|b|l|s|e)?-(?<key>${keys("margin")})$`);
 };
 
-export const plugin: PluginFunction<PluginGroups> = ({
-  input,
-  groups,
-  theme,
-}) => {
+export const plugin: PluginFunction<PluginGroups> = ({ groups, theme }) => {
   const { prefix, position, key } = groups;
-  const value = theme<number>(["margin", withNegativePrefix(prefix, key)]);
-
-  if (!validate(input, value, ["number"])) return {};
+  const value = theme(["margin", withNegativePrefix(prefix, key)]);
 
   switch (position) {
     case "x":

@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`resizeMode Should parse (resize-center) correctly 1`] = `
+Object {
+  "resizeMode": "center",
+}
+`;
+
+exports[`resizeMode Should parse (resize-contain) correctly 1`] = `
+Object {
+  "resizeMode": "contain",
+}
+`;
+
+exports[`resizeMode Should parse (resize-cover) correctly 1`] = `
+Object {
+  "resizeMode": "cover",
+}
+`;
+
+exports[`resizeMode Should parse (resize-repeat) correctly 1`] = `
+Object {
+  "resizeMode": "repeat",
+}
+`;
+
+exports[`resizeMode Should parse (resize-stretch) correctly 1`] = `
+Object {
+  "resizeMode": "stretch",
+}
+`;

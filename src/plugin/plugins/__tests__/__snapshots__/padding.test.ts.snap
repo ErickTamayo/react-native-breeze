@@ -1,0 +1,217 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`padding Should parse (p-1) correctly 1`] = `
+Object {
+  "padding": 4,
+}
+`;
+
+exports[`padding Should parse (p-2) correctly 1`] = `
+Object {
+  "padding": 8,
+}
+`;
+
+exports[`padding Should parse (p-3) correctly 1`] = `
+Object {
+  "padding": 12,
+}
+`;
+
+exports[`padding Should parse (p-4) correctly 1`] = `
+Object {
+  "padding": 16,
+}
+`;
+
+exports[`padding Should parse (pb-1) correctly 1`] = `
+Object {
+  "paddingBottom": 4,
+}
+`;
+
+exports[`padding Should parse (pb-2) correctly 1`] = `
+Object {
+  "paddingBottom": 8,
+}
+`;
+
+exports[`padding Should parse (pb-3) correctly 1`] = `
+Object {
+  "paddingBottom": 12,
+}
+`;
+
+exports[`padding Should parse (pb-4) correctly 1`] = `
+Object {
+  "paddingBottom": 16,
+}
+`;
+
+exports[`padding Should parse (pe-1) correctly 1`] = `
+Object {
+  "paddingEnd": 4,
+}
+`;
+
+exports[`padding Should parse (pe-2) correctly 1`] = `
+Object {
+  "paddingEnd": 8,
+}
+`;
+
+exports[`padding Should parse (pe-3) correctly 1`] = `
+Object {
+  "paddingEnd": 12,
+}
+`;
+
+exports[`padding Should parse (pe-4) correctly 1`] = `
+Object {
+  "paddingEnd": 16,
+}
+`;
+
+exports[`padding Should parse (pl-1) correctly 1`] = `
+Object {
+  "paddingLeft": 4,
+}
+`;
+
+exports[`padding Should parse (pl-2) correctly 1`] = `
+Object {
+  "paddingLeft": 8,
+}
+`;
+
+exports[`padding Should parse (pl-3) correctly 1`] = `
+Object {
+  "paddingLeft": 12,
+}
+`;
+
+exports[`padding Should parse (pl-4) correctly 1`] = `
+Object {
+  "paddingLeft": 16,
+}
+`;
+
+exports[`padding Should parse (pr-1) correctly 1`] = `
+Object {
+  "paddingRight": 4,
+}
+`;
+
+exports[`padding Should parse (pr-2) correctly 1`] = `
+Object {
+  "paddingRight": 8,
+}
+`;
+
+exports[`padding Should parse (pr-3) correctly 1`] = `
+Object {
+  "paddingRight": 12,
+}
+`;
+
+exports[`padding Should parse (pr-4) correctly 1`] = `
+Object {
+  "paddingRight": 16,
+}
+`;
+
+exports[`padding Should parse (ps-1) correctly 1`] = `
+Object {
+  "paddingStart": 4,
+}
+`;
+
+exports[`padding Should parse (ps-2) correctly 1`] = `
+Object {
+  "paddingStart": 8,
+}
+`;
+
+exports[`padding Should parse (ps-3) correctly 1`] = `
+Object {
+  "paddingStart": 12,
+}
+`;
+
+exports[`padding Should parse (ps-4) correctly 1`] = `
+Object {
+  "paddingStart": 16,
+}
+`;
+
+exports[`padding Should parse (pt-1) correctly 1`] = `
+Object {
+  "paddingTop": 4,
+}
+`;
+
+exports[`padding Should parse (pt-2) correctly 1`] = `
+Object {
+  "paddingTop": 8,
+}
+`;
+
+exports[`padding Should parse (pt-3) correctly 1`] = `
+Object {
+  "paddingTop": 12,
+}
+`;
+
+exports[`padding Should parse (pt-4) correctly 1`] = `
+Object {
+  "paddingTop": 16,
+}
+`;
+
+exports[`padding Should parse (px-1) correctly 1`] = `
+Object {
+  "paddingHorizontal": 4,
+}
+`;
+
+exports[`padding Should parse (px-2) correctly 1`] = `
+Object {
+  "paddingHorizontal": 8,
+}
+`;
+
+exports[`padding Should parse (px-3) correctly 1`] = `
+Object {
+  "paddingHorizontal": 12,
+}
+`;
+
+exports[`padding Should parse (px-4) correctly 1`] = `
+Object {
+  "paddingHorizontal": 16,
+}
+`;
+
+exports[`padding Should parse (py-1) correctly 1`] = `
+Object {
+  "paddingVertical": 4,
+}
+`;
+
+exports[`padding Should parse (py-2) correctly 1`] = `
+Object {
+  "paddingVertical": 8,
+}
+`;
+
+exports[`padding Should parse (py-3) correctly 1`] = `
+Object {
+  "paddingVertical": 12,
+}
+`;
+
+exports[`padding Should parse (py-4) correctly 1`] = `
+Object {
+  "paddingVertical": 16,
+}
+`;

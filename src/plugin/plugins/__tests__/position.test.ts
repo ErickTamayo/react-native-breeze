@@ -1,15 +1,16 @@
 import {
   shouldEvaluateTheCorrectPatternTest,
   shouldMatchOutputSnapshot,
+  shouldParseCorrectlyTest,
 } from "../../utils/tests";
-import { pattern, plugin } from "../backgroundColor";
+import { pattern, plugin } from "../position";
 
-describe("backgroundColor", () => {
-  const shouldMatch = ["bg-green-500", "bg-black"];
+describe("position", () => {
+  const shouldMatch = ["absolute", "relative"];
 
   shouldEvaluateTheCorrectPatternTest(pattern, {
     shouldMatch,
-    shouldNotMatch: ["bg-unknown"],
+    shouldNotMatch: ["unknown"],
   });
 
   shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);

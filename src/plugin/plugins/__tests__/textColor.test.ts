@@ -1,25 +1,16 @@
 import {
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
-  wrongValueTest,
+  shouldMatchOutputSnapshot,
 } from "../../utils/tests";
 import { pattern, plugin } from "../textColor";
 
 describe("textColor", () => {
+  const shouldMatch = ["text-green-500", "text-black"];
+
   shouldEvaluateTheCorrectPatternTest(pattern, {
-    shouldMatch: ["text-green-500", "text-black"],
+    shouldMatch,
     shouldNotMatch: ["text-unknown"],
   });
 
-  shouldParseCorrectlyTest(pattern, plugin, [
-    ["text-red-500", { color: "#f56565" }],
-    ["text-black", { color: "#000000" }],
-  ]);
-
-  wrongValueTest({
-    pattern,
-    plugin,
-    input: "text-red-500",
-    themeReturnType: { red: { 500: 0 } },
-  });
+  shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
 });

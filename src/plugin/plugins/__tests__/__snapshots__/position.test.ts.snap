@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`position Should parse (absolute) correctly 1`] = `
+Object {
+  "position": "absolute",
+}
+`;
+
+exports[`position Should parse (relative) correctly 1`] = `
+Object {
+  "position": "relative",
+}
+`;

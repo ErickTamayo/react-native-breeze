@@ -8,7 +8,7 @@ export type PluginGroups = {
 
 export const pattern: PluginPattern = ({ keys }) => {
   // prettier-ignore
-  return new RegExp(`^border-((?<position>x|y|t|b|l|r|e|s)-)?(?<key>${keys("colors")})$`);
+  return new RegExp(`^border-((?<position>x|y|t|b|l|r|e|s)-)?(?<key>${keys("borderColor")})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({
@@ -17,10 +17,7 @@ export const plugin: PluginFunction<PluginGroups> = ({
   color,
 }) => {
   const { position, key } = groups;
-  const value = color(key);
-
-  if (!validate(input, value, ["string"])) return {};
-
+  const value = color("borderColor", key);
   switch (position) {
     case "x":
       return { borderLeftColor: value, borderRightColor: value };

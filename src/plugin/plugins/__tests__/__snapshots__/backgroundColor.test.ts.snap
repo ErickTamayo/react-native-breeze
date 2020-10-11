@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`backgroundColor Should parse (bg-black) correctly 1`] = `
+Object {
+  "backgroundColor": "#000000",
+}
+`;
+
+exports[`backgroundColor Should parse (bg-green-500) correctly 1`] = `
+Object {
+  "backgroundColor": "#48bb78",
+}
+`;

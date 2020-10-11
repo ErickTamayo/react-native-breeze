@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`minHeight Should parse (min-h-0) correctly 1`] = `
+Object {
+  "minHeight": 0,
+}
+`;
+
+exports[`minHeight Should parse (min-h-full) correctly 1`] = `
+Object {
+  "minHeight": "100%",
+}
+`;

@@ -2,14 +2,14 @@ import {
   shouldEvaluateTheCorrectPatternTest,
   shouldMatchOutputSnapshot,
 } from "../../utils/tests";
-import { pattern, plugin } from "../backgroundColor";
+import { pattern, plugin } from "../maxHeight";
 
-describe("backgroundColor", () => {
-  const shouldMatch = ["bg-green-500", "bg-black"];
+describe("maxHeight", () => {
+  const shouldMatch = ["max-h-full"];
 
   shouldEvaluateTheCorrectPatternTest(pattern, {
     shouldMatch,
-    shouldNotMatch: ["bg-unknown"],
+    shouldNotMatch: ["max-h-unknown"],
   });
 
   shouldMatchOutputSnapshot(pattern, plugin, shouldMatch);
