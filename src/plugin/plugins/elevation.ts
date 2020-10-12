@@ -10,6 +10,6 @@ export const pattern: PluginPattern = ({ keys }) => {
 
 export const plugin: PluginFunction<PluginGroups> = ({ groups, theme }) => {
   const { key } = groups;
-  const value = theme(["elevation", key || "default"]);
+  const value = theme(["elevation", key ?? "default"]);
   return { elevation: value };
 };

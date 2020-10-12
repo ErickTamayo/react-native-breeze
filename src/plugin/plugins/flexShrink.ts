@@ -1,7 +1,7 @@
 import { PluginFunction, PluginPattern } from "./types";
 
 export type PluginGroups = {
-  key: string;
+  key?: string;
 };
 
 export const pattern: PluginPattern = ({ keys }) => {
@@ -10,6 +10,6 @@ export const pattern: PluginPattern = ({ keys }) => {
 
 export const plugin: PluginFunction<PluginGroups> = ({ groups, theme }) => {
   const { key } = groups;
-  const value = theme(["flexShrink", key || "default"]);
+  const value = theme(["flexShrink", key ?? "default"]);
   return { flexShrink: value };
 };

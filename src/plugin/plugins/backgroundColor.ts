@@ -2,8 +2,8 @@ import { PluginFunction, PluginPattern } from "./types";
 
 export type PluginGroups = { key: string };
 
-export const pattern: PluginPattern = ({ keys }) => {
-  return new RegExp(`^bg-(?<key>${keys("backgroundColor")})$`);
+export const pattern: PluginPattern = ({ colorKeys }) => {
+  return new RegExp(`^bg-(?<key>${colorKeys("backgroundColor")})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({ groups, color }) => {

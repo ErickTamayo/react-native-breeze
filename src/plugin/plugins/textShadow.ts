@@ -5,11 +5,11 @@ export type PluginGroups = {
 };
 
 export const pattern: PluginPattern = ({ keys }) => {
-  return new RegExp(`^flex-grow-?(?<key>${keys("flexGrow")})?$`);
+  return new RegExp(`^text-shadow-?(?<key>${keys("textShadow")})?$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({ groups, theme }) => {
   const { key } = groups;
-  const value = theme(["flexGrow", key ?? "default"]);
-  return { flexGrow: value };
+  const value = theme(["textShadow", key ?? "default"]);
+  return value;
 };

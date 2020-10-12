@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`aspectRatio Should parse (aspect-ratio-1) correctly 1`] = `
+Object {
+  "aspectRatio": 1,
+}
+`;

@@ -3,6 +3,7 @@ import Config from "../utils/config";
 
 type PatterCallableParams = {
   keys: typeof Config.keys;
+  colorKeys: typeof Config.colorKeys;
 };
 
 export type PatternCallable = (params: PatterCallableParams) => RegExp;

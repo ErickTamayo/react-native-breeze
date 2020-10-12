@@ -6,7 +6,7 @@ import stealthyRequire from "stealthy-require";
 import { Configuration } from "../types";
 import baseConfig from "../config/breeze.config.base";
 import { flattenObject } from "./objects";
-import { negative } from "./misc";
+import { negative, opacity } from "./misc";
 
 const userConfigPath = path.resolve(process.cwd(), "breeze.config.js");
 
@@ -24,6 +24,7 @@ class Config {
     this.theme = this.theme.bind(this);
     this.keys = this.keys.bind(this);
     this.color = this.color.bind(this);
+    this.colorKeys = this.colorKeys.bind(this);
 
     const userConfigExists = fs.existsSync(userConfigPath);
 
@@ -37,6 +38,7 @@ class Config {
     }
   }
 
+  // TODO make user config work again!
   loadConfiguration(userConfigExists = false) {
     const userConfig = userConfigExists
       ? stealthyRequire(require.cache, () => {
@@ -62,7 +64,7 @@ class Config {
     return get(this.configuration, path) as T;
   }
 
-  theme<T>(path: Path, defaultValue?: any) {
+  theme(path: Path, defaultValue?: any) {
     const root = Array.isArray(path) ? path[0] : (path as string).split(".")[0];
 
     if (!root) throw new Error("Invalid path for theme");
@@ -71,23 +73,25 @@ class Config {
 
     const themeObject =
       typeof themeObjectOrFunction === "function"
-        ? themeObjectOrFunction(this.theme, { negative })
+        ? themeObjectOrFunction(this.theme, { negative, opacity })
         : themeObjectOrFunction;
 
     return get({ [root]: themeObject }, path, defaultValue);
   }
 
   keys(path: Path) {
-    const flattened = flattenObject(this.theme(path, {}));
-
-    const keys = Object.keys(flattened)
+    return Object.keys(this.theme(path, {}))
       .filter((key) => key !== "default")
-      .map((key) => (key.startsWith("-") ? key.slice(1) : key));
-
-    return keys.join("|");
+      .map((key) => (key.startsWith("-") ? key.slice(1) : key))
+      .join("|");
   }
 
-  color<T>(path: Path, color: string): string {
+  colorKeys(path: Path) {
+    const flattened = flattenObject(this.theme(path, {}));
+    return Object.keys(flattened).join("|");
+  }
+
+  color(path: Path, color: string): string {
     const flattened = flattenObject(this.theme(path, {}));
     return flattened[color];
   }

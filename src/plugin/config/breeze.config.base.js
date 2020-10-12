@@ -265,6 +265,7 @@ module.exports = {
       4: 4,
       5: 5,
     },
+    flexBasis: (theme) => theme("spacing"),
     height: (theme) => ({
       ...theme("spacing"),
       full: "100%",
@@ -329,6 +330,90 @@ module.exports = {
       "11/12": "91.666667%",
       full: "100%",
     }),
+    shadow: (theme) => ({
+      sm: {
+        shadowOffset: { width: 0, height: 1 },
+        shadowRadius: 2,
+        shadowColor: theme("colors.black"),
+        shadowOpacity: 0.05,
+      },
+      default: {
+        shadowOffset: { width: 0, height: 1 },
+        shadowRadius: 3,
+        shadowColor: theme("colors.black"),
+        shadowOpacity: 0.1,
+      },
+      md: {
+        shadowOffset: { width: 0, height: 4 },
+        shadowRadius: 6,
+        shadowColor: theme("colors.black"),
+        shadowOpacity: 0.1,
+      },
+      lg: {
+        shadowOffset: { width: 0, height: 10 },
+        shadowRadius: 15,
+        shadowColor: theme("colors.black"),
+        shadowOpacity: 0.1,
+      },
+      xl: {
+        shadowOffset: { width: 0, height: 20 },
+        shadowRadius: 25,
+        shadowColor: theme("colors.black"),
+        shadowOpacity: 0.1,
+      },
+      "2xl": {
+        shadowOffset: { width: 0, height: 25 },
+        shadowRadius: 50,
+        shadowColor: theme("colors.black"),
+        shadowOpacity: 0.1,
+      },
+      none: {
+        shadowOffset: { width: 0, height: 0 },
+        shadowRadius: 2,
+        shadowColor: theme("colors.black"),
+        shadowOpacity: 0,
+      },
+    }),
+    textShadow: (theme, { opacity }) => ({
+      sm: {
+        textShadowOffset: { width: 0, height: 1 },
+        textShadowRadius: 2,
+        textShadowColor: opacity(theme("colors.black"), 0.05),
+      },
+      default: {
+        textShadowOffset: { width: 0, height: 1 },
+        textShadowRadius: 3,
+        textShadowColor: opacity(theme("colors.black"), 0.1),
+      },
+      md: {
+        textShadowOffset: { width: 0, height: 4 },
+        textShadowRadius: 6,
+        textShadowColor: opacity(theme("colors.black"), 0.1),
+      },
+      lg: {
+        textShadowOffset: { width: 0, height: 10 },
+        textShadowRadius: 15,
+        textShadowColor: opacity(theme("colors.black"), 0.1),
+      },
+      xl: {
+        textShadowOffset: { width: 0, height: 20 },
+        textShadowRadius: 25,
+        textShadowColor: opacity(theme("colors.black"), 0.1),
+      },
+      "2xl": {
+        textShadowOffset: { width: 0, height: 25 },
+        textShadowRadius: 50,
+        textShadowColor: opacity(theme("colors.black"), 0.1),
+      },
+      none: {
+        textShadowOffset: { width: 0, height: 0 },
+        textShadowRadius: 2,
+        textShadowColor: opacity(theme("colors.black"), 0.1),
+      },
+    }),
+    aspectRatio: {
+      1: 1,
+    },
   },
   variants: {},
   corePlugins: {
@@ -365,6 +450,7 @@ module.exports = {
     flex: true,
     flexGrow: true,
     flexShrink: true,
+    flexBasis: true,
     flexDirection: true,
     flexWrap: true,
     height: true,
@@ -380,6 +466,9 @@ module.exports = {
     resizeMode: true,
     tintColor: true,
     overlayColor: true,
+    shadow: true,
+    aspectRatio: true,
+    textShadow: true,
   },
   plugins: [],
 };

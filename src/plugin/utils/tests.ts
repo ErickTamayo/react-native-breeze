@@ -1,11 +1,7 @@
-import {
-  PluginPattern,
-  PluginFunction,
-  PluginFunctionReturnType,
-} from "../plugins/types";
+import { PluginPattern, PluginFunction } from "../plugins/types";
 import Config from "./config";
 
-const { theme, keys, color } = Config;
+const { theme, keys, color, colorKeys } = Config;
 
 export type shouldEvaluateTheCorrectPatternTestCases = {
   shouldMatch: string[];
@@ -17,7 +13,8 @@ export const shouldEvaluateTheCorrectPatternTest = (
   { shouldMatch, shouldNotMatch }: shouldEvaluateTheCorrectPatternTestCases
 ) =>
   describe("Should match the correct pattern", () => {
-    const regex = typeof pattern === "function" ? pattern({ keys }) : pattern;
+    const regex =
+      typeof pattern === "function" ? pattern({ keys, colorKeys }) : pattern;
 
     it.each(shouldMatch)("should match %s", (input) => {
       expect(regex.exec(input)).toBeTruthy();
@@ -34,7 +31,8 @@ export const shouldMatchOutputSnapshot = <T>(
   cases: string[]
 ) =>
   it.each(cases)("Should parse (%s) correctly", (input) => {
-    const regex = typeof pattern === "function" ? pattern({ keys }) : pattern;
+    const regex =
+      typeof pattern === "function" ? pattern({ keys, colorKeys }) : pattern;
     const groups = regex.exec(input)!.groups! as any;
 
     // TODO fix typing

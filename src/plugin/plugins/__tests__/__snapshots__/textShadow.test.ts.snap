@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`textShadow Should parse (text-shadow) correctly 1`] = `
+Object {
+  "textShadowColor": "rgba(0, 0, 0, 0.1)",
+  "textShadowOffset": Object {
+    "height": 1,
+    "width": 0,
+  },
+  "textShadowRadius": 3,
+}
+`;
+
+exports[`textShadow Should parse (text-shadow-2xl) correctly 1`] = `
+Object {
+  "textShadowColor": "rgba(0, 0, 0, 0.1)",
+  "textShadowOffset": Object {
+    "height": 25,
+    "width": 0,
+  },
+  "textShadowRadius": 50,
+}
+`;
+
+exports[`textShadow Should parse (text-shadow-lg) correctly 1`] = `
+Object {
+  "textShadowColor": "rgba(0, 0, 0, 0.1)",
+  "textShadowOffset": Object {
+    "height": 10,
+    "width": 0,
+  },
+  "textShadowRadius": 15,
+}
+`;
+
+exports[`textShadow Should parse (text-shadow-md) correctly 1`] = `
+Object {
+  "textShadowColor": "rgba(0, 0, 0, 0.1)",
+  "textShadowOffset": Object {
+    "height": 4,
+    "width": 0,
+  },
+  "textShadowRadius": 6,
+}
+`;
+
+exports[`textShadow Should parse (text-shadow-none) correctly 1`] = `
+Object {
+  "textShadowColor": "rgba(0, 0, 0, 0.1)",
+  "textShadowOffset": Object {
+    "height": 0,
+    "width": 0,
+  },
+  "textShadowRadius": 2,
+}
+`;
+
+exports[`textShadow Should parse (text-shadow-sm) correctly 1`] = `
+Object {
+  "textShadowColor": "rgba(0, 0, 0, 0.05)",
+  "textShadowOffset": Object {
+    "height": 1,
+    "width": 0,
+  },
+  "textShadowRadius": 2,
+}
+`;
+
+exports[`textShadow Should parse (text-shadow-xl) correctly 1`] = `
+Object {
+  "textShadowColor": "rgba(0, 0, 0, 0.1)",
+  "textShadowOffset": Object {
+    "height": 20,
+    "width": 0,
+  },
+  "textShadowRadius": 25,
+}
+`;

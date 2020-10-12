@@ -5,11 +5,11 @@ export type PluginGroups = {
 };
 
 export const pattern: PluginPattern = ({ keys }) => {
-  return new RegExp(`^flex-grow-?(?<key>${keys("flexGrow")})?$`);
+  return new RegExp(`^aspect-ratio-(?<key>${keys("aspectRatio")})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({ groups, theme }) => {
   const { key } = groups;
-  const value = theme(["flexGrow", key ?? "default"]);
-  return { flexGrow: value };
+  const value = theme(["aspectRatio", key]);
+  return { aspectRatio: value };
 };

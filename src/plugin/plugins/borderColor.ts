@@ -5,9 +5,9 @@ export type PluginGroups = {
   key: string;
 };
 
-export const pattern: PluginPattern = ({ keys }) => {
+export const pattern: PluginPattern = ({ colorKeys }) => {
   // prettier-ignore
-  return new RegExp(`^border-((?<position>x|y|t|b|l|r|e|s)-)?(?<key>${keys("borderColor")})$`);
+  return new RegExp(`^border-((?<position>x|y|t|b|l|r|e|s)-)?(?<key>${colorKeys("borderColor")})$`);
 };
 
 export const plugin: PluginFunction<PluginGroups> = ({ groups, color }) => {

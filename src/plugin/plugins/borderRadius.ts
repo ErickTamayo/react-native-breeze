@@ -13,7 +13,7 @@ export const pattern: PluginPattern = ({ keys }) => {
 
 export const plugin: PluginFunction<PluginGroups> = ({ groups, theme }) => {
   const { position, radius } = groups;
-  const value = theme(["borderRadius", radius || "default"]);
+  const value = theme(["borderRadius", radius ?? "default"]);
 
   switch (position) {
     case "t":

@@ -1,7 +1,6 @@
 import { pattern, plugin } from "../justifyContent";
 import {
   shouldEvaluateTheCorrectPatternTest,
-  shouldParseCorrectlyTest,
   generateInput,
   shouldMatchOutputSnapshot,
 } from "../../utils/tests";
