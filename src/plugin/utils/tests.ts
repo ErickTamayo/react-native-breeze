@@ -1,7 +1,5 @@
 import { PluginPattern, PluginFunction } from "../plugins/types";
-import Config from "./config";
-
-const { theme, keys, color, colorKeys } = Config;
+import { theme, keys, color, colorKeys } from "../config";
 
 export type shouldEvaluateTheCorrectPatternTestCases = {
   shouldMatch: string[];
