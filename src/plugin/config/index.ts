@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
 import get from "lodash.get";
-import { negative, opacity } from "../utils/misc";
-import { flattenObject } from "../utils/objects";
+import { negative, opacity } from "../helpers/misc";
+import { flattenObject } from "../helpers/objects";
 
 import baseConfig from "./breeze.config.base";
 

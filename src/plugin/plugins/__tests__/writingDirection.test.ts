@@ -3,7 +3,7 @@ import {
   generateInput,
   shouldEvaluateTheCorrectPatternTest,
   shouldMatchOutputSnapshot,
-} from "../../utils/tests";
+} from "../../helpers/tests";
 
 describe("writingDirection", () => {
   const shouldMatch = generateInput("writing", ["auto", "ltr", "rtl"]);

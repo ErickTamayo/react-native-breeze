@@ -3,7 +3,7 @@ import {
   shouldEvaluateTheCorrectPatternTest,
   generateInput,
   shouldMatchOutputSnapshot,
-} from "../../utils/tests";
+} from "../../helpers/tests";
 
 describe("justifyContent", () => {
   // prettier-ignore

@@ -2,7 +2,7 @@ import {
   generateInput,
   shouldEvaluateTheCorrectPatternTest,
   shouldMatchOutputSnapshot,
-} from "../../utils/tests";
+} from "../../helpers/tests";
 import { pattern, plugin } from "../margin";
 
 describe("margin", () => {

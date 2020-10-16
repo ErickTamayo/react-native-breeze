@@ -1,9 +1,9 @@
 import { ImageStyle, StyleProp, TextStyle, ViewStyle } from "react-native";
-import Config from "../utils/config";
+import { keys, colorKeys, theme, color } from "../config";
 
 type PatterCallableParams = {
-  keys: typeof Config.keys;
-  colorKeys: typeof Config.colorKeys;
+  keys: typeof keys;
+  colorKeys: typeof colorKeys;
 };
 
 export type PatternCallable = (params: PatterCallableParams) => RegExp;
@@ -13,8 +13,8 @@ export type PluginPattern = RegExp | PatternCallable;
 export type PluginFunctionParams<T> = {
   input: string;
   groups: T;
-  theme: typeof Config.theme;
-  color: typeof Config.color;
+  theme: typeof theme;
+  color: typeof color;
 };
 
 export type PluginFunctionReturnType =

@@ -1,4 +1,4 @@
-import { withNegativePrefix } from "../utils/misc";
+import { withNegativePrefix } from "../helpers/misc";
 import { PluginFunction, PluginPattern } from "./types";
 
 export type PluginGroups = { prefix?: "-"; key: string };

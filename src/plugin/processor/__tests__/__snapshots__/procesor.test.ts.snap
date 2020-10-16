@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Should compile breeze background color 1`] = `"var _reactNative=require(\\"react-native\\");var Calendar=function Calendar(){return React.createElement(_reactNative.View,{style:{backgroundColor:\\"#f56565\\"}});};"`;
+
 exports[`Should compile regular style 1`] = `"var _reactNative=require(\\"react-native\\");var Component=function Component(){return React.createElement(_reactNative.View,{style:{backgroundColor:\\"red\\"}});};"`;

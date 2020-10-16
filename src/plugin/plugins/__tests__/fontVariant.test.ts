@@ -1,7 +1,7 @@
 import {
   shouldEvaluateTheCorrectPatternTest,
   shouldMatchOutputSnapshot,
-} from "../../utils/tests";
+} from "../../helpers/tests";
 import { pattern, plugin } from "../fontVariant";
 
 describe("fontVariant", () => {
