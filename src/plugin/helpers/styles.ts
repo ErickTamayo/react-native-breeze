@@ -1,51 +1,49 @@
 import {
-  Platform,
   StyleProp,
   ViewStyle,
   ImageStyle,
   TextStyle,
+  PlatformOSType,
 } from "react-native";
 import merge from "deepmerge";
 import { getStyleFromString } from "./plugins";
-import { keys } from "../config";
+import { keys, theme } from "../config";
 
 export type ReactNativeStyle =
   | StyleProp<ViewStyle>
   | StyleProp<ImageStyle>
   | StyleProp<TextStyle>;
 
-// export type VariantStyle = {
-//   focus?: ReactNativeStyle;
-//   hover?: ReactNativeStyle;
-//   landscape?: ReactNativeStyle;
-//   portrait?: ReactNativeStyle;
-//   base?: ReactNativeStyle; // Applied to all under media / platform
-// };
-
 export type MediaStyle = {
-  [media: string]: ReactNativeStyle;
+  [media: number]: ReactNativeStyle;
   all?: ReactNativeStyle;
 };
 
-export type PlatformStyles = {
-  ios?: MediaStyle;
-  android?: MediaStyle;
-  web?: MediaStyle;
-  native?: MediaStyle;
-  default?: MediaStyle;
-};
-
 export type VariantsStyles = {
-  focus?: PlatformStyles;
-  hover?: PlatformStyles;
-  landscape?: PlatformStyles;
-  portrait?: PlatformStyles;
-  base?: PlatformStyles;
+  focus?: MediaStyle;
+  hover?: MediaStyle;
+  landscape?: MediaStyle;
+  portrait?: MediaStyle;
+  base?: MediaStyle;
 };
 
-export const generateStyle = (input: string): VariantsStyles => {
+export type PlatformStyles = {
+  [platform in PlatformOSType]?: VariantsStyles;
+} & {
+  native?: VariantsStyles;
+  default?: VariantsStyles;
+};
+
+export const generateStyleFromInput = (input: string): PlatformStyles => {
   const variantKeys = ["focus", "hover", "landscape", "portrait"].join("|");
-  const platformKeys = ["ios", "android", "web", "native"].join("|");
+  const platformKeys = [
+    "ios",
+    "android",
+    "macos",
+    "windows",
+    "web",
+    "native",
+  ].join("|");
   const screenKeys = keys("screens");
 
   // prettier-ignore
@@ -56,7 +54,7 @@ export const generateStyle = (input: string): VariantsStyles => {
     .map((v) => v.trim())
     .filter(Boolean);
 
-  return styleStrings.reduce<VariantsStyles>((acc, styleString) => {
+  return styleStrings.reduce<PlatformStyles>((acc, styleString) => {
     const result = regex.exec(styleString);
 
     if (!result) {
@@ -64,11 +62,19 @@ export const generateStyle = (input: string): VariantsStyles => {
       return acc;
     }
 
-    // prettier-ignore
-    const { variant = "base", platform = "default", media = "all", style, } = result.groups!;
+    const {
+      variant = "base",
+      platform = "default",
+      media,
+      style,
+    } = result.groups!;
 
     const styleObject: Partial<VariantsStyles> = {
-      [variant]: { [platform]: { [media]: getStyleFromString(style) } },
+      [platform]: {
+        [variant]: {
+          [theme(["screens", media], "all")]: getStyleFromString(style),
+        },
+      },
     };
 
     return merge(acc, styleObject);

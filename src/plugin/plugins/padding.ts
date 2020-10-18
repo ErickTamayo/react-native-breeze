@@ -12,7 +12,7 @@ export const pattern: PluginPattern = ({ keys }) => {
 
 export const plugin: PluginFunction<PluginGroups> = ({ groups, theme }) => {
   const { position, key } = groups;
-  const value = theme<number>(["padding", key]);
+  const value = theme(["padding", key]);
 
   switch (position) {
     case "x":
