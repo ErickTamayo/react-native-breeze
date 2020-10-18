@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`textTransform Should parse (capitalize) correctly 1`] = `
+Object {
+  "textTransform": "capitalize",
+}
+`;
+
+exports[`textTransform Should parse (lowercase) correctly 1`] = `
+Object {
+  "textTransform": "lowercase",
+}
+`;
+
+exports[`textTransform Should parse (normal-case) correctly 1`] = `
+Object {
+  "textTransform": "none",
+}
+`;
+
+exports[`textTransform Should parse (uppercase) correctly 1`] = `
+Object {
+  "textTransform": "uppercase",
+}
+`;

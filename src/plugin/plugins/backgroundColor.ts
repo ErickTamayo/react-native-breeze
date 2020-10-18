@@ -1,17 +1,13 @@
-import { PluginFunction } from "./types";
+import { PluginFunction, PluginPattern } from "./types";
 
-export const pattern = /^bg-(?<color>\w+)-?(?<number>\w+)?$/;
+export type PluginGroups = { key: string };
 
-export const plugin: PluginFunction = ({ input, groups, theme }) => {
-  const { color, number } = groups;
+export const pattern: PluginPattern = ({ colorKeys }) => {
+  return new RegExp(`^bg-(?<key>${colorKeys("backgroundColor")})$`);
+};
 
-  const path = number ? ["colors", color, number] : ["colors", color];
-  const colorString = theme(path);
-
-  if (typeof colorString !== "string") {
-    console.error(`Invalid color [${typeof colorString}] for ${input}`);
-    return {};
-  }
-
-  return { backgroundColor: colorString };
+export const plugin: PluginFunction<PluginGroups> = ({ groups, color }) => {
+  const { key } = groups;
+  const value = color("backgroundColor", key);
+  return { backgroundColor: value };
 };

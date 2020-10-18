@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`flexWrap Should parse (flex-no-wrap) correctly 1`] = `
+Object {
+  "flexWrap": "nowrap",
+}
+`;
+
+exports[`flexWrap Should parse (flex-wrap) correctly 1`] = `
+Object {
+  "flexWrap": "wrap",
+}
+`;
+
+exports[`flexWrap Should parse (flex-wrap-reverse) correctly 1`] = `
+Object {
+  "flexWrap": "wrap-reverse",
+}
+`;

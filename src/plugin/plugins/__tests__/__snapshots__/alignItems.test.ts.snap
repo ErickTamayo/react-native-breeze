@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`alignItems Should parse (items-baseline) correctly 1`] = `
+Object {
+  "alignItems": "baseline",
+}
+`;
+
+exports[`alignItems Should parse (items-center) correctly 1`] = `
+Object {
+  "alignItems": "center",
+}
+`;
+
+exports[`alignItems Should parse (items-end) correctly 1`] = `
+Object {
+  "alignItems": "flex-end",
+}
+`;
+
+exports[`alignItems Should parse (items-start) correctly 1`] = `
+Object {
+  "alignItems": "flex-start",
+}
+`;
+
+exports[`alignItems Should parse (items-stretch) correctly 1`] = `
+Object {
+  "alignItems": "stretch",
+}
+`;

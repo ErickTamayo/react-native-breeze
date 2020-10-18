@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`borderRadius Should parse (rounded) correctly 1`] = `
+Object {
+  "borderRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-b) correctly 1`] = `
+Object {
+  "borderBottomRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-b-sm) correctly 1`] = `
+Object {
+  "borderBottomRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-be) correctly 1`] = `
+Object {
+  "borderBottomEndRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-be-sm) correctly 1`] = `
+Object {
+  "borderBottomEndRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-bl) correctly 1`] = `
+Object {
+  "borderBottomLeftRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-bl-sm) correctly 1`] = `
+Object {
+  "borderBottomLeftRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-br) correctly 1`] = `
+Object {
+  "borderBottomRightRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-br-sm) correctly 1`] = `
+Object {
+  "borderBottomRightRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-bs) correctly 1`] = `
+Object {
+  "borderBottomStartRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-bs-sm) correctly 1`] = `
+Object {
+  "borderBottomStartRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-e) correctly 1`] = `
+Object {
+  "borderEndRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-e-sm) correctly 1`] = `
+Object {
+  "borderEndRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-l) correctly 1`] = `
+Object {
+  "borderLeftRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-l-sm) correctly 1`] = `
+Object {
+  "borderLeftRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-r) correctly 1`] = `
+Object {
+  "borderRightRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-r-sm) correctly 1`] = `
+Object {
+  "borderRightRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-s) correctly 1`] = `
+Object {
+  "borderStartRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-s-sm) correctly 1`] = `
+Object {
+  "borderStartRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-sm) correctly 1`] = `
+Object {
+  "borderRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-t) correctly 1`] = `
+Object {
+  "borderTopRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-t-sm) correctly 1`] = `
+Object {
+  "borderTopRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-te) correctly 1`] = `
+Object {
+  "borderTopEndRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-te-sm) correctly 1`] = `
+Object {
+  "borderTopEndRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-tl) correctly 1`] = `
+Object {
+  "borderTopLeftRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-tl-sm) correctly 1`] = `
+Object {
+  "borderTopLeftRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-tr) correctly 1`] = `
+Object {
+  "borderTopRightRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-tr-sm) correctly 1`] = `
+Object {
+  "borderTopRightRadius": 2,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-ts) correctly 1`] = `
+Object {
+  "borderTopStartRadius": 4,
+}
+`;
+
+exports[`borderRadius Should parse (rounded-ts-sm) correctly 1`] = `
+Object {
+  "borderTopStartRadius": 2,
+}
+`;

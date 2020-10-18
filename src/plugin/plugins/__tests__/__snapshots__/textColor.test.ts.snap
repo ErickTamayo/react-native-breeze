@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`textColor Should parse (text-black) correctly 1`] = `
+Object {
+  "color": "#000000",
+}
+`;
+
+exports[`textColor Should parse (text-green-500) correctly 1`] = `
+Object {
+  "color": "#48bb78",
+}
+`;

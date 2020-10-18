@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`overlayColor Should parse (overlay-black) correctly 1`] = `
+Object {
+  "overlayColor": "#000000",
+}
+`;
+
+exports[`overlayColor Should parse (overlay-green-500) correctly 1`] = `
+Object {
+  "overlayColor": "#48bb78",
+}
+`;

@@ -1,3 +1,5 @@
+import merge from "deepmerge";
+import isPlainObject from "is-plain-object";
 import { StyleProp, ViewStyle, ImageStyle, TextStyle } from "react-native";
 
 let warningEmitted = false;
@@ -32,4 +34,8 @@ br.value = <T extends ValueType>(
 ): T => {
   emitError();
   return undefined as any;
+};
+
+export const mergeStyles = (styles: any[]) => {
+  return merge.all(styles, { isMergeableObject: isPlainObject as any });
 };

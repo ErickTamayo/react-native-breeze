@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`opacity Should parse (opacity-0) correctly 1`] = `
+Object {
+  "opacity": 0,
+}
+`;
+
+exports[`opacity Should parse (opacity-25) correctly 1`] = `
+Object {
+  "opacity": 0.25,
+}
+`;
+
+exports[`opacity Should parse (opacity-50) correctly 1`] = `
+Object {
+  "opacity": 0.5,
+}
+`;
+
+exports[`opacity Should parse (opacity-75) correctly 1`] = `
+Object {
+  "opacity": 0.75,
+}
+`;
+
+exports[`opacity Should parse (opacity-100) correctly 1`] = `
+Object {
+  "opacity": 1,
+}
+`;

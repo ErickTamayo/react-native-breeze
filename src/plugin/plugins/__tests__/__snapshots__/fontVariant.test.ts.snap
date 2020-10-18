@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fontVariant Should parse (lining-nums) correctly 1`] = `
+Object {
+  "fontVariant": Array [
+    "lining-nums",
+  ],
+}
+`;
+
+exports[`fontVariant Should parse (oldstyle-nums) correctly 1`] = `
+Object {
+  "fontVariant": Array [
+    "oldstyle-nums",
+  ],
+}
+`;
+
+exports[`fontVariant Should parse (proportional-nums) correctly 1`] = `
+Object {
+  "fontVariant": Array [
+    "proportional-nums",
+  ],
+}
+`;
+
+exports[`fontVariant Should parse (small-caps) correctly 1`] = `
+Object {
+  "fontVariant": Array [
+    "small-caps",
+  ],
+}
+`;
+
+exports[`fontVariant Should parse (tabular-nums) correctly 1`] = `
+Object {
+  "fontVariant": Array [
+    "tabular-nums",
+  ],
+}
+`;

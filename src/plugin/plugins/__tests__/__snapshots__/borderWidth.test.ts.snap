@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`borderWidth Should parse (border) correctly 1`] = `
+Object {
+  "borderWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-2) correctly 1`] = `
+Object {
+  "borderWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-b) correctly 1`] = `
+Object {
+  "borderBottomWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-b-2) correctly 1`] = `
+Object {
+  "borderBottomWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-be) correctly 1`] = `
+Object {
+  "borderBottomEndWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-be-2) correctly 1`] = `
+Object {
+  "borderBottomEndWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-bl) correctly 1`] = `
+Object {
+  "borderBottomLeftWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-bl-2) correctly 1`] = `
+Object {
+  "borderBottomLeftWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-br) correctly 1`] = `
+Object {
+  "borderBottomRightWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-br-2) correctly 1`] = `
+Object {
+  "borderBottomRightWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-bs) correctly 1`] = `
+Object {
+  "borderBottomStartWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-bs-2) correctly 1`] = `
+Object {
+  "borderBottomStartWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-e) correctly 1`] = `
+Object {
+  "borderEndWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-e-2) correctly 1`] = `
+Object {
+  "borderEndWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-l) correctly 1`] = `
+Object {
+  "borderLeftWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-l-2) correctly 1`] = `
+Object {
+  "borderLeftWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-r) correctly 1`] = `
+Object {
+  "borderRightWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-r-2) correctly 1`] = `
+Object {
+  "borderRightWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-s) correctly 1`] = `
+Object {
+  "borderStartWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-s-2) correctly 1`] = `
+Object {
+  "borderStartWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-t) correctly 1`] = `
+Object {
+  "borderTopWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-t-2) correctly 1`] = `
+Object {
+  "borderTopWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-te) correctly 1`] = `
+Object {
+  "borderTopEndWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-te-2) correctly 1`] = `
+Object {
+  "borderTopEndWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-tl) correctly 1`] = `
+Object {
+  "borderTopLeftWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-tl-2) correctly 1`] = `
+Object {
+  "borderTopLeftWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-tr) correctly 1`] = `
+Object {
+  "borderTopRightWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-tr-2) correctly 1`] = `
+Object {
+  "borderTopRightWidth": 2,
+}
+`;
+
+exports[`borderWidth Should parse (border-ts) correctly 1`] = `
+Object {
+  "borderTopStartWidth": 1,
+}
+`;
+
+exports[`borderWidth Should parse (border-ts-2) correctly 1`] = `
+Object {
+  "borderTopStartWidth": 2,
+}
+`;

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`minWidth Should parse (min-w-0) correctly 1`] = `
+Object {
+  "minWidth": 0,
+}
+`;
+
+exports[`minWidth Should parse (min-w-full) correctly 1`] = `
+Object {
+  "minWidth": "100%",
+}
+`;

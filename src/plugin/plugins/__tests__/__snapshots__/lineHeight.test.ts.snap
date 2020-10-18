@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lineHeight Should parse (leading-3) correctly 1`] = `
+Object {
+  "lineHeight": 12,
+}
+`;
+
+exports[`lineHeight Should parse (leading-4) correctly 1`] = `
+Object {
+  "lineHeight": 16,
+}
+`;
+
+exports[`lineHeight Should parse (leading-5) correctly 1`] = `
+Object {
+  "lineHeight": 20,
+}
+`;
+
+exports[`lineHeight Should parse (leading-6) correctly 1`] = `
+Object {
+  "lineHeight": 24,
+}
+`;
+
+exports[`lineHeight Should parse (leading-7) correctly 1`] = `
+Object {
+  "lineHeight": 28,
+}
+`;
+
+exports[`lineHeight Should parse (leading-8) correctly 1`] = `
+Object {
+  "lineHeight": 32,
+}
+`;

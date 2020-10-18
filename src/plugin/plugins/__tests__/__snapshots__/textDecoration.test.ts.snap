@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`textDecoration Should parse (line-through) correctly 1`] = `
+Object {
+  "textDecorationLine": "line-through",
+  "textDecorationStyle": "solid",
+}
+`;
+
+exports[`textDecoration Should parse (line-through-dashed) correctly 1`] = `
+Object {
+  "textDecorationLine": "line-through",
+  "textDecorationStyle": "dashed",
+}
+`;
+
+exports[`textDecoration Should parse (line-through-dotted) correctly 1`] = `
+Object {
+  "textDecorationLine": "line-through",
+  "textDecorationStyle": "dotted",
+}
+`;
+
+exports[`textDecoration Should parse (line-through-double) correctly 1`] = `
+Object {
+  "textDecorationLine": "line-through",
+  "textDecorationStyle": "double",
+}
+`;
+
+exports[`textDecoration Should parse (no-underline) correctly 1`] = `
+Object {
+  "textDecorationLine": "none",
+}
+`;
+
+exports[`textDecoration Should parse (underline) correctly 1`] = `
+Object {
+  "textDecorationLine": "underline",
+  "textDecorationStyle": "solid",
+}
+`;
+
+exports[`textDecoration Should parse (underline-dashed) correctly 1`] = `
+Object {
+  "textDecorationLine": "underline",
+  "textDecorationStyle": "dashed",
+}
+`;
+
+exports[`textDecoration Should parse (underline-dotted) correctly 1`] = `
+Object {
+  "textDecorationLine": "underline",
+  "textDecorationStyle": "dotted",
+}
+`;
+
+exports[`textDecoration Should parse (underline-double) correctly 1`] = `
+Object {
+  "textDecorationLine": "underline",
+  "textDecorationStyle": "double",
+}
+`;

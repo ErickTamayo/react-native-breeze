@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`direction Should parse (direction-inherit) correctly 1`] = `
+Object {
+  "direction": "inherit",
+}
+`;
+
+exports[`direction Should parse (direction-ltr) correctly 1`] = `
+Object {
+  "direction": "ltr",
+}
+`;
+
+exports[`direction Should parse (direction-rtl) correctly 1`] = `
+Object {
+  "direction": "rtl",
+}
+`;

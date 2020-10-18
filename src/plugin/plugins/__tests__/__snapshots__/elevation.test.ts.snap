@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`elevation Should parse (elevated) correctly 1`] = `
+Object {
+  "elevation": 1,
+}
+`;
+
+exports[`elevation Should parse (elevated-2xl) correctly 1`] = `
+Object {
+  "elevation": 24,
+}
+`;
+
+exports[`elevation Should parse (elevated-lg) correctly 1`] = `
+Object {
+  "elevation": 8,
+}
+`;
+
+exports[`elevation Should parse (elevated-md) correctly 1`] = `
+Object {
+  "elevation": 4,
+}
+`;
+
+exports[`elevation Should parse (elevated-sm) correctly 1`] = `
+Object {
+  "elevation": 2,
+}
+`;
+
+exports[`elevation Should parse (elevated-xl) correctly 1`] = `
+Object {
+  "elevation": 16,
+}
+`;

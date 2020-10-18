@@ -1,36 +1,90 @@
 import * as t from "@babel/types";
-import { processStyles } from "./processor";
-import { PluginObj } from "babel-core";
 
-module.exports = ({ types }: any): PluginObj => {
+import template from "@babel/template";
+import { PluginObj, Visitor } from "babel-core";
+import {
+  isBreezeIdentifier,
+  getSylesFromTaggedTemplateNode,
+  isBreezeImport,
+  isStyleSheetIsImported,
+  importReactNativeStylesheet,
+  createStyleSheetForStyle,
+  generatePlatformStylesHook,
+  hasMergeStylesImport,
+  addMergeStylesImport,
+} from "./helpers/babel";
+import babel from "babel-core";
+import { Scope, NodePath } from "@babel/traverse";
+import { pattern } from "./plugins/alignContent";
+
+const CreateStyleSheetVisitor: Visitor<any> = {
+  Program(path) {
+    // console.log("PROGRAM");
+  },
+  Function(path) {
+    // console.log("FUNCTION");
+  },
+  enter(path) {
+    console.log(path.node.type);
+  },
+};
+
+module.exports = (): PluginObj => {
   return {
+    name: "react-native-breeze",
     visitor: {
-      // Remove the breeze import declaration
-      ImportDeclaration(path) {
-        const opts = { value: "react-native-breeze" };
-        if (t.isStringLiteral(path.node.source, opts)) {
-          path.remove();
+      Program(path, state) {
+        state.program = path;
+      },
+      ImportDeclaration(path, state) {
+        const { node } = path;
+
+        if (!hasMergeStylesImport(node)) {
+          addMergeStylesImport(path as any);
         }
       },
       TaggedTemplateExpression(path, state) {
-        const { node, parent } = path;
-        if (!t.isIdentifier(node.tag, { name: "br" })) return;
+        const { node, scope, parent } = path;
+        const { program } = state;
 
-        const { quasi } = node;
+        if (!isBreezeIdentifier(node)) return;
 
-        // Parse the quasis
-        const styles = quasi.quasis.reduce<string[]>((acc, q) => {
-          if (!q.value.raw) return acc;
+        const styles = getSylesFromTaggedTemplateNode(node);
 
-          const splitted = q.value.raw
-            .split(" ")
-            .map((v) => v.trim())
-            .filter(Boolean);
+        const platformStylesIdentifier = generatePlatformStylesHook(
+          scope as any,
+          styles
+        );
 
-          return [...acc, ...splitted];
-        }, []);
+        // Importing the React Stylesheet
+        // if (!state.hasStylesheetImport) {
+        //   importReactNativeStylesheet(program);
+        //   state.hasStylesheetImport = true;
+        // }
 
-        processStyles(path, styles);
+        // const idenfitiers = createStyleSheetForStyle(
+        //   scope as any,
+        //   state.program,
+        //   styles
+        // );
+
+        // console.log({ stylesheetIdentifier });
+
+        // path.scope.path.addComment('TESt');
+
+        // path.scope.path.traverse(CreateStyleSheetVisitor, { styles: "STYLE" });
+        //.traverse(CreateStyleSheetVisitor, { styles: "STYLE" })
+
+        // console.log({ state });
+
+        // path.parentPath.traverse(CreateStyleSheetVisitor, { styles: "STYLE" });
+        (path as any).replaceWith(
+          template.expression(
+            `{...${platformStylesIdentifier.name}.base.all}`
+          )()
+        );
+        // path.replaceWithSourceString(`...${platformStylesIdentifier.name}`);
+        // path.replaceWithSourceString(`{ color: 'red' }`);
       },
     },
   };

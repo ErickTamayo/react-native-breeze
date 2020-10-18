@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`overflow Should parse (overflow-hidden) correctly 1`] = `
+Object {
+  "overflow": "hidden",
+}
+`;
+
+exports[`overflow Should parse (overflow-scroll) correctly 1`] = `
+Object {
+  "overflow": "scroll",
+}
+`;
+
+exports[`overflow Should parse (overflow-visible) correctly 1`] = `
+Object {
+  "overflow": "visible",
+}
+`;

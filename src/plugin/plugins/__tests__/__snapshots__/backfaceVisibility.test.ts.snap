@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`backface Should parse (backface-hidden) correctly 1`] = `
+Object {
+  "backfaceVisibility": "hidden",
+}
+`;
+
+exports[`backface Should parse (backface-visible) correctly 1`] = `
+Object {
+  "backfaceVisibility": "visible",
+}
+`;

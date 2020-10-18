@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fontFamily Should parse (font-sans) correctly 1`] = `
+Object {
+  "fontFamily": "",
+}
+`;
+
+exports[`fontFamily Should parse (font-serif) correctly 1`] = `
+Object {
+  "fontFamily": "",
+}
+`;
