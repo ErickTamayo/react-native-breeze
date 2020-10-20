@@ -1,5 +1,4 @@
 import * as t from "@babel/types";
-
 import template from "@babel/template";
 import { PluginObj, Visitor } from "babel-core";
 import {
@@ -9,82 +8,122 @@ import {
   isStyleSheetIsImported,
   importReactNativeStylesheet,
   createStyleSheetForStyle,
-  generatePlatformStylesHook,
-  hasMergeStylesImport,
-  addMergeStylesImport,
+  addBreezeHook,
+  hasBreezeHookImport,
+  addUseBreezeImport,
+  addForceResetComment,
 } from "./helpers/babel";
 import babel from "babel-core";
 import { Scope, NodePath } from "@babel/traverse";
 import { pattern } from "./plugins/alignContent";
 
-const CreateStyleSheetVisitor: Visitor<any> = {
-  Program(path) {
-    // console.log("PROGRAM");
-  },
-  Function(path) {
-    // console.log("FUNCTION");
-  },
-  enter(path) {
-    console.log(path.node.type);
-  },
-};
-
 module.exports = (): PluginObj => {
+  let hookIdentifiers = new WeakMap<
+    any,
+    {
+      identifier: t.Identifier;
+      path: any;
+    }
+  >();
+
+  const BreezeCallsVisitor: Visitor = {
+    TaggedTemplateExpression(path, state) {
+      const { node, scope } = path;
+      if (!isBreezeIdentifier(node)) return;
+
+      const fnScope = path.scope.getFunctionParent();
+
+      const identifier = addBreezeHook(
+        fnScope as any,
+        getSylesFromTaggedTemplateNode(node)
+      );
+
+      (path as any).replaceWith(
+        template.expression(`${identifier.name}.styles.base.all`)()
+      );
+
+      // hookIdentifiers.set(path, addBreezeHook(fnScope as any));
+
+      // const identifier = addBreezeHook(fnScope as any);
+
+      // console.log({ identifier });
+
+      // console.log("HERE");
+
+      // // Add random hooks
+      // const count = Math.floor(Math.random() * 6) + 1;
+
+      // const hookDeclaration = template(
+      //   `const MEMOVAR = React.useMemo(() => MEMO, [])`
+      // );
+
+      // console.log({ count });
+
+      // for (let index = 0; index < count; index++) {
+      //   const memoIdentifier = scope.generateUidIdentifier("memo");
+
+      //   const statement = hookDeclaration({
+      //     MEMOVAR: memoIdentifier,
+      //     MEMO: t.stringLiteral(`${index}`),
+      //   });
+
+      //   (fnScope.path.get("body") as any).unshiftContainer("body", statement);
+      // }
+    },
+  };
+
   return {
     name: "react-native-breeze",
     visitor: {
       Program(path, state) {
+        path.traverse(BreezeCallsVisitor);
         state.program = path;
       },
       ImportDeclaration(path, state) {
         const { node } = path;
 
-        if (!hasMergeStylesImport(node)) {
-          addMergeStylesImport(path as any);
+        if (isBreezeImport(node) && !hasBreezeHookImport(node)) {
+          addUseBreezeImport(state.program);
         }
+
+        // const { program } = state;
+        // if (!hasBreezeHookImport(node)) {
+        //   addUseBreezeImport(program);
+        // }
+      },
+      FunctionDeclaration(path, state) {
+        path.traverse;
       },
       TaggedTemplateExpression(path, state) {
         const { node, scope, parent } = path;
-        const { program } = state;
+        // const { program, areBreezeHooksImported } = state;
 
         if (!isBreezeIdentifier(node)) return;
 
-        const styles = getSylesFromTaggedTemplateNode(node);
+        // const {
+        //   identifier: hookIdentifier,
+        //   path: hookPath,
+        // } = hookIdentifiers.get(path)!;
 
-        const platformStylesIdentifier = generatePlatformStylesHook(
-          scope as any,
-          styles
-        );
+        // console.log({ hookIdentifier, hookPath });
 
-        // Importing the React Stylesheet
-        // if (!state.hasStylesheetImport) {
-        //   importReactNativeStylesheet(program);
-        //   state.hasStylesheetImport = true;
+        // if (!areBreezeHooksImported) {
+        //   addUseBreezeImport(program);
+        //   state.areBreezeHooksImported = true;
         // }
 
-        // const idenfitiers = createStyleSheetForStyle(
+        // const styles = getSylesFromTaggedTemplateNode(node);
+
+        // const BreezeStylesIdentifier = generateBreezeStylesHook(
         //   scope as any,
-        //   state.program,
         //   styles
         // );
 
-        // console.log({ stylesheetIdentifier });
-
-        // path.scope.path.addComment('TESt');
-
-        // path.scope.path.traverse(CreateStyleSheetVisitor, { styles: "STYLE" });
-        //.traverse(CreateStyleSheetVisitor, { styles: "STYLE" })
-
-        // console.log({ state });
-
-        // path.parentPath.traverse(CreateStyleSheetVisitor, { styles: "STYLE" });
-        (path as any).replaceWith(
-          template.expression(
-            `{...${platformStylesIdentifier.name}.base.all}`
-          )()
-        );
-        // path.replaceWithSourceString(`...${platformStylesIdentifier.name}`);
-        // path.replaceWithSourceString(`{ color: 'red' }`);
+        // (path as any).replaceWith(
+        //   template.expression(
+        //     `{...${BreezeStylesIdentifier.name}.base.all}`
+        //   )()
+        // );
       },
     },
   };

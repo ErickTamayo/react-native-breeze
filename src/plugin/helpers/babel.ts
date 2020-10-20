@@ -2,7 +2,7 @@
 import template from "@babel/template";
 import * as t from "@babel/types";
 import babel from "babel-core";
-import { generateStyleFromInput, PlatformStyles } from "./styles";
+import { generateStyleFromInput, BreezeStyle } from "./styles";
 import { Scope, NodePath } from "@babel/traverse";
 
 export const isBreezeImport = (node: babel.types.ImportDeclaration) => {
@@ -67,12 +67,12 @@ export const importReactNativeStylesheet = (root: NodePath<t.Program>) => {
 export const createStyleSheetForStyle = (
   scope: Scope,
   root: NodePath<t.Program>,
-  styles: PlatformStyles
+  styles: BreezeStyle
 ) => {
   const variants = Object.keys(styles);
 
   const variantIdentifiers = variants.map((v) => {
-    // const platforms = Object.keys(styles[v as keyof PlatformStyles]);
+    // const platforms = Object.keys(styles[v as keyof BreezeStyle]);
 
     // ios?: MediaStyle;
     // android?: MediaStyle;
@@ -85,7 +85,7 @@ export const createStyleSheetForStyle = (
 
   // const
 
-  console.log({ variantIdentifiers });
+  // console.log({ variantIdentifiers });
 
   const stylesheetDeclaration = template(
     `const STYLESHEET = StyleSheet.create({
@@ -98,74 +98,60 @@ export const createStyleSheetForStyle = (
   });
 };
 
-export const generatePlatformStylesHook = (
-  scope: Scope,
-  styles: PlatformStyles
-) => {
-  const hookDeclaration = template(
-    `const PLATFORM_STYLES = React.useMemo(() => {
-      const styles = STYLES;
-      const isNative = Platform.OS === "android" || Platform.OS === "ios";
-
-      const defaultStyles = styles.default;
-      const osStyles = styles[Platform.OS] || {};
-      const nativeStyles = isNative ? (styles.native || {}) : {};
-
-      return mergeStyles([defaultStyles, nativeStyles, osStyles]);
-    }, [])`,
-    {
-      placeholderPattern: false,
-      placeholderWhitelist: new Set(["PLATFORM_STYLES", "STYLES"]),
-    }
-  );
+export const addBreezeHook = (scope: Scope, styles: BreezeStyle) => {
+  const hookDeclaration = template(`const HOOKIDENTIFIER = useBreeze(STYLES)`);
 
   const styleString = JSON.stringify(styles).replace(
     /\"([^(\")"]+)\":/g,
     "$1:"
   );
 
-  const platformStylesIdentifier = scope.generateUidIdentifier(
-    "platformStyles"
-  );
+  const identifier = scope.generateUidIdentifier("hook");
 
   const statement = hookDeclaration({
-    PLATFORM_STYLES: platformStylesIdentifier,
-    STYLES: template.expression(styleString)(),
+    HOOKIDENTIFIER: identifier,
+    STYLES: styleString,
   });
-
-  console.log({ scopePath: scope.path.get("body") });
 
   (scope.path.get("body") as any).unshiftContainer("body", statement);
 
-  return platformStylesIdentifier;
+  return identifier;
 };
 
-export const hasMergeStylesImport = (node: babel.types.ImportDeclaration) => {
+export const hasBreezeHookImport = (node: babel.types.ImportDeclaration) => {
   const { source, specifiers } = node;
 
-  const isReactNativeImport = t.isStringLiteral(source, {
+  const isBreezeImport = t.isStringLiteral(source, {
     value: "react-native-breeze",
   });
 
-  if (isReactNativeImport) {
+  if (isBreezeImport) {
     return specifiers.some((specifier) => {
       const { local } = specifier;
-      return t.isIdentifier(local, { name: "mergeStyles" });
+      return t.isIdentifier(local, { name: "useBreeze" });
     });
   }
 
   return false;
 };
 
-export const addMergeStylesImport = (
-  path: NodePath<babel.types.ImportDeclaration>
-) => {
-  const program = path.scope.getProgramParent();
-
+export const addUseBreezeImport = (root: NodePath<t.Program>) => {
   const importDeclaration = template(
-    `import { mergeStyles } from "react-native-breeze";`
+    `import { useBreeze } from "react-native-breeze";`
   );
 
-  // TODO fix typings
-  (program.path as any).pushContainer("body", importDeclaration());
+  // console.log({ root });
+
+  root.unshiftContainer("body", importDeclaration());
+};
+
+export const addForceResetComment = (path: NodePath) => {
+  const file = (path as any).hub.file as t.File;
+
+  if (!file.comments?.find(({ value }) => value === "@refresh reset")) {
+    file.comments?.push({
+      type: "CommentLine",
+      value: "@refresh reset",
+    } as any);
+  }
 };

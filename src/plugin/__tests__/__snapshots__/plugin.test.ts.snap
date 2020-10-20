@@ -1,30 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`react-native-breeze plugin Should compile breeze background color 1`] = `
-"var _reactNative = require(\\"react-native\\");
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
 
-var _reactNativeBreeze = require(\\"react-native-breeze\\");
+var _reactNative = require(\\"react-native\\");
 
 var Calendar = function Calendar() {
-  var _platformStyles = React.useMemo(function () {
-    var styles = {
-      default: {
-        base: {
-          all: {
-            backgroundColor: \\"#f56565\\"
-          }
-        }
-      }
-    };
-    var isNative = Platform.OS === \\"android\\" || Platform.OS === \\"ios\\";
-    var defaultStyles = styles.default;
-    var osStyles = styles[Platform.OS] || {};
-    var nativeStyles = isNative ? styles.native || {} : {};
-    return (0, _reactNativeBreeze.mergeStyles)([defaultStyles, nativeStyles, osStyles]);
-  }, []);
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{base:{all:{backgroundColor:\\"#f56565\\"}}}});
 
-  return React.createElement(_reactNative.View, { style: { ..._platformStyles.base.all
-    } });
+  return React.createElement(_reactNative.View, { style: _hook.styles.base.all });
 };"
 `;
 

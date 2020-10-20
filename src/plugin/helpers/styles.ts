@@ -14,27 +14,27 @@ export type ReactNativeStyle =
   | StyleProp<ImageStyle>
   | StyleProp<TextStyle>;
 
+export type VariantsStyle = {
+  focus?: ReactNativeStyle;
+  hover?: ReactNativeStyle;
+  landscape?: ReactNativeStyle;
+  portrait?: ReactNativeStyle;
+  base?: ReactNativeStyle;
+};
+
 export type MediaStyle = {
-  [media: number]: ReactNativeStyle;
-  all?: ReactNativeStyle;
+  [media: number]: VariantsStyle;
+  all?: VariantsStyle;
 };
 
-export type VariantsStyles = {
-  focus?: MediaStyle;
-  hover?: MediaStyle;
-  landscape?: MediaStyle;
-  portrait?: MediaStyle;
-  base?: MediaStyle;
-};
-
-export type PlatformStyles = {
-  [platform in PlatformOSType]?: VariantsStyles;
+export type BreezeStyle = {
+  [platform in PlatformOSType]?: MediaStyle;
 } & {
-  native?: VariantsStyles;
-  default?: VariantsStyles;
+  native?: MediaStyle;
+  default?: MediaStyle;
 };
 
-export const generateStyleFromInput = (input: string): PlatformStyles => {
+export const generateStyleFromInput = (input: string): BreezeStyle => {
   const variantKeys = ["focus", "hover", "landscape", "portrait"].join("|");
   const platformKeys = [
     "ios",
@@ -54,7 +54,7 @@ export const generateStyleFromInput = (input: string): PlatformStyles => {
     .map((v) => v.trim())
     .filter(Boolean);
 
-  return styleStrings.reduce<PlatformStyles>((acc, styleString) => {
+  return styleStrings.reduce<BreezeStyle>((acc, styleString) => {
     const result = regex.exec(styleString);
 
     if (!result) {
@@ -69,7 +69,7 @@ export const generateStyleFromInput = (input: string): PlatformStyles => {
       style,
     } = result.groups!;
 
-    const styleObject: Partial<VariantsStyles> = {
+    const styleObject: Partial<VariantsStyle> = {
       [platform]: {
         [variant]: {
           [theme(["screens", media], "all")]: getStyleFromString(style),

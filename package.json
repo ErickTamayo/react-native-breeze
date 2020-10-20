@@ -1,6 +1,6 @@
 {
   "name": "react-native-breeze",
-  "version": "0.0.3-alpha-12",
+  "version": "0.0.3-alpha-13",
   "description": "Utility-first style framework for React Native projects",
   "main": "dist/commonjs/index.js",
   "scripts": {
