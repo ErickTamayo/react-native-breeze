@@ -12,63 +12,51 @@ import {
   hasBreezeHookImport,
   addUseBreezeImport,
   addForceResetComment,
+  hasFocusStyles,
+  hasHoverStyles,
+  addHoverPropsToJSX,
 } from "./helpers/babel";
 import babel from "babel-core";
 import { Scope, NodePath } from "@babel/traverse";
 import { pattern } from "./plugins/alignContent";
 
 module.exports = (): PluginObj => {
-  let hookIdentifiers = new WeakMap<
-    any,
-    {
-      identifier: t.Identifier;
-      path: any;
-    }
-  >();
-
   const BreezeCallsVisitor: Visitor = {
-    TaggedTemplateExpression(path, state) {
-      const { node, scope } = path;
+    TaggedTemplateExpression(path) {
+      const { node } = path;
       if (!isBreezeIdentifier(node)) return;
 
-      const fnScope = path.scope.getFunctionParent();
+      const styles = getSylesFromTaggedTemplateNode(node);
 
-      const identifier = addBreezeHook(
-        fnScope as any,
-        getSylesFromTaggedTemplateNode(node)
-      );
+      const identifier = addBreezeHook(path as any, styles);
 
       (path as any).replaceWith(
-        template.expression(`${identifier.name}.styles.base.all`)()
+        template.expression(`${identifier.name}.style`)()
       );
 
-      // hookIdentifiers.set(path, addBreezeHook(fnScope as any));
+      const JSXParent = path.findParent((path) => path.isJSXOpeningElement());
 
-      // const identifier = addBreezeHook(fnScope as any);
+      // If is a JSX parent, add the hover and focus handlers if style have focus or hover
+      if (JSXParent) {
+        if (hasFocusStyles(node)) {
+          //
+        }
 
-      // console.log({ identifier });
+        if (hasHoverStyles(node)) {
+          addHoverPropsToJSX(identifier, JSXParent as any);
+        }
 
-      // console.log("HERE");
+        return;
+      }
 
-      // // Add random hooks
-      // const count = Math.floor(Math.random() * 6) + 1;
+      // If is a variable declaration, find the JSX bindings to assing to them
+      const variableDeclaration = path.findParent((path) =>
+        path.isVariableDeclaration()
+      );
 
-      // const hookDeclaration = template(
-      //   `const MEMOVAR = React.useMemo(() => MEMO, [])`
-      // );
-
-      // console.log({ count });
-
-      // for (let index = 0; index < count; index++) {
-      //   const memoIdentifier = scope.generateUidIdentifier("memo");
-
-      //   const statement = hookDeclaration({
-      //     MEMOVAR: memoIdentifier,
-      //     MEMO: t.stringLiteral(`${index}`),
-      //   });
-
-      //   (fnScope.path.get("body") as any).unshiftContainer("body", statement);
-      // }
+      if (variableDeclaration) {
+        // TODO: traverse the parent scope to find JSX that references to a variable
+      }
     },
   };
 
@@ -85,45 +73,6 @@ module.exports = (): PluginObj => {
         if (isBreezeImport(node) && !hasBreezeHookImport(node)) {
           addUseBreezeImport(state.program);
         }
-
-        // const { program } = state;
-        // if (!hasBreezeHookImport(node)) {
-        //   addUseBreezeImport(program);
-        // }
-      },
-      FunctionDeclaration(path, state) {
-        path.traverse;
-      },
-      TaggedTemplateExpression(path, state) {
-        const { node, scope, parent } = path;
-        // const { program, areBreezeHooksImported } = state;
-
-        if (!isBreezeIdentifier(node)) return;
-
-        // const {
-        //   identifier: hookIdentifier,
-        //   path: hookPath,
-        // } = hookIdentifiers.get(path)!;
-
-        // console.log({ hookIdentifier, hookPath });
-
-        // if (!areBreezeHooksImported) {
-        //   addUseBreezeImport(program);
-        //   state.areBreezeHooksImported = true;
-        // }
-
-        // const styles = getSylesFromTaggedTemplateNode(node);
-
-        // const BreezeStylesIdentifier = generateBreezeStylesHook(
-        //   scope as any,
-        //   styles
-        // );
-
-        // (path as any).replaceWith(
-        //   template.expression(
-        //     `{...${BreezeStylesIdentifier.name}.base.all}`
-        //   )()
-        // );
       },
     },
   };

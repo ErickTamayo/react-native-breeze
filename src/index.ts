@@ -1,5 +1,5 @@
 import merge from "deepmerge";
-import isPlainObject from "is-plain-object";
+import { isPlainObject } from "is-plain-object";
 import { useCallback, useMemo } from "react";
 import {
   StyleProp,
@@ -8,7 +8,7 @@ import {
   TextStyle,
   Platform,
 } from "react-native";
-import { BreezeStyles } from "./plugin/helpers/styles";
+export { useBreeze } from "./hooks/useBreeze";
 
 let warningEmitted = false;
 
@@ -46,18 +46,4 @@ br.value = <T extends ValueType>(
 
 export const mergeStyles = (styles: any[]) => {
   return merge.all(styles, { isMergeableObject: isPlainObject as any });
-};
-
-export const useBreezeStyles = (BreezeStyles: BreezeStyles) => {
-  const computedBreezeStyles = useMemo(() => {
-    const isNative = Platform.OS === "android" || Platform.OS === "ios";
-
-    const defaultStyles = BreezeStyles.default || {};
-    const osStyles = BreezeStyles[Platform.OS] || {};
-    const nativeStyles = isNative ? BreezeStyles.native || {} : {};
-
-    return mergeStyles([defaultStyles, nativeStyles, osStyles]);
-  }, []);
-
-  return { styles: computedBreezeStyles };
 };

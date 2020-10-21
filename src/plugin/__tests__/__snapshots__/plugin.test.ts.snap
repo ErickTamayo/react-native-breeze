@@ -1,15 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`react-native-breeze plugin Should compile breeze background color 1`] = `
+exports[`react-native-breeze plugin should apply hover correctly 1`] = `
 "var _reactNativeBreeze = require(\\"react-native-breeze\\");
 
 var _reactNative = require(\\"react-native\\");
 
 var Calendar = function Calendar() {
-  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{base:{all:{backgroundColor:\\"#f56565\\"}}}});
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{hover:{backgroundColor:\\"#f56565\\"}}}});
 
-  return React.createElement(_reactNative.View, { style: _hook.styles.base.all });
+  return React.createElement(_reactNative.View, { style: _hook.style, onMouseEnter: _hook.handleOnMouseEnter,
+    onMouseLeave: _hook.handleOnMouseLeave
+  });
 };"
 `;
 
-exports[`react-native-breeze plugin Should compile regular style 1`] = `"var _reactNative=require(\\"react-native\\");var Component=function Component(){return React.createElement(_reactNative.View,{style:{backgroundColor:\\"red\\"}});};"`;
+exports[`react-native-breeze plugin should compile both breeze and regular styles 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Calendar = function Calendar() {
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{base:{backgroundColor:\\"#f56565\\"}}}});
+
+  return React.createElement(_reactNative.View, { style: [_hook.style, { height: 10 }] });
+};"
+`;
+
+exports[`react-native-breeze plugin should compile breeze styles 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Calendar = function Calendar() {
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{base:{backgroundColor:\\"#f56565\\"}}}});
+
+  return React.createElement(_reactNative.View, { style: _hook.style });
+};"
+`;
+
+exports[`react-native-breeze plugin should compile regular style 1`] = `
+"var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  return React.createElement(_reactNative.View, { style: { backgroundColor: \\"red\\" } });
+};"
+`;
+
+exports[`react-native-breeze plugin should not apply hover if var is not binded to a JSX 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Calendar = function Calendar() {
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{hover:{backgroundColor:\\"#f56565\\"}}}});
+
+  var noBind = _hook.style;
+  return React.createElement(_reactNative.View, { style: {} });
+};"
+`;

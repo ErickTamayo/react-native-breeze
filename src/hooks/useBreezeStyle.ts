@@ -3,7 +3,7 @@ import { Platform } from "react-native";
 import { mergeObjects } from "../helpers/objects";
 import { BreezeStyle, MediaStyle } from "../plugin/helpers/styles";
 
-export const useBreezeStyle = (breezeStyle: BreezeStyle): MediaStyle =>
+const useBreezeStyle = (breezeStyle: BreezeStyle): MediaStyle =>
   useMemo(() => {
     const isNative = Platform.OS === "android" || Platform.OS === "ios";
 
@@ -13,3 +13,5 @@ export const useBreezeStyle = (breezeStyle: BreezeStyle): MediaStyle =>
 
     return mergeObjects([defaultStyles, nativeStyles, osStyles]) as MediaStyle;
   }, []);
+
+export default useBreezeStyle;

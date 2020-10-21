@@ -40,6 +40,22 @@ export const getSylesFromTaggedTemplateNode = (
   return generateStyleFromInput(input);
 };
 
+export const hasFocusStyles = (node: babel.types.TaggedTemplateExpression) => {
+  const {
+    quasi: { quasis },
+  } = node;
+
+  return quasis.some((q) => q.value.raw.match(/focus:/));
+};
+
+export const hasHoverStyles = (node: babel.types.TaggedTemplateExpression) => {
+  const {
+    quasi: { quasis },
+  } = node;
+
+  return quasis.some((q) => q.value.raw.match(/hover:/));
+};
+
 export const isStyleSheetIsImported = (node: babel.types.ImportDeclaration) => {
   const { source, specifiers } = node;
 
@@ -98,7 +114,10 @@ export const createStyleSheetForStyle = (
   });
 };
 
-export const addBreezeHook = (scope: Scope, styles: BreezeStyle) => {
+export const addBreezeHook = (
+  path: NodePath<babel.types.TaggedTemplateExpression>,
+  styles: BreezeStyle
+) => {
   const hookDeclaration = template(`const HOOKIDENTIFIER = useBreeze(STYLES)`);
 
   const styleString = JSON.stringify(styles).replace(
@@ -106,14 +125,22 @@ export const addBreezeHook = (scope: Scope, styles: BreezeStyle) => {
     "$1:"
   );
 
-  const identifier = scope.generateUidIdentifier("hook");
+  const functionParent = path.findParent((path) => path.isFunction());
+
+  if (!functionParent) {
+    throw new Error(
+      'Invalid declaration of "br" template literal: Template literal should be declared inside a Function Component'
+    );
+  }
+
+  const identifier = functionParent.scope.generateUidIdentifier("hook");
 
   const statement = hookDeclaration({
     HOOKIDENTIFIER: identifier,
     STYLES: styleString,
   });
 
-  (scope.path.get("body") as any).unshiftContainer("body", statement);
+  (functionParent.get("body") as any).unshiftContainer("body", statement);
 
   return identifier;
 };
@@ -140,8 +167,6 @@ export const addUseBreezeImport = (root: NodePath<t.Program>) => {
     `import { useBreeze } from "react-native-breeze";`
   );
 
-  // console.log({ root });
-
   root.unshiftContainer("body", importDeclaration());
 };
 
@@ -154,4 +179,26 @@ export const addForceResetComment = (path: NodePath) => {
       value: "@refresh reset",
     } as any);
   }
+};
+
+export const addHoverPropsToJSX = (
+  identifier: t.Identifier,
+  JSXPath: NodePath<t.JSXOpeningElement>
+) => {
+  const onMouseEnter = t.jsxAttribute(
+    t.jsxIdentifier("onMouseEnter"),
+    t.jsxExpressionContainer(
+      template.expression(`${identifier.name}.handleOnMouseEnter`)()
+    )
+  );
+
+  const onMouseLeave = t.jsxAttribute(
+    t.jsxIdentifier("onMouseLeave"),
+    t.jsxExpressionContainer(
+      template.expression(`${identifier.name}.handleOnMouseLeave`)()
+    )
+  );
+
+  JSXPath.node.attributes.push(onMouseEnter);
+  JSXPath.node.attributes.push(onMouseLeave);
 };

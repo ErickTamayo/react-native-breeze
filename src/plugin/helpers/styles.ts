@@ -71,8 +71,8 @@ export const generateStyleFromInput = (input: string): BreezeStyle => {
 
     const styleObject: Partial<VariantsStyle> = {
       [platform]: {
-        [variant]: {
-          [theme(["screens", media], "all")]: getStyleFromString(style),
+        [theme(["screens", media], "all")]: {
+          [variant]: getStyleFromString(style),
         },
       },
     };
