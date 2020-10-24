@@ -1,16 +1,44 @@
-// import { NodePath } from "@babel/core";
 import template from "@babel/template";
 import * as t from "@babel/types";
-import babel from "babel-core";
-import { generateStyleFromInput, PlatformStyles } from "./styles";
-import { Scope, NodePath } from "@babel/traverse";
+import { NodePath } from "@babel/traverse";
+import babel from "@babel/core";
+import { generateStyleFromInput, BreezeStyle } from "./styles";
+import { toJson } from "./objects";
 
-export const isBreezeImport = (node: babel.types.ImportDeclaration) => {
+export const isBreezeImport = (path: NodePath<t.ImportDeclaration>) => {
   const opts = { value: "react-native-breeze" };
-  return t.isStringLiteral(node.source, opts);
+  return t.isStringLiteral(path.node.source, opts);
 };
 
-export const isBreezeIdentifier = (
+export const isBreeze = (path: NodePath<t.TaggedTemplateExpression>) => {
+  return t.isIdentifier(path.node.tag, { name: "br" });
+};
+
+export const isBreezeValue = (
+  path: NodePath<babel.types.TaggedTemplateExpression>
+) => {
+  const tag = (path.node.tag as any) as t.MemberExpression;
+
+  return (
+    t.isMemberExpression(tag) &&
+    t.isIdentifier(tag.object, { name: "br" }) &&
+    t.isIdentifier(tag.property, { name: "value" })
+  );
+};
+
+export const isBreezeRaw = (
+  path: NodePath<babel.types.TaggedTemplateExpression>
+) => {
+  const tag = (path.node.tag as any) as t.MemberExpression;
+
+  return (
+    t.isMemberExpression(tag) &&
+    t.isIdentifier(tag.object, { name: "br" }) &&
+    t.isIdentifier(tag.property, { name: "raw" })
+  );
+};
+
+export const isBreezeValueIdentifier = (
   node: babel.types.TaggedTemplateExpression
 ) => {
   return t.isIdentifier(node.tag, { name: "br" });
@@ -40,132 +68,267 @@ export const getSylesFromTaggedTemplateNode = (
   return generateStyleFromInput(input);
 };
 
-export const isStyleSheetIsImported = (node: babel.types.ImportDeclaration) => {
-  const { source, specifiers } = node;
+export const hasFocusStyles = (node: babel.types.TaggedTemplateExpression) => {
+  const {
+    quasi: { quasis },
+  } = node;
 
-  const isReactNativeImport = t.isStringLiteral(source, {
-    value: "react-native",
-  });
+  return quasis.some((q) => q.value.raw.match(/focus:/));
+};
 
-  if (isReactNativeImport) {
-    return specifiers.some((specifier) => {
-      const { local } = specifier;
-      return t.isIdentifier(local, { name: "Stylesheet" });
-    });
+export const hasHoverStyles = (node: babel.types.TaggedTemplateExpression) => {
+  const {
+    quasi: { quasis },
+  } = node;
+
+  return quasis.some((q) => q.value.raw.match(/hover:/));
+};
+
+export const addBreezeHook = (
+  path: NodePath<babel.types.TaggedTemplateExpression>,
+  styles: BreezeStyle
+) => {
+  const hookDeclaration = template(`const HOOKIDENTIFIER = useBreeze(STYLES)`);
+
+  const functionParent = path.findParent((path) => path.isFunction());
+
+  if (!functionParent) {
+    throw new Error(
+      'Invalid declaration of "br" template literal: Template literal should be declared inside a Function Component'
+    );
   }
 
-  return false;
-};
-
-export const importReactNativeStylesheet = (root: NodePath<t.Program>) => {
-  const importDeclaration = template(
-    `import { StyleSheet } from "react-native";`
-  );
-  root.unshiftContainer("body", importDeclaration());
-};
-
-export const createStyleSheetForStyle = (
-  scope: Scope,
-  root: NodePath<t.Program>,
-  styles: PlatformStyles
-) => {
-  const variants = Object.keys(styles);
-
-  const variantIdentifiers = variants.map((v) => {
-    // const platforms = Object.keys(styles[v as keyof PlatformStyles]);
-
-    // ios?: MediaStyle;
-    // android?: MediaStyle;
-    // web?: MediaStyle;
-    // native?: MediaStyle;
-    // default?: MediaStyle;
-
-    return scope.generateUidIdentifier(`${v}_styles`);
-  });
-
-  // const
-
-  console.log({ variantIdentifiers });
-
-  const stylesheetDeclaration = template(
-    `const STYLESHEET = StyleSheet.create({
-      
-    })`
-  );
-
-  variantIdentifiers.forEach((vi) => {
-    root.unshiftContainer("body", stylesheetDeclaration({ STYLESHEET: vi }));
-  });
-};
-
-export const generatePlatformStylesHook = (
-  scope: Scope,
-  styles: PlatformStyles
-) => {
-  const hookDeclaration = template(
-    `const PLATFORM_STYLES = React.useMemo(() => {
-      const styles = STYLES;
-      const isNative = Platform.OS === "android" || Platform.OS === "ios";
-
-      const defaultStyles = styles.default;
-      const osStyles = styles[Platform.OS] || {};
-      const nativeStyles = isNative ? (styles.native || {}) : {};
-
-      return mergeStyles([defaultStyles, nativeStyles, osStyles]);
-    }, [])`,
-    {
-      placeholderPattern: false,
-      placeholderWhitelist: new Set(["PLATFORM_STYLES", "STYLES"]),
-    }
-  );
-
-  const styleString = JSON.stringify(styles).replace(
-    /\"([^(\")"]+)\":/g,
-    "$1:"
-  );
-
-  const platformStylesIdentifier = scope.generateUidIdentifier(
-    "platformStyles"
-  );
+  const identifier = functionParent.scope.generateUidIdentifier("hook");
 
   const statement = hookDeclaration({
-    PLATFORM_STYLES: platformStylesIdentifier,
-    STYLES: template.expression(styleString)(),
+    HOOKIDENTIFIER: identifier,
+    STYLES: toJson(styles),
   });
 
-  console.log({ scopePath: scope.path.get("body") });
+  (functionParent.get("body") as any).unshiftContainer("body", statement);
 
-  (scope.path.get("body") as any).unshiftContainer("body", statement);
-
-  return platformStylesIdentifier;
+  return identifier;
 };
 
-export const hasMergeStylesImport = (node: babel.types.ImportDeclaration) => {
-  const { source, specifiers } = node;
+export const hasBreezeHookImport = (path: NodePath<t.ImportDeclaration>) => {
+  const {
+    node: { source, specifiers },
+  } = path;
 
-  const isReactNativeImport = t.isStringLiteral(source, {
+  const isBreezeImport = t.isStringLiteral(source, {
     value: "react-native-breeze",
   });
 
-  if (isReactNativeImport) {
+  if (isBreezeImport) {
     return specifiers.some((specifier) => {
       const { local } = specifier;
-      return t.isIdentifier(local, { name: "mergeStyles" });
+      return t.isIdentifier(local, { name: "useBreeze" });
     });
   }
 
   return false;
 };
 
-export const addMergeStylesImport = (
-  path: NodePath<babel.types.ImportDeclaration>
-) => {
-  const program = path.scope.getProgramParent();
-
+export const addUseBreezeImport = (root: NodePath<t.Program>) => {
   const importDeclaration = template(
-    `import { mergeStyles } from "react-native-breeze";`
+    `import { useBreeze } from "react-native-breeze";`
   );
 
-  // TODO fix typings
-  (program.path as any).pushContainer("body", importDeclaration());
+  root.unshiftContainer("body", importDeclaration());
+};
+
+const getAttributeValueExpressionFromJSX = (
+  JSXPath: NodePath<t.JSXOpeningElement>,
+  name: string
+) => {
+  // Try to find the single attribute first
+  const JSXAttributeWithExpression = JSXPath.node.attributes.find(
+    (attribute) => {
+      return (
+        t.isJSXAttribute(attribute, { type: "JSXAttribute" }) &&
+        t.isJSXIdentifier(attribute.name, { name }) &&
+        t.isJSXExpressionContainer(attribute.value)
+      );
+    }
+  ) as t.JSXAttribute;
+
+  if (JSXAttributeWithExpression) {
+    const expressionContainer = JSXAttributeWithExpression.value as t.JSXExpressionContainer;
+    return expressionContainer.expression;
+  }
+
+  // Try to find all the spread attribute to default to them
+  const JSXSpreadAttributes = JSXPath.node.attributes
+    .filter((attribute) => t.isJSXSpreadAttribute(attribute))
+    .reverse() as t.JSXSpreadAttribute[];
+
+  if (JSXSpreadAttributes.length !== 0) {
+    const identifiers = JSXSpreadAttributes.map(
+      (a) => a.argument as t.Identifier
+    );
+    const whitelist = identifiers.map((_, index) => `SPREAD_${index}`);
+
+    const substitutions = identifiers.reduce(
+      (acc, identifier, index) => ({
+        ...acc,
+        [`SPREAD_${index}`]: {
+          ...identifier,
+          name: `${identifier.name}.${name}`,
+        },
+      }),
+      {}
+    );
+
+    const expression = template.expression(whitelist.join(" || "), {
+      placeholderPattern: false,
+      placeholderWhitelist: new Set(whitelist),
+    })(substitutions);
+
+    return expression;
+  }
+
+  return null;
+};
+
+const filterJSXAttributesFn = (names: string[]) => (
+  attribute: t.JSXAttribute | t.JSXSpreadAttribute
+) => {
+  if (t.isJSXAttribute(attribute, { type: "JSXAttribute" })) {
+    return !names.some((name) => t.isJSXIdentifier(attribute.name, { name }));
+  }
+  return true;
+};
+
+export const addHoverPropsToJSX = (
+  identifier: t.Identifier,
+  JSXPath: NodePath<t.JSXOpeningElement>
+) => {
+  // TODO check for spread attributesand include it if necessary
+  const previousOnMouseEnter = getAttributeValueExpressionFromJSX(
+    JSXPath,
+    "onMouseEnter"
+  );
+  const previousOnMouseLeave = getAttributeValueExpressionFromJSX(
+    JSXPath,
+    "onMouseLeave"
+  );
+
+  const onMouseEnter = t.jsxAttribute(
+    t.jsxIdentifier("onMouseEnter"),
+    t.jsxExpressionContainer(
+      template.expression(`${identifier.name}.handleOnMouseEnter(PREVIOUS)`)({
+        PREVIOUS: previousOnMouseEnter,
+      })
+    )
+  );
+
+  const onMouseLeave = t.jsxAttribute(
+    t.jsxIdentifier("onMouseLeave"),
+    t.jsxExpressionContainer(
+      template.expression(`${identifier.name}.handleOnMouseLeave(PREVIOUS)`)({
+        PREVIOUS: previousOnMouseLeave,
+      })
+    )
+  );
+
+  JSXPath.node.attributes = JSXPath.node.attributes.filter(
+    filterJSXAttributesFn(["onMouseEnter", "onMouseLeave"])
+  );
+
+  JSXPath.node.attributes.push(onMouseEnter);
+  JSXPath.node.attributes.push(onMouseLeave);
+};
+
+export const addFocusPropsToJSX = (
+  identifier: t.Identifier,
+  JSXPath: NodePath<t.JSXOpeningElement>
+) => {
+  const previousOnFocus = getAttributeValueExpressionFromJSX(
+    JSXPath,
+    "onFocus"
+  );
+  const previousOnBlur = getAttributeValueExpressionFromJSX(JSXPath, "onBlur");
+
+  const onFocus = t.jsxAttribute(
+    t.jsxIdentifier("onFocus"),
+    t.jsxExpressionContainer(
+      template.expression(`${identifier.name}.handleOnFocus(PREVIOUS)`)({
+        PREVIOUS: previousOnFocus,
+      })
+    )
+  );
+
+  const onBlur = t.jsxAttribute(
+    t.jsxIdentifier("onBlur"),
+    t.jsxExpressionContainer(
+      template.expression(`${identifier.name}.handleOnBlur(PREVIOUS)`)({
+        PREVIOUS: previousOnBlur,
+      })
+    )
+  );
+
+  JSXPath.node.attributes = JSXPath.node.attributes.filter(
+    filterJSXAttributesFn(["onFocus", "onBlur"])
+  );
+
+  JSXPath.node.attributes.push(onFocus);
+  JSXPath.node.attributes.push(onBlur);
+};
+
+export const handleBreeze = (path: NodePath<t.TaggedTemplateExpression>) => {
+  const { node } = path;
+
+  const styles = getSylesFromTaggedTemplateNode(node);
+
+  const identifier = addBreezeHook(path, styles);
+
+  path.replaceWith(template.expression(`${identifier.name}.style`)());
+
+  const JSXParent = path.findParent((path) => path.isJSXOpeningElement());
+
+  // If is a JSX parent, add the hover and focus handlers if style have focus or hover
+  if (JSXParent) {
+    if (hasFocusStyles(node)) {
+      addFocusPropsToJSX(
+        identifier,
+        JSXParent as NodePath<t.JSXOpeningElement>
+      );
+    }
+
+    if (hasHoverStyles(node)) {
+      addHoverPropsToJSX(
+        identifier,
+        JSXParent as NodePath<t.JSXOpeningElement>
+      );
+    }
+
+    return;
+  }
+
+  // If is a variable declaration, find the JSX bindings to assing to them
+  const variableDeclaration = path.findParent((path) =>
+    path.isVariableDeclaration()
+  );
+
+  if (variableDeclaration) {
+    // TODO: traverse the parent scope to find JSX that references to a variable
+  }
+};
+
+export const handleBreezeValue = (
+  path: NodePath<t.TaggedTemplateExpression>
+) => {
+  const { node } = path;
+  const styles = getSylesFromTaggedTemplateNode(node);
+  const value = Object.values(styles.default?.all?.base || {})[0];
+
+  path.replaceWith(template.expression(`${JSON.stringify(value)}`)());
+};
+
+export const handleBreezeRaw = (path: NodePath<t.TaggedTemplateExpression>) => {
+  const { node } = path;
+  const styles = getSylesFromTaggedTemplateNode(node);
+  const raw = toJson(styles.default?.all?.base || {});
+
+  path.replaceWith(template.expression(raw)());
 };

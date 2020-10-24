@@ -1,90 +1,45 @@
 import * as t from "@babel/types";
-
-import template from "@babel/template";
-import { PluginObj, Visitor } from "babel-core";
+import { NodePath, PluginObj, PluginPass, Visitor } from "@babel/core";
 import {
-  isBreezeIdentifier,
-  getSylesFromTaggedTemplateNode,
+  isBreeze,
+  isBreezeValue,
+  isBreezeRaw,
+  handleBreeze,
+  handleBreezeValue,
+  handleBreezeRaw,
   isBreezeImport,
-  isStyleSheetIsImported,
-  importReactNativeStylesheet,
-  createStyleSheetForStyle,
-  generatePlatformStylesHook,
-  hasMergeStylesImport,
-  addMergeStylesImport,
+  hasBreezeHookImport,
+  addUseBreezeImport,
 } from "./helpers/babel";
-import babel from "babel-core";
-import { Scope, NodePath } from "@babel/traverse";
-import { pattern } from "./plugins/alignContent";
 
-const CreateStyleSheetVisitor: Visitor<any> = {
-  Program(path) {
-    // console.log("PROGRAM");
-  },
-  Function(path) {
-    // console.log("FUNCTION");
-  },
-  enter(path) {
-    console.log(path.node.type);
-  },
-};
+interface State extends PluginPass {
+  program: NodePath<t.Program>;
+}
 
-module.exports = (): PluginObj => {
+module.exports = (): PluginObj<State> => {
+  const BreezeCallsVisitor: Visitor = {
+    TaggedTemplateExpression(path) {
+      if (isBreeze(path)) {
+        handleBreeze(path);
+      } else if (isBreezeValue(path)) {
+        handleBreezeValue(path);
+      } else if (isBreezeRaw(path)) {
+        handleBreezeRaw(path);
+      }
+    },
+  };
+
   return {
     name: "react-native-breeze",
     visitor: {
       Program(path, state) {
+        path.traverse(BreezeCallsVisitor);
         state.program = path;
       },
       ImportDeclaration(path, state) {
-        const { node } = path;
-
-        if (!hasMergeStylesImport(node)) {
-          addMergeStylesImport(path as any);
+        if (isBreezeImport(path) && !hasBreezeHookImport(path)) {
+          addUseBreezeImport(state.program);
         }
-      },
-      TaggedTemplateExpression(path, state) {
-        const { node, scope, parent } = path;
-        const { program } = state;
-
-        if (!isBreezeIdentifier(node)) return;
-
-        const styles = getSylesFromTaggedTemplateNode(node);
-
-        const platformStylesIdentifier = generatePlatformStylesHook(
-          scope as any,
-          styles
-        );
-
-        // Importing the React Stylesheet
-        // if (!state.hasStylesheetImport) {
-        //   importReactNativeStylesheet(program);
-        //   state.hasStylesheetImport = true;
-        // }
-
-        // const idenfitiers = createStyleSheetForStyle(
-        //   scope as any,
-        //   state.program,
-        //   styles
-        // );
-
-        // console.log({ stylesheetIdentifier });
-
-        // path.scope.path.addComment('TESt');
-
-        // path.scope.path.traverse(CreateStyleSheetVisitor, { styles: "STYLE" });
-        //.traverse(CreateStyleSheetVisitor, { styles: "STYLE" })
-
-        // console.log({ state });
-
-        // path.parentPath.traverse(CreateStyleSheetVisitor, { styles: "STYLE" });
-        (path as any).replaceWith(
-          template.expression(
-            `{...${platformStylesIdentifier.name}.base.all}`
-          )()
-        );
-        // path.replaceWithSourceString(`...${platformStylesIdentifier.name}`);
-        // path.replaceWithSourceString(`{ color: 'red' }`);
       },
     },
   };

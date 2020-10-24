@@ -1,6 +1,5 @@
-import merge from "deepmerge";
-import isPlainObject from "is-plain-object";
-import { StyleProp, ViewStyle, ImageStyle, TextStyle } from "react-native";
+import { ViewProps, ImageProps, TextProps } from "react-native";
+export { useBreeze } from "./hooks";
 
 let warningEmitted = false;
 
@@ -14,9 +13,9 @@ const emitError = () => {
 };
 
 type BreezeStyle =
-  | StyleProp<ViewStyle>
-  | StyleProp<ImageStyle>
-  | StyleProp<TextStyle>;
+  | ViewProps["style"]
+  | ImageProps["style"]
+  | TextProps["style"];
 
 export const br = (
   stylesArray: TemplateStringsArray,
@@ -26,16 +25,12 @@ export const br = (
   return {};
 };
 
-type ValueType = string | number | undefined;
-
-br.value = <T extends ValueType>(
-  stylesArray: TemplateStringsArray,
-  ...variables: string[]
-): T => {
+br.value = (stylesArray: TemplateStringsArray, ...variables: string[]): any => {
   emitError();
   return undefined as any;
 };
 
-export const mergeStyles = (styles: any[]) => {
-  return merge.all(styles, { isMergeableObject: isPlainObject as any });
+br.raw = (stylesArray: TemplateStringsArray, ...variables: string[]): any => {
+  emitError();
+  return undefined as any;
 };
