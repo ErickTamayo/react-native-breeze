@@ -1,32 +1,41 @@
+import { useMemo } from "react";
 import { BreezeStyle } from "../plugin/helpers/styles";
+import { mergeObjects } from "../helpers/objects";
 import useMediaStyle from "./useMediaStyle";
 import useBreezeStyle from "./useBreezeStyle";
+import useFocus from "./useFocus";
 import useHover from "./useHover";
-import { mergeObjects } from "../helpers/objects";
-import { useMemo } from "react";
+import useOrientation from "./useOrientation";
 
-export const useBreeze = (
-  breezeStyle: BreezeStyle,
-  onMouseEnter?: any,
-  onMouseLeave?: any
-) => {
+export const useBreeze = (breezeStyle: BreezeStyle) => {
   const mediaStyle = useBreezeStyle(breezeStyle);
+
   const variantStyle = useMediaStyle(mediaStyle);
 
-  // const { orientationStyle } = useOrientation(variantStyle);
+  const orientationStyle = useOrientation(variantStyle);
+
   const { hoverStyle, handleOnMouseEnter, handleOnMouseLeave } = useHover(
-    variantStyle,
-    onMouseEnter,
-    onMouseLeave
+    variantStyle
   );
 
-  // const { focusStyle, onFocus, onBlur } = useFocus(variantStyle);
+  const { focusStyle, handleOnFocus, handleOnBlur } = useFocus(variantStyle);
 
   const style = useMemo(
-    () => mergeObjects([variantStyle.base || {}, hoverStyle]),
-    [hoverStyle]
+    () =>
+      mergeObjects([
+        variantStyle.base || {},
+        orientationStyle,
+        hoverStyle,
+        focusStyle,
+      ]),
+    [variantStyle, orientationStyle, hoverStyle, focusStyle]
   );
 
-  // return { style: variantStyle, onMouseEnter, onMouseLeave, onFocus, onBlur };
-  return { style, handleOnMouseEnter, handleOnMouseLeave };
+  return {
+    style,
+    handleOnMouseEnter,
+    handleOnMouseLeave,
+    handleOnFocus,
+    handleOnBlur,
+  };
 };

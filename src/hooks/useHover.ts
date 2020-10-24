@@ -2,30 +2,28 @@ import { useMemo, useCallback, useState } from "react";
 import { ReactNativeStyle, VariantsStyle } from "../plugin/helpers/styles";
 
 const useHover = (
-  style: VariantsStyle,
-  onMouseEnter?: (e: any) => void,
-  onMouseLeave?: (e: any) => void
+  style: VariantsStyle
 ): {
   hoverStyle: ReactNativeStyle;
-  handleOnMouseEnter: (e: any) => void;
-  handleOnMouseLeave: (e: any) => void;
+  handleOnMouseEnter: (onMouseEnter?: any) => (e: any) => void;
+  handleOnMouseLeave: (onMouseLeave?: any) => (e: any) => void;
 } => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleOnMouseEnter = useCallback(
-    (e) => {
+    (onMouseEnter?: any) => (e: any) => {
       onMouseEnter?.(e);
       setIsHovered(true);
     },
-    [style, onMouseEnter]
+    [setIsHovered]
   );
 
   const handleOnMouseLeave = useCallback(
-    (e) => {
+    (onMouseLeave?: any) => (e: any) => {
       onMouseLeave?.(e);
       setIsHovered(false);
     },
-    [onMouseLeave]
+    [setIsHovered]
   );
 
   const hoverStyle = useMemo(() => (isHovered ? style.hover || {} : {}), [

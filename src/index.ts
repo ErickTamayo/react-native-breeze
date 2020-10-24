@@ -1,14 +1,7 @@
 import merge from "deepmerge";
 import { isPlainObject } from "is-plain-object";
-import { useCallback, useMemo } from "react";
-import {
-  StyleProp,
-  ViewStyle,
-  ImageStyle,
-  TextStyle,
-  Platform,
-} from "react-native";
-export { useBreeze } from "./hooks/useBreeze";
+import { StyleProp, ViewStyle, ImageStyle, TextStyle } from "react-native";
+export { useBreeze } from "./hooks";
 
 let warningEmitted = false;
 
@@ -34,12 +27,12 @@ export const br = (
   return {};
 };
 
-type ValueType = string | number | undefined;
+br.value = (stylesArray: TemplateStringsArray, ...variables: string[]): any => {
+  emitError();
+  return undefined as any;
+};
 
-br.value = <T extends ValueType>(
-  stylesArray: TemplateStringsArray,
-  ...variables: string[]
-): T => {
+br.raw = (stylesArray: TemplateStringsArray, ...variables: string[]): any => {
   emitError();
   return undefined as any;
 };

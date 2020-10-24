@@ -21,3 +21,6 @@ export const flattenObject = memoize(
   },
   { strategy: memoize.strategies.variadic }
 );
+
+export const toJson = (obj: any) =>
+  JSON.stringify(obj).replace(/\"([^(\")"]+)\":/g, "$1:");

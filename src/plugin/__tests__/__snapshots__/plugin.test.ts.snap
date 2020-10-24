@@ -1,6 +1,93 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`react-native-breeze plugin should apply hover correctly 1`] = `
+exports[`react-native-breeze plugin br should apply focus correctly 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Calendar = function Calendar() {
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{focus:{backgroundColor:\\"#f56565\\"}}}});
+
+  return React.createElement(_reactNative.View, { style: _hook.style, onFocus: _hook.handleOnFocus(),
+    onBlur: _hook.handleOnBlur()
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply focus handlers to mutiple spread proactively 1`] = `
+"var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Calendar = function Calendar(props) {
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{focus:{backgroundColor:\\"#f56565\\"}}}});
+
+  var otherProps = {};
+
+  return React.createElement(_reactNative.View, _extends({ style: _hook.style }, props, otherProps, {
+    onFocus: _hook.handleOnFocus(otherProps.onFocus || props.onFocus),
+    onBlur: _hook.handleOnBlur(otherProps.onBlur || props.onBlur)
+  }));
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply focus handlers to spread proactively 1`] = `
+"var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Calendar = function Calendar(props) {
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{focus:{backgroundColor:\\"#f56565\\"}}}});
+
+  return React.createElement(_reactNative.View, _extends({ style: _hook.style }, props, {
+    onFocus: _hook.handleOnFocus(props.onFocus),
+    onBlur: _hook.handleOnBlur(props.onBlur)
+  }));
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply focus if there is a prop already correctly 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Calendar = function Calendar() {
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{focus:{backgroundColor:\\"#f56565\\"}}}});
+
+  var handleOnFocus = function handleOnFocus() {};
+  var handleOnBlur = function handleOnBlur() {};
+
+  return React.createElement(_reactNative.View, { style: _hook.style, onFocus: _hook.handleOnFocus(handleOnFocus),
+    onBlur: _hook.handleOnBlur(handleOnBlur)
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply focus if there is an spread and a prop already correctly 1`] = `
+"var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Calendar = function Calendar(props) {
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{focus:{backgroundColor:\\"#f56565\\"}}}});
+
+  var handleOnFocus = function handleOnFocus() {};
+  var handleOnBlur = function handleOnBlur() {};
+
+  return React.createElement(_reactNative.View, _extends({ style: _hook.style }, props, {
+    onFocus: _hook.handleOnFocus(handleOnFocus),
+    onBlur: _hook.handleOnBlur(handleOnBlur)
+  }));
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply hover correctly 1`] = `
 "var _reactNativeBreeze = require(\\"react-native-breeze\\");
 
 var _reactNative = require(\\"react-native\\");
@@ -8,13 +95,86 @@ var _reactNative = require(\\"react-native\\");
 var Calendar = function Calendar() {
   var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{hover:{backgroundColor:\\"#f56565\\"}}}});
 
-  return React.createElement(_reactNative.View, { style: _hook.style, onMouseEnter: _hook.handleOnMouseEnter,
-    onMouseLeave: _hook.handleOnMouseLeave
+  return React.createElement(_reactNative.View, { style: _hook.style, onMouseEnter: _hook.handleOnMouseEnter(),
+    onMouseLeave: _hook.handleOnMouseLeave()
   });
 };"
 `;
 
-exports[`react-native-breeze plugin should compile both breeze and regular styles 1`] = `
+exports[`react-native-breeze plugin br should apply hover handlers to mutiple spread proactively 1`] = `
+"var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Calendar = function Calendar(props) {
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{hover:{backgroundColor:\\"#f56565\\"}}}});
+
+  var otherProps = {};
+
+  return React.createElement(_reactNative.View, _extends({ style: _hook.style }, props, otherProps, {
+    onMouseEnter: _hook.handleOnMouseEnter(otherProps.onMouseEnter || props.onMouseEnter),
+    onMouseLeave: _hook.handleOnMouseLeave(otherProps.onMouseLeave || props.onMouseLeave)
+  }));
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply hover handlers to spread proactively 1`] = `
+"var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Calendar = function Calendar(props) {
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{hover:{backgroundColor:\\"#f56565\\"}}}});
+
+  return React.createElement(_reactNative.View, _extends({ style: _hook.style }, props, {
+    onMouseEnter: _hook.handleOnMouseEnter(props.onMouseEnter),
+    onMouseLeave: _hook.handleOnMouseLeave(props.onMouseLeave)
+  }));
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply hover if there is a prop already correctly 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Calendar = function Calendar() {
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{hover:{backgroundColor:\\"#f56565\\"}}}});
+
+  var handleOnMouseEnter = function handleOnMouseEnter() {};
+  var handleOnMouseLeave = function handleOnMouseLeave() {};
+
+  return React.createElement(_reactNative.View, { style: _hook.style, onMouseEnter: _hook.handleOnMouseEnter(handleOnMouseEnter),
+    onMouseLeave: _hook.handleOnMouseLeave(handleOnMouseLeave)
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply hover if there is an spread and a prop already correctly 1`] = `
+"var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Calendar = function Calendar(props) {
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{hover:{backgroundColor:\\"#f56565\\"}}}});
+
+  var handleOnMouseEnter = function handleOnMouseEnter() {};
+  var handleOnMouseLeave = function handleOnMouseLeave() {};
+
+  return React.createElement(_reactNative.View, _extends({ style: _hook.style }, props, {
+    onMouseEnter: _hook.handleOnMouseEnter(handleOnMouseEnter),
+    onMouseLeave: _hook.handleOnMouseLeave(handleOnMouseLeave)
+  }));
+};"
+`;
+
+exports[`react-native-breeze plugin br should compile both breeze and regular styles 1`] = `
 "var _reactNativeBreeze = require(\\"react-native-breeze\\");
 
 var _reactNative = require(\\"react-native\\");
@@ -26,7 +186,7 @@ var Calendar = function Calendar() {
 };"
 `;
 
-exports[`react-native-breeze plugin should compile breeze styles 1`] = `
+exports[`react-native-breeze plugin br should compile breeze styles 1`] = `
 "var _reactNativeBreeze = require(\\"react-native-breeze\\");
 
 var _reactNative = require(\\"react-native\\");
@@ -38,7 +198,7 @@ var Calendar = function Calendar() {
 };"
 `;
 
-exports[`react-native-breeze plugin should compile regular style 1`] = `
+exports[`react-native-breeze plugin br should compile regular style 1`] = `
 "var _reactNative = require(\\"react-native\\");
 
 var Component = function Component() {
@@ -46,7 +206,20 @@ var Component = function Component() {
 };"
 `;
 
-exports[`react-native-breeze plugin should not apply hover if var is not binded to a JSX 1`] = `
+exports[`react-native-breeze plugin br should not apply focus if var is not binded to a JSX 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Calendar = function Calendar() {
+  var _hook = (0, _reactNativeBreeze.useBreeze)({default:{all:{focus:{backgroundColor:\\"#f56565\\"}}}});
+
+  var noBind = _hook.style;
+  return React.createElement(_reactNative.View, { style: {} });
+};"
+`;
+
+exports[`react-native-breeze plugin br should not apply hover if var is not binded to a JSX 1`] = `
 "var _reactNativeBreeze = require(\\"react-native-breeze\\");
 
 var _reactNative = require(\\"react-native\\");
@@ -57,4 +230,18 @@ var Calendar = function Calendar() {
   var noBind = _hook.style;
   return React.createElement(_reactNative.View, { style: {} });
 };"
+`;
+
+exports[`react-native-breeze plugin br.raw should compile value correctly 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var raw = {
+      backgroundColor: \\"#f56565\\"
+};"
+`;
+
+exports[`react-native-breeze plugin br.value should compile value correctly 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var value = \\"#f56565\\";"
 `;
