@@ -1,0 +1,457 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`react-native-breeze plugin br should add breeze hook as a dependency for declarations inside a hook 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _react = require(\\"react\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  var anotherProp = {};
+
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  var getComponent = (0, _react.useCallback)(function () {
+    return React.createElement(_reactNative.View, {
+      style: _breeze.parse(\\"bg-green-500\\")
+    });
+  }, [_breeze]);
+
+  var _breeze2 = (0, _reactNativeBreeze.useBreeze)();
+
+  var getComponent2 = (0, _react.useCallback)(function () {
+    return React.createElement(_reactNative.View, {
+      style: _breeze2.parse(\\"bg-indigo-500\\")
+    });
+  }, [_breeze2]);
+
+  var _breeze3 = (0, _reactNativeBreeze.useBreeze)();
+
+  var getComponent3 = (0, _react.useCallback)(function () {
+    return React.createElement(_reactNative.View, {
+      style: _breeze3.parse(\\"bg-indigo-500\\")
+    });
+  }, [anotherProp, _breeze3]);
+
+  var _breeze4 = (0, _reactNativeBreeze.useBreeze)();
+
+  var NestedMemoComponent2 = (0, _react.useMemo)(function () {
+    return React.createElement(_reactNative.View, {
+      style: _breeze4.parse(\\"bg-green-500\\")
+    });
+  }, [_breeze4]);
+
+  var _breeze5 = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, {
+    style: _breeze5.parse(\\"bg-red-500\\")
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should add the hook var as close as possible to the tagged expression 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component2 = function Component2() {
+  var constant1 = true;
+  var constant2 = {};
+
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, {
+    style: _breeze.parse(\\"bg-blue-500\\")
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply focus correctly 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, {
+    style: _breeze.parse(\\"focus:bg-red-500\\"),
+    onFocus: _breeze.handleOnFocus(),
+    onBlur: _breeze.handleOnBlur()
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply focus handlers to mutiple spread proactively 1`] = `
+"var _interopRequireDefault = require(\\"@babel/runtime/helpers/interopRequireDefault\\");
+
+var _extends2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/extends\\"));
+
+var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component(props) {
+  var otherProps = {};
+
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, (0, _extends2.default)({
+    style: _breeze.parse(\\"focus:bg-red-500\\")
+  }, props, otherProps, {
+    onFocus: _breeze.handleOnFocus(otherProps.onFocus || props.onFocus),
+    onBlur: _breeze.handleOnBlur(otherProps.onBlur || props.onBlur)
+  }));
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply focus handlers to spread proactively 1`] = `
+"var _interopRequireDefault = require(\\"@babel/runtime/helpers/interopRequireDefault\\");
+
+var _extends2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/extends\\"));
+
+var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component(props) {
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, (0, _extends2.default)({
+    style: _breeze.parse(\\"focus:bg-red-500\\")
+  }, props, {
+    onFocus: _breeze.handleOnFocus(props.onFocus),
+    onBlur: _breeze.handleOnBlur(props.onBlur)
+  }));
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply focus if there is a prop already correctly 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  var handleOnFocus = function handleOnFocus() {};
+
+  var handleOnBlur = function handleOnBlur() {};
+
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, {
+    style: _breeze.parse(\\"focus:bg-red-500\\"),
+    onFocus: _breeze.handleOnFocus(handleOnFocus),
+    onBlur: _breeze.handleOnBlur(handleOnBlur)
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply focus if there is an spread and a prop already correctly 1`] = `
+"var _interopRequireDefault = require(\\"@babel/runtime/helpers/interopRequireDefault\\");
+
+var _extends2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/extends\\"));
+
+var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component(props) {
+  var handleOnFocus = function handleOnFocus() {};
+
+  var handleOnBlur = function handleOnBlur() {};
+
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, (0, _extends2.default)({
+    style: _breeze.parse(\\"focus:bg-red-500\\")
+  }, props, {
+    onFocus: _breeze.handleOnFocus(handleOnFocus),
+    onBlur: _breeze.handleOnBlur(handleOnBlur)
+  }));
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply hover correctly 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, {
+    style: _breeze.parse(\\"hover:bg-red-500\\"),
+    onMouseEnter: _breeze.handleOnMouseEnter(),
+    onMouseLeave: _breeze.handleOnMouseLeave()
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply hover handlers to mutiple spread proactively 1`] = `
+"var _interopRequireDefault = require(\\"@babel/runtime/helpers/interopRequireDefault\\");
+
+var _extends2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/extends\\"));
+
+var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component(props) {
+  var otherProps = {};
+
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, (0, _extends2.default)({
+    style: _breeze.parse(\\"hover:bg-red-500\\")
+  }, props, otherProps, {
+    onMouseEnter: _breeze.handleOnMouseEnter(otherProps.onMouseEnter || props.onMouseEnter),
+    onMouseLeave: _breeze.handleOnMouseLeave(otherProps.onMouseLeave || props.onMouseLeave)
+  }));
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply hover handlers to spread proactively 1`] = `
+"var _interopRequireDefault = require(\\"@babel/runtime/helpers/interopRequireDefault\\");
+
+var _extends2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/extends\\"));
+
+var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component(props) {
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, (0, _extends2.default)({
+    style: _breeze.parse(\\"hover:bg-red-500\\")
+  }, props, {
+    onMouseEnter: _breeze.handleOnMouseEnter(props.onMouseEnter),
+    onMouseLeave: _breeze.handleOnMouseLeave(props.onMouseLeave)
+  }));
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply hover if there is a prop already correctly 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  var handleOnMouseEnter = function handleOnMouseEnter() {};
+
+  var handleOnMouseLeave = function handleOnMouseLeave() {};
+
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, {
+    style: _breeze.parse(\\"hover:bg-red-500\\"),
+    onMouseEnter: _breeze.handleOnMouseEnter(handleOnMouseEnter),
+    onMouseLeave: _breeze.handleOnMouseLeave(handleOnMouseLeave)
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply hover if there is an spread and a prop already correctly 1`] = `
+"var _interopRequireDefault = require(\\"@babel/runtime/helpers/interopRequireDefault\\");
+
+var _extends2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/extends\\"));
+
+var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component(props) {
+  var handleOnMouseEnter = function handleOnMouseEnter() {};
+
+  var handleOnMouseLeave = function handleOnMouseLeave() {};
+
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, (0, _extends2.default)({
+    style: _breeze.parse(\\"hover:bg-red-500\\")
+  }, props, {
+    onMouseEnter: _breeze.handleOnMouseEnter(handleOnMouseEnter),
+    onMouseLeave: _breeze.handleOnMouseLeave(handleOnMouseLeave)
+  }));
+};"
+`;
+
+exports[`react-native-breeze plugin br should apply styles in nested components 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  var NestedComponent = function NestedComponent() {
+    var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+    return React.createElement(_reactNative.View, {
+      style: _breeze.parse(\\"bg-green-500\\")
+    });
+  };
+
+  var _breeze2 = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, {
+    style: _breeze2.parse(\\"bg-red-500\\")
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should compile both breeze and regular styles 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, {
+    style: [_breeze.parse(\\"bg-red-500\\"), {
+      height: 10
+    }]
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should compile breeze styles 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, {
+    style: _breeze.parse(\\"bg-red-500\\")
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should compile dynamic tags 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  var styleString = \\"bg-green-500\\";
+  var condition = true;
+
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, {
+    style: _breeze.parse(styleString + \\" rounded \\" + (condition ? 'border-gray-500 border-2' : 'border-green-500') + \\" \\")
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should compile regular style 1`] = `
+"var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  return React.createElement(_reactNative.View, {
+    style: {
+      backgroundColor: \\"red\\"
+    }
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should not apply focus if var is not binded to a JSX 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  var noBind = _breeze.parse(\\"focus:bg-red-500\\");
+
+  return React.createElement(_reactNative.View, {
+    style: {}
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should not apply hover if var is not binded to a JSX 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  var noBind = _breeze.parse(\\"hover:bg-red-500\\");
+
+  return React.createElement(_reactNative.View, {
+    style: {}
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should not violate the hooks rule 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _react = require(\\"react\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  var NestedMemoComponent = (0, _react.useMemo)(function () {
+    return React.createElement(_reactNative.View, {
+      style: _breeze.parse(\\"bg-green-500\\")
+    });
+  }, [_breeze]);
+
+  var _breeze2 = (0, _reactNativeBreeze.useBreeze)();
+
+  var NestedMemoComponent2 = (0, _react.useMemo)(function () {
+    return React.createElement(_reactNative.View, {
+      style: _breeze2.parse(\\"bg-green-500\\")
+    });
+  }, [_breeze2]);
+
+  var _breeze3 = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, {
+    style: _breeze3.parse(\\"bg-red-500\\")
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br should rewrite the return statement 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var _reactNative = require(\\"react-native\\");
+
+var Component = function Component() {
+  var _breeze = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, {
+    style: _breeze.parse(\\"bg-red-500\\")
+  });
+};
+
+var Component2 = function Component2() {
+  var _breeze2 = (0, _reactNativeBreeze.useBreeze)();
+
+  return React.createElement(_reactNative.View, {
+    style: _breeze2.parse(\\"bg-blue-500\\")
+  });
+};"
+`;
+
+exports[`react-native-breeze plugin br.raw should compile value correctly 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var raw = (0, _reactNativeBreeze.breezeRaw)(\\"bg-red-500\\");"
+`;
+
+exports[`react-native-breeze plugin br.value should compile value correctly 1`] = `
+"var _reactNativeBreeze = require(\\"react-native-breeze\\");
+
+var value = (0, _reactNativeBreeze.breezeValue)(\\"bg-red-500\\");"
+`;

@@ -1,41 +1,60 @@
-import { useMemo } from "react";
-import { BreezeStyle } from "../plugin/helpers/styles";
+import { useCallback } from "react";
 import { mergeObjects } from "../helpers/objects";
-import useMediaStyle from "./useMediaStyle";
-import useBreezeStyle from "./useBreezeStyle";
+import useStyles from "./useStyles";
+import useMedia from "./useMedia";
 import useFocus from "./useFocus";
 import useHover from "./useHover";
 import useOrientation from "./useOrientation";
+import usePlatform from "./usePlatform";
 
-export const useBreeze = (breezeStyle: BreezeStyle) => {
-  const mediaStyle = useBreezeStyle(breezeStyle);
+const useBreeze = () => {
+  const getBreezeStyles = useStyles();
 
-  const variantStyle = useMediaStyle(mediaStyle);
+  const getPlatformStyles = usePlatform();
 
-  const orientationStyle = useOrientation(variantStyle);
+  const getMediaStyles = useMedia();
 
-  const { hoverStyle, handleOnMouseEnter, handleOnMouseLeave } = useHover(
-    variantStyle
-  );
+  const getOrientationStyles = useOrientation();
 
-  const { focusStyle, handleOnFocus, handleOnBlur } = useFocus(variantStyle);
+  const { getHoverStyles, handleOnMouseEnter, handleOnMouseLeave } = useHover();
 
-  const style = useMemo(
-    () =>
-      mergeObjects([
-        variantStyle.base || {},
-        orientationStyle,
-        hoverStyle,
-        focusStyle,
-      ]),
-    [variantStyle, orientationStyle, hoverStyle, focusStyle]
+  const { getFocusStyle, handleOnFocus, handleOnBlur } = useFocus();
+
+  const parse = useCallback(
+    (input: string) => {
+      const breezeStyle = getBreezeStyles(input);
+      const PlatformStyle = getPlatformStyles(breezeStyle);
+      const variantStyle = getMediaStyles(PlatformStyle);
+
+      const baseStyle = variantStyle.base || {};
+      const orientedStyle = getOrientationStyles(variantStyle);
+      const hoveredStyle = getHoverStyles(variantStyle);
+      const focusedStyle = getFocusStyle(variantStyle);
+
+      return mergeObjects([
+        baseStyle,
+        orientedStyle,
+        hoveredStyle,
+        focusedStyle,
+      ]);
+    },
+    [
+      getBreezeStyles,
+      getPlatformStyles,
+      getMediaStyles,
+      getOrientationStyles,
+      getHoverStyles,
+      getFocusStyle,
+    ]
   );
 
   return {
-    style,
+    parse,
     handleOnMouseEnter,
     handleOnMouseLeave,
     handleOnFocus,
     handleOnBlur,
   };
 };
+
+export default useBreeze;

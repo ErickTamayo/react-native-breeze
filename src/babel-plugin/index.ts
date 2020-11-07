@@ -8,8 +8,8 @@ import {
   handleBreezeValue,
   handleBreezeRaw,
   isBreezeImport,
-  hasBreezeHookImport,
-  addUseBreezeImport,
+  hasBreezeImports,
+  addBreezeImports,
 } from "./helpers/babel";
 
 interface State extends PluginPass {
@@ -20,10 +20,13 @@ module.exports = (): PluginObj<State> => {
   const BreezeCallsVisitor: Visitor = {
     TaggedTemplateExpression(path) {
       if (isBreeze(path)) {
+        // checkBrImport(path);
         handleBreeze(path);
       } else if (isBreezeValue(path)) {
+        // checkBrImport(path);
         handleBreezeValue(path);
       } else if (isBreezeRaw(path)) {
+        // checkBrImport(path);
         handleBreezeRaw(path);
       }
     },
@@ -37,8 +40,8 @@ module.exports = (): PluginObj<State> => {
         state.program = path;
       },
       ImportDeclaration(path, state) {
-        if (isBreezeImport(path) && !hasBreezeHookImport(path)) {
-          addUseBreezeImport(state.program);
+        if (isBreezeImport(path) && !hasBreezeImports(path)) {
+          addBreezeImports(state.program);
         }
       },
     },

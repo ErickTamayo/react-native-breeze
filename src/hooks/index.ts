@@ -1,1 +1,1 @@
-export { useBreeze } from "./useBreeze";
+export { default as useBreeze } from "./useBreeze";

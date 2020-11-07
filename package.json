@@ -1,12 +1,12 @@
 {
   "name": "react-native-breeze",
-  "version": "0.0.3-alpha-13",
+  "version": "0.0.4",
   "description": "Utility-first style framework for React Native projects",
   "main": "dist/commonjs/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --config jest.config.js",
     "prepare": "bob build; npm run copy:plugin",
-    "copy:plugin": "cpr ./dist/commonjs/plugin ./plugin -d"
+    "copy:plugin": "cpr ./dist/commonjs/babel-plugin ./plugin -d"
   },
   "keywords": [
     "react",
@@ -18,37 +18,41 @@
   "license": "ISC",
   "dependencies": {
     "@babel/types": "^7.11.5",
-    "babel-template": "^6.26.0",
     "clear-module": "^4.1.1",
     "cpr": "^3.0.1",
     "deepmerge": "^4.2.2",
     "fast-memoize": "^2.5.2",
     "is-plain-object": "^5.0.0",
     "lodash.get": "^4.4.2",
-    "react-native": "^0.63.3",
     "stealthy-require": "^1.1.1",
     "tinycolor2": "^1.4.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.11.6",
-    "@babel/core": "^7.11.6",
+    "@babel/core": "^7.12.3",
     "@babel/plugin-transform-react-jsx": "^7.10.4",
     "@babel/preset-env": "^7.11.5",
     "@react-native-community/bob": "^0.16.2",
-    "@types/babel-core": "^6.25.6",
+    "@testing-library/react-hooks": "^3.4.2",
+    "@types/babel__core": "^7.1.10",
     "@types/jest": "^26.0.14",
     "@types/lodash.get": "^4.4.6",
     "@types/react": "^16.9.50",
     "@types/react-native": "^0.63.23",
     "@types/tinycolor2": "^1.4.2",
-    "babel-core": "^6.26.3",
     "babel-jest": "^26.3.0",
     "babel-preset-expo": "^8.3.0",
     "babel-preset-react-native": "^4.0.1",
+    "babel-template": "^6.26.0",
     "cpy-cli": "^3.1.1",
     "jest": "^26.4.2",
+    "mockdate": "^3.0.2",
+    "react-test-renderer": "^16.14.0",
     "ts-jest": "^26.4.1",
     "typescript": "^4.0.3"
+  },
+  "peerDependencies": {
+    "react-native": "^0.63.3"
   },
   "react-native": "src/index.ts",
   "module": "dist/module/index.js",

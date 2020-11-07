@@ -1,5 +1,4 @@
 import { withNegativePrefix } from "../helpers/misc";
-import { validate } from "../helpers/validation";
 import { PluginFunction, PluginPattern } from "./types";
 
 // prettier-ignore

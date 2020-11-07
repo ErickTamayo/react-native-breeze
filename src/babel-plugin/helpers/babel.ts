@@ -1,9 +1,9 @@
 import template from "@babel/template";
 import * as t from "@babel/types";
-import { NodePath } from "@babel/traverse";
+import { NodePath, Visitor } from "@babel/traverse";
 import babel from "@babel/core";
-import { generateStyleFromInput, BreezeStyle } from "./styles";
-import { toJson } from "./objects";
+import { generateStyleFromInput, BreezeStyle } from "../../helpers/styles";
+import { toJson } from "../../helpers/objects";
 
 export const isBreezeImport = (path: NodePath<t.ImportDeclaration>) => {
   const opts = { value: "react-native-breeze" };
@@ -44,12 +44,26 @@ export const isBreezeValueIdentifier = (
   return t.isIdentifier(node.tag, { name: "br" });
 };
 
-export const getSylesFromTaggedTemplateNode = (
-  node: babel.types.TaggedTemplateExpression
+// const BreezeTaggedTemplateVisitor: Visitor<{}> = {
+//   StringLiteral(path) {
+//     const styleString = toJson(generateStyleFromInput(path.node.value));
+//     path.replaceWith(template.statement("STYLE")({ STYLE: styleString }));
+//   },
+//   TemplateElement(path) {
+//     // console.log({ path });
+//   },
+// };
+
+export const getSylesFromTaggedTemplateExpression = (
+  path: NodePath<t.TaggedTemplateExpression>
 ) => {
   const {
-    quasi: { quasis },
-  } = node;
+    node: {
+      quasi: { quasis, expressions },
+    },
+  } = path;
+
+  console.log({ quasi: JSON.stringify(path.node.quasi) });
 
   // Parse the quasis
   const input = quasis
@@ -84,13 +98,63 @@ export const hasHoverStyles = (node: babel.types.TaggedTemplateExpression) => {
   return quasis.some((q) => q.value.raw.match(/hover:/));
 };
 
-export const addBreezeHook = (
-  path: NodePath<babel.types.TaggedTemplateExpression>,
-  styles: BreezeStyle
-) => {
-  const hookDeclaration = template(`const HOOKIDENTIFIER = useBreeze(STYLES)`);
+const isBuiltInHook = (hookName: string) => {
+  return [
+    "useState",
+    "React.useState",
+    "useReducer",
+    "React.useReducer",
+    "useEffect",
+    "React.useEffect",
+    "useLayoutEffect",
+    "React.useLayoutEffect",
+    "useMemo",
+    "React.useMemo",
+    "useCallback",
+    "React.useCallback",
+    "useRef",
+    "React.useRef",
+    "useContext",
+    "React.useContext",
+    "useImperativeMethods",
+    "React.useImperativeMethods",
+    "useDebugValue",
+    "React.useDebugValue",
+  ].includes(hookName);
+};
 
-  const functionParent = path.findParent((path) => path.isFunction());
+const hookDeclaration = template(`const HOOKIDENTIFIER = useBreeze()`);
+
+const HoistBreezeHookVisitor: Visitor<{
+  identifier: t.Identifier;
+  // styles: BreezeStyle;
+  closestNode: t.Node | null;
+}> = {
+  ArrowFunctionExpression(path) {
+    (path as any).arrowFunctionToExpression();
+  },
+  BlockStatement(path, { identifier, closestNode }) {
+    const statement = hookDeclaration({
+      HOOKIDENTIFIER: identifier,
+      // STYLES: toJson(styles),
+    });
+
+    const closestNodeIndex = path.node.body.findIndex((n) => n === closestNode);
+    path.node.body.splice(closestNodeIndex, 0, statement as any);
+    path.stop();
+  },
+};
+
+export const hoistBreezeHook = (
+  path: NodePath<babel.types.TaggedTemplateExpression>
+  // styles: BreezeStyle
+) => {
+  let functionParent = path.findParent((path) => path.isFunction());
+
+  let closestNode =
+    path.find((path) => {
+      return path.isReturnStatement() || path.isVariableDeclaration();
+    })?.node || null;
 
   if (!functionParent) {
     throw new Error(
@@ -98,19 +162,58 @@ export const addBreezeHook = (
     );
   }
 
-  const identifier = functionParent.scope.generateUidIdentifier("hook");
+  const identifier = functionParent.scope.generateUidIdentifier("breeze");
 
-  const statement = hookDeclaration({
-    HOOKIDENTIFIER: identifier,
-    STYLES: toJson(styles),
+  // Check if parent is a hook, the put our hook in the next scope instead
+  if (functionParent.parentPath.isCallExpression()) {
+    const { callee, arguments: args } = functionParent.parentPath
+      .node as t.CallExpression;
+
+    if (isBuiltInHook((callee as t.Identifier).name)) {
+      closestNode =
+        functionParent.find((path) => {
+          return path.isReturnStatement() || path.isVariableDeclaration();
+        })?.node || null;
+
+      functionParent = functionParent.parentPath.findParent((path) =>
+        path.isFunction()
+      );
+
+      if (!functionParent) {
+        throw new Error(
+          'Invalid declaration of "br" template literal: Template literal should be declared inside a Function Component'
+        );
+      }
+
+      // Add dependencies to the builtIn Hook
+      const [, deps] = args;
+
+      if (typeof deps === "undefined") {
+        const depsExpression = template.expression("[DEPS]");
+        args.push(depsExpression({ DEPS: identifier }));
+      } else if (t.isArrayExpression(deps)) {
+        if ((deps as t.ArrayExpression).elements.length === 0) {
+          (deps as t.ArrayExpression).elements = [identifier];
+        } else {
+          (deps as t.ArrayExpression).elements = [
+            ...(deps as t.ArrayExpression).elements,
+            identifier,
+          ];
+        }
+      }
+    }
+  }
+
+  functionParent.parentPath.traverse(HoistBreezeHookVisitor, {
+    identifier,
+    // styles,
+    closestNode,
   });
-
-  (functionParent.get("body") as any).unshiftContainer("body", statement);
 
   return identifier;
 };
 
-export const hasBreezeHookImport = (path: NodePath<t.ImportDeclaration>) => {
+export const hasBreezeImports = (path: NodePath<t.ImportDeclaration>) => {
   const {
     node: { source, specifiers },
   } = path;
@@ -122,16 +225,20 @@ export const hasBreezeHookImport = (path: NodePath<t.ImportDeclaration>) => {
   if (isBreezeImport) {
     return specifiers.some((specifier) => {
       const { local } = specifier;
-      return t.isIdentifier(local, { name: "useBreeze" });
+      return (
+        t.isIdentifier(local, { name: "useBreeze" }) ||
+        t.isIdentifier(local, { name: "breezeValue" }) ||
+        t.isIdentifier(local, { name: "breezeRaw" })
+      );
     });
   }
 
   return false;
 };
 
-export const addUseBreezeImport = (root: NodePath<t.Program>) => {
+export const addBreezeImports = (root: NodePath<t.Program>) => {
   const importDeclaration = template(
-    `import { useBreeze } from "react-native-breeze";`
+    `import { useBreeze, breezeValue, breezeRaw } from "react-native-breeze";`
   );
 
   root.unshiftContainer("body", importDeclaration());
@@ -275,14 +382,19 @@ export const addFocusPropsToJSX = (
   JSXPath.node.attributes.push(onBlur);
 };
 
+const breezeStatement = template.statement(`HOOKIDENTIFIER.parse(STYLES)`);
+
 export const handleBreeze = (path: NodePath<t.TaggedTemplateExpression>) => {
   const { node } = path;
 
-  const styles = getSylesFromTaggedTemplateNode(node);
+  const identifier = hoistBreezeHook(path);
 
-  const identifier = addBreezeHook(path, styles);
+  const expression = breezeStatement({
+    HOOKIDENTIFIER: identifier.name,
+    STYLES: node.quasi,
+  });
 
-  path.replaceWith(template.expression(`${identifier.name}.style`)());
+  path.replaceWith(expression);
 
   const JSXParent = path.findParent((path) => path.isJSXOpeningElement());
 
@@ -315,20 +427,18 @@ export const handleBreeze = (path: NodePath<t.TaggedTemplateExpression>) => {
   }
 };
 
+const breezeValueStatement = template.statement(`breezeValue(STYLES)`);
+
 export const handleBreezeValue = (
   path: NodePath<t.TaggedTemplateExpression>
 ) => {
-  const { node } = path;
-  const styles = getSylesFromTaggedTemplateNode(node);
-  const value = Object.values(styles.default?.all?.base || {})[0];
-
-  path.replaceWith(template.expression(`${JSON.stringify(value)}`)());
+  const expression = breezeValueStatement({ STYLES: path.node.quasi });
+  path.replaceWith(expression);
 };
 
-export const handleBreezeRaw = (path: NodePath<t.TaggedTemplateExpression>) => {
-  const { node } = path;
-  const styles = getSylesFromTaggedTemplateNode(node);
-  const raw = toJson(styles.default?.all?.base || {});
+const breezeRawStatement = template.statement(`breezeRaw(STYLES)`);
 
-  path.replaceWith(template.expression(raw)());
+export const handleBreezeRaw = (path: NodePath<t.TaggedTemplateExpression>) => {
+  const expression = breezeRawStatement({ STYLES: path.node.quasi });
+  path.replaceWith(expression);
 };

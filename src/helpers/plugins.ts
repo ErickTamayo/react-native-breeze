@@ -1,6 +1,6 @@
 import path from "path";
 import memoize from "fast-memoize";
-import { Configuration } from "../types";
+import { Configuration } from "../babel-plugin/types";
 import { config, theme, keys, color, colorKeys } from "../config";
 import { PluginFunction, PluginPattern } from "../plugins/types";
 
