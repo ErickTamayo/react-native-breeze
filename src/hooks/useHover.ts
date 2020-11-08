@@ -1,10 +1,8 @@
 import { useMemo, useCallback, useState } from "react";
-import { ReactNativeStyle, VariantsStyle } from "../plugin/helpers/styles";
+import { ReactNativeStyle, MediaStyle } from "../helpers/styles";
 
-const useHover = (
-  style: VariantsStyle
-): {
-  hoverStyle: ReactNativeStyle;
+const useHover = (): {
+  getHoverStyles: (style: MediaStyle) => ReactNativeStyle;
   handleOnMouseEnter: (onMouseEnter?: any) => (e: any) => void;
   handleOnMouseLeave: (onMouseLeave?: any) => (e: any) => void;
 } => {
@@ -26,12 +24,12 @@ const useHover = (
     [setIsHovered]
   );
 
-  const hoverStyle = useMemo(() => (isHovered ? style.hover || {} : {}), [
-    style,
-    isHovered,
-  ]);
+  const getHoverStyles = useCallback(
+    (style: MediaStyle) => (isHovered ? style.hover || {} : {}),
+    [isHovered]
+  );
 
-  return { hoverStyle, handleOnMouseEnter, handleOnMouseLeave };
+  return { getHoverStyles, handleOnMouseEnter, handleOnMouseLeave };
 };
 
 export default useHover;

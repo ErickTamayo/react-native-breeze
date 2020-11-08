@@ -8,13 +8,14 @@ import {
 import merge from "deepmerge";
 import { getStyleFromString } from "./plugins";
 import { keys, theme } from "../config";
+import memoize from "fast-memoize";
 
 export type ReactNativeStyle =
   | StyleProp<ViewStyle>
   | StyleProp<ImageStyle>
   | StyleProp<TextStyle>;
 
-export type VariantsStyle = {
+export type MediaStyle = {
   focus?: ReactNativeStyle;
   hover?: ReactNativeStyle;
   landscape?: ReactNativeStyle;
@@ -22,19 +23,19 @@ export type VariantsStyle = {
   base?: ReactNativeStyle;
 };
 
-export type MediaStyle = {
-  [media: number]: VariantsStyle;
-  all?: VariantsStyle;
+export type PlatformStyle = {
+  [media: number]: MediaStyle;
+  all?: MediaStyle;
 };
 
 export type BreezeStyle = {
-  [platform in PlatformOSType]?: MediaStyle;
+  [platform in PlatformOSType]?: PlatformStyle;
 } & {
-  native?: MediaStyle;
-  default?: MediaStyle;
+  native?: PlatformStyle;
+  default?: PlatformStyle;
 };
 
-export const generateStyleFromInput = (input: string): BreezeStyle => {
+const generateStyleFromInputFn = (input: string): BreezeStyle => {
   const variantKeys = ["focus", "hover", "landscape", "portrait"].join("|");
   const platformKeys = [
     "ios",
@@ -44,6 +45,7 @@ export const generateStyleFromInput = (input: string): BreezeStyle => {
     "web",
     "native",
   ].join("|");
+
   const screenKeys = keys("screens");
 
   // prettier-ignore
@@ -69,7 +71,7 @@ export const generateStyleFromInput = (input: string): BreezeStyle => {
       style,
     } = result.groups!;
 
-    const styleObject: Partial<VariantsStyle> = {
+    const styleObject: Partial<MediaStyle> = {
       [platform]: {
         [theme(["screens", media], "all")]: {
           [variant]: getStyleFromString(style),
@@ -80,3 +82,7 @@ export const generateStyleFromInput = (input: string): BreezeStyle => {
     return merge(acc, styleObject);
   }, {});
 };
+
+export const generateStyleFromInput = (global as any).__DEV__
+  ? generateStyleFromInputFn
+  : memoize(generateStyleFromInputFn);

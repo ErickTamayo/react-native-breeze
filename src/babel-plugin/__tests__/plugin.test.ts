@@ -1,10 +1,11 @@
-import { transform, TransformOptions } from "babel-core";
+import { transform, TransformOptions } from "@babel/core";
 
 const plugin = require("../");
 const opts: TransformOptions = {
-  presets: ["react-native"],
+  presets: ["babel-preset-expo"],
   plugins: [plugin],
   compact: false,
+  filename: "file.tsx",
 };
 
 describe("react-native-breeze plugin", () => {
@@ -17,7 +18,7 @@ describe("react-native-breeze plugin", () => {
           return <View style={{ backgroundColor: "red" }} />;
         };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -26,11 +27,27 @@ describe("react-native-breeze plugin", () => {
         import { View } from "react-native";
         import { br } from "react-native-breeze";
       
-        const Calendar = () => {
+        const Component = () => {
           return <View style={br\`bg-red-500\`} />;
         };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
+      expect(code).toMatchSnapshot();
+    });
+
+    it("should compile dynamic tags", () => {
+      const input = `
+      import { View } from "react-native";
+      import { br } from "react-native-breeze";
+    
+      const Component = () => {
+        const styleString = "bg-green-500";
+        const condition = true;
+        
+        return <View style={br\`\${styleString} rounded \${condition ? 'border-gray-500 border-2' : 'border-green-500'} \`} />;
+      };`;
+
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -39,11 +56,11 @@ describe("react-native-breeze plugin", () => {
     import { View } from "react-native";
     import { br } from "react-native-breeze";
   
-    const Calendar = () => {
+    const Component = () => {
       return <View style={[br\`bg-red-500\`, { height: 10 }]} />;
     };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -54,11 +71,112 @@ describe("react-native-breeze plugin", () => {
   
     const style = br\`åbg-red-500\`
 
-    const Calendar = () => {
+    const Component = () => {
       return <View style={{}} />;
     };`;
 
-      expect(() => transform(input, opts)).toThrow();
+      expect(() => transform(input, opts)!).toThrow();
+    });
+
+    it("should rewrite the return statement", () => {
+      const input = `
+    import { View } from "react-native";
+    import { br } from "react-native-breeze";
+  
+    const Component = () => (<View style={br\`bg-red-500\`} />);
+
+    const Component2 = () => { return (<View style={br\`bg-blue-500\`} />) };
+    `;
+
+      const { code } = transform(input, opts)!;
+      expect(code).toMatchSnapshot();
+    });
+
+    it("should add breeze hook as a dependency for declarations inside a hook", () => {
+      const input = `
+    import { useMemo, useCallback } from "react";
+    import { View } from "react-native";
+    import { br } from "react-native-breeze";
+  
+    const Component = () => {
+
+      const anotherProp = {};
+
+      const getComponent = useCallback(() => {
+        return (<View style={br\`bg-green-500\`}/>)
+      });
+
+      const getComponent2 = useCallback(() => {
+        return (<View style={br\`bg-indigo-500\`}/>) 
+      }, []);
+
+      const getComponent3 = useCallback(() => {
+        return (<View style={br\`bg-indigo-500\`}/>) 
+      }, [anotherProp]);
+
+      const NestedMemoComponent2 = useMemo(() => (<View style={br\`bg-green-500\`}/>), []);
+
+      return <View style={br\`bg-red-500\`} />;
+    };`;
+
+      const { code } = transform(input, opts)!;
+      expect(code).toMatchSnapshot();
+    });
+
+    it("should not violate the hooks rule", () => {
+      const input = `
+    import { useMemo } from "react";
+    import { View } from "react-native";
+    import { br } from "react-native-breeze";
+  
+    const Component = () => {
+
+      const NestedMemoComponent = useMemo(() => {
+        return (<View style={br\`bg-green-500\`}/>)
+      }, []);
+
+      const NestedMemoComponent2 = useMemo(() => (<View style={br\`bg-green-500\`}/>), []);
+
+      return <View style={br\`bg-red-500\`} />;
+    };`;
+
+      const { code } = transform(input, opts)!;
+      expect(code).toMatchSnapshot();
+    });
+
+    it("should add the hook var as close as possible to the tagged expression", () => {
+      const input = `
+    import { View } from "react-native";
+    import { br } from "react-native-breeze";
+  
+    const Component2 = () => { 
+      const constant1 = true;
+      const constant2 = {};
+
+      return (<View style={br\`bg-blue-500\`} />)
+    };
+    `;
+
+      const { code } = transform(input, opts)!;
+      expect(code).toMatchSnapshot();
+    });
+
+    it("should apply styles in nested components", () => {
+      const input = `
+    import { View } from "react-native";
+    import { br } from "react-native-breeze";
+  
+    const Component = () => {
+
+      const NestedComponent = () => {
+        return <View style={br\`bg-green-500\`}/>
+      }
+
+      return <View style={br\`bg-red-500\`} />;
+    };`;
+
+      const { code } = transform(input, opts)!;
+      expect(code).toMatchSnapshot();
     });
 
     it("should apply hover correctly", () => {
@@ -66,11 +184,11 @@ describe("react-native-breeze plugin", () => {
     import { View } from "react-native";
     import { br } from "react-native-breeze";
   
-    const Calendar = () => {
+    const Component = () => {
       return <View style={br\`hover:bg-red-500\`} />;
     };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -79,7 +197,7 @@ describe("react-native-breeze plugin", () => {
     import { View } from "react-native";
     import { br } from "react-native-breeze";
   
-    const Calendar = () => {
+    const Component = () => {
 
       const handleOnMouseEnter = () => {};
       const handleOnMouseLeave = () => {};
@@ -87,7 +205,7 @@ describe("react-native-breeze plugin", () => {
       return <View style={br\`hover:bg-red-500\`} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} />;
     };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -96,7 +214,7 @@ describe("react-native-breeze plugin", () => {
     import { View } from "react-native";
     import { br } from "react-native-breeze";
   
-    const Calendar = (props) => {
+    const Component = (props) => {
 
       const handleOnMouseEnter = () => {};
       const handleOnMouseLeave = () => {};
@@ -104,7 +222,7 @@ describe("react-native-breeze plugin", () => {
       return <View style={br\`hover:bg-red-500\`} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} {...props} />;
     };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -113,11 +231,11 @@ describe("react-native-breeze plugin", () => {
     import { View } from "react-native";
     import { br } from "react-native-breeze";
   
-    const Calendar = (props) => {
+    const Component = (props) => {
       return <View style={br\`hover:bg-red-500\`} {...props} />;
     };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -126,14 +244,14 @@ describe("react-native-breeze plugin", () => {
     import { View } from "react-native";
     import { br } from "react-native-breeze";
   
-    const Calendar = (props) => {
+    const Component = (props) => {
 
       const otherProps = {};
 
       return <View style={br\`hover:bg-red-500\`} {...props} {...otherProps}/>;
     };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -142,12 +260,12 @@ describe("react-native-breeze plugin", () => {
     import { View } from "react-native";
     import { br } from "react-native-breeze";
 
-    const Calendar = () => {
+    const Component = () => {
       const noBind = br\`hover:bg-red-500\`
       return <View style={{}} />;
     };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -158,11 +276,11 @@ describe("react-native-breeze plugin", () => {
     import { View } from "react-native";
     import { br } from "react-native-breeze";
   
-    const Calendar = () => {
+    const Component = () => {
       return <View style={br\`focus:bg-red-500\`} />;
     };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -171,7 +289,7 @@ describe("react-native-breeze plugin", () => {
     import { View } from "react-native";
     import { br } from "react-native-breeze";
   
-    const Calendar = () => {
+    const Component = () => {
 
       const handleOnFocus = () => {};
       const handleOnBlur = () => {};
@@ -179,7 +297,7 @@ describe("react-native-breeze plugin", () => {
       return <View style={br\`focus:bg-red-500\`} onFocus={handleOnFocus} onBlur={handleOnBlur} />;
     };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -188,7 +306,7 @@ describe("react-native-breeze plugin", () => {
     import { View } from "react-native";
     import { br } from "react-native-breeze";
   
-    const Calendar = (props) => {
+    const Component = (props) => {
 
       const handleOnFocus = () => {};
       const handleOnBlur = () => {};
@@ -196,7 +314,7 @@ describe("react-native-breeze plugin", () => {
       return <View style={br\`focus:bg-red-500\`} onFocus={handleOnFocus} onBlur={handleOnBlur} {...props} />;
     };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -205,11 +323,11 @@ describe("react-native-breeze plugin", () => {
     import { View } from "react-native";
     import { br } from "react-native-breeze";
   
-    const Calendar = (props) => {
+    const Component = (props) => {
       return <View style={br\`focus:bg-red-500\`} {...props} />;
     };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -218,14 +336,14 @@ describe("react-native-breeze plugin", () => {
     import { View } from "react-native";
     import { br } from "react-native-breeze";
   
-    const Calendar = (props) => {
+    const Component = (props) => {
 
       const otherProps = {};
 
       return <View style={br\`focus:bg-red-500\`} {...props} {...otherProps}/>;
     };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -234,12 +352,12 @@ describe("react-native-breeze plugin", () => {
     import { View } from "react-native";
     import { br } from "react-native-breeze";
 
-    const Calendar = () => {
+    const Component = () => {
       const noBind = br\`focus:bg-red-500\`
       return <View style={{}} />;
     };`;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
 
@@ -253,7 +371,7 @@ describe("react-native-breeze plugin", () => {
       const value = br.value\`bg-red-500\`
     `;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
   });
@@ -265,7 +383,16 @@ describe("react-native-breeze plugin", () => {
       const raw = br.raw\`bg-red-500\`
     `;
 
-      const { code } = transform(input, opts);
+      const { code } = transform(input, opts)!;
+      expect(code).toMatchSnapshot();
+    });
+  });
+
+  describe("configuration", () => {
+    it("should parse configuration correctly", () => {
+      const input = `const __BREEZE_USER_CONFIG__ = undefined;`;
+
+      const { code } = transform(input, opts)!;
       expect(code).toMatchSnapshot();
     });
   });

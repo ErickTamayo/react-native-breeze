@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { ReactNativeStyle, VariantsStyle } from "../plugin/helpers/styles";
+import { ReactNativeStyle, MediaStyle } from "../helpers/styles";
 import { Dimensions, Platform } from "react-native";
 
-const useOrientation = (style: VariantsStyle): ReactNativeStyle => {
+const useOrientation = (): ((style: MediaStyle) => ReactNativeStyle) => {
   const isMobile = ["ios", "android"].includes(Platform.OS);
 
   const getOrientation = useCallback(():
@@ -14,7 +14,7 @@ const useOrientation = (style: VariantsStyle): ReactNativeStyle => {
     const { height, width } = Dimensions.get("screen");
 
     return height > width ? "portrait" : "landscape";
-  }, [style]);
+  }, []);
 
   const [orientation, setOrientation] = useState<
     "landscape" | "portrait" | undefined
@@ -31,9 +31,14 @@ const useOrientation = (style: VariantsStyle): ReactNativeStyle => {
         Dimensions.removeEventListener("change", handleOnChange);
       };
     }
-  }, [style, getOrientation, setOrientation, isMobile]);
+  }, [getOrientation, setOrientation, isMobile]);
 
-  return orientation ? style[orientation] || {} : {};
+  return useCallback(
+    (style: MediaStyle) => {
+      return orientation ? style[orientation] || {} : {};
+    },
+    [orientation]
+  );
 };
 
 export default useOrientation;

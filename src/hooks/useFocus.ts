@@ -1,10 +1,8 @@
 import { useMemo, useCallback, useState } from "react";
-import { ReactNativeStyle, VariantsStyle } from "../plugin/helpers/styles";
+import { ReactNativeStyle, MediaStyle } from "../helpers/styles";
 
-const useFocus = (
-  style: VariantsStyle
-): {
-  focusStyle: ReactNativeStyle;
+const useFocus = (): {
+  getFocusStyle: (style: MediaStyle) => ReactNativeStyle;
   handleOnFocus: (onFocus: any) => (e: any) => void;
   handleOnBlur: (onBlur: any) => (e: any) => void;
 } => {
@@ -26,12 +24,12 @@ const useFocus = (
     [setIsHovered]
   );
 
-  const focusStyle = useMemo(() => (isHovered ? style.focus || {} : {}), [
-    style,
-    isHovered,
-  ]);
+  const getFocusStyle = useCallback(
+    (style: MediaStyle) => (isHovered ? style.focus || {} : {}),
+    [isHovered]
+  );
 
-  return { focusStyle, handleOnFocus, handleOnBlur };
+  return { getFocusStyle, handleOnFocus, handleOnBlur };
 };
 
 export default useFocus;

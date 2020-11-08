@@ -1,5 +1,3 @@
-const { tryStatement } = require("@babel/types");
-
 module.exports = {
   theme: {
     screens: {
