@@ -387,4 +387,13 @@ describe("react-native-breeze plugin", () => {
       expect(code).toMatchSnapshot();
     });
   });
+
+  describe("configuration", () => {
+    it("should parse configuration correctly", () => {
+      const input = `const __BREEZE_USER_CONFIG__ = undefined;`;
+
+      const { code } = transform(input, opts)!;
+      expect(code).toMatchSnapshot();
+    });
+  });
 });

@@ -10,6 +10,8 @@ import {
   isBreezeImport,
   hasBreezeImports,
   addBreezeImports,
+  isBreezeUserConfig,
+  replaceUserConfigInit,
 } from "./helpers/babel";
 
 interface State extends PluginPass {
@@ -42,6 +44,11 @@ module.exports = (): PluginObj<State> => {
       ImportDeclaration(path, state) {
         if (isBreezeImport(path) && !hasBreezeImports(path)) {
           addBreezeImports(state.program);
+        }
+      },
+      VariableDeclarator(path) {
+        if (isBreezeUserConfig(path)) {
+          replaceUserConfigInit(path);
         }
       },
     },

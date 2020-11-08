@@ -1,8 +1,8 @@
-import path from "path";
 import memoize from "fast-memoize";
 import { Configuration } from "../babel-plugin/types";
 import { config, theme, keys, color, colorKeys } from "../config";
 import { PluginFunction, PluginPattern } from "../plugins/types";
+import * as plugins from "../plugins";
 
 const corePluginsConfiguration = config(
   "corePlugins"
@@ -12,7 +12,8 @@ const enabledCorePlugins = Object.keys(corePluginsConfiguration).reduce<
   { pattern?: PluginPattern; plugin?: PluginFunction<any> }[]
 >((acc, pluginName) => {
   if (corePluginsConfiguration[pluginName]) {
-    return [...acc, require(path.resolve(__dirname, "../plugins", pluginName))];
+    const plugin = plugins[pluginName as keyof typeof plugins];
+    return [...acc, plugin];
   }
   return acc;
 }, []);

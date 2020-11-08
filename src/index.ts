@@ -1,5 +1,6 @@
 import { ViewProps, ImageProps, TextProps } from "react-native";
 export { useBreeze } from "./hooks";
+import { generateStyleFromInput } from "./helpers/styles";
 
 let warningEmitted = false;
 
@@ -17,20 +18,27 @@ type BreezeStyle =
   | ImageProps["style"]
   | TextProps["style"];
 
-export const br = (
-  stylesArray: TemplateStringsArray,
-  ...variables: string[]
-): BreezeStyle => {
+export const br = (_: TemplateStringsArray, ...__: string[]): BreezeStyle => {
   emitError();
   return {};
 };
 
-br.value = (stylesArray: TemplateStringsArray, ...variables: string[]): any => {
+br.value = (_: TemplateStringsArray, ...__: string[]): any => {
   emitError();
   return undefined as any;
 };
 
-br.raw = (stylesArray: TemplateStringsArray, ...variables: string[]): any => {
+br.raw = (_: TemplateStringsArray, ...__: string[]): any => {
   emitError();
   return undefined as any;
+};
+
+export const breezeRaw = (input: string) => {
+  const styles = generateStyleFromInput(input);
+  return styles.default?.all?.base || {};
+};
+
+export const breezeValue = (input: string) => {
+  const raw = breezeRaw(input);
+  return Object.values(raw)[0];
 };

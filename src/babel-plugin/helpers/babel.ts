@@ -44,16 +44,6 @@ export const isBreezeValueIdentifier = (
   return t.isIdentifier(node.tag, { name: "br" });
 };
 
-// const BreezeTaggedTemplateVisitor: Visitor<{}> = {
-//   StringLiteral(path) {
-//     const styleString = toJson(generateStyleFromInput(path.node.value));
-//     path.replaceWith(template.statement("STYLE")({ STYLE: styleString }));
-//   },
-//   TemplateElement(path) {
-//     // console.log({ path });
-//   },
-// };
-
 export const getSylesFromTaggedTemplateExpression = (
   path: NodePath<t.TaggedTemplateExpression>
 ) => {
@@ -62,8 +52,6 @@ export const getSylesFromTaggedTemplateExpression = (
       quasi: { quasis, expressions },
     },
   } = path;
-
-  console.log({ quasi: JSON.stringify(path.node.quasi) });
 
   // Parse the quasis
   const input = quasis
@@ -206,7 +194,6 @@ export const hoistBreezeHook = (
 
   functionParent.parentPath.traverse(HoistBreezeHookVisitor, {
     identifier,
-    // styles,
     closestNode,
   });
 
@@ -441,4 +428,17 @@ const breezeRawStatement = template.statement(`breezeRaw(STYLES)`);
 export const handleBreezeRaw = (path: NodePath<t.TaggedTemplateExpression>) => {
   const expression = breezeRawStatement({ STYLES: path.node.quasi });
   path.replaceWith(expression);
+};
+
+export const isBreezeUserConfig = (path: NodePath<t.VariableDeclarator>) => {
+  return t.isIdentifier(path.node.id, { name: "__BREEZE_USER_CONFIG__" });
+};
+
+export const replaceUserConfigInit = (path: NodePath<t.VariableDeclarator>) => {
+  const cwd = process.cwd();
+  try {
+    require.resolve(`${cwd}/breeze.config`);
+    const expression = template.expression(`require("${cwd}/breeze.config")`);
+    path.node.init = expression();
+  } catch (error) {}
 };

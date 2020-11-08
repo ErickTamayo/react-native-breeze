@@ -5,7 +5,7 @@
   "main": "dist/commonjs/index.js",
   "scripts": {
     "test": "jest --config jest.config.js",
-    "prepare": "bob build; npm run copy:plugin",
+    "prepare": "bob build",
     "copy:plugin": "cpr ./dist/commonjs/babel-plugin ./plugin -d"
   },
   "keywords": [

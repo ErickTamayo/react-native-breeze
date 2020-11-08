@@ -455,3 +455,5 @@ exports[`react-native-breeze plugin br.value should compile value correctly 1`] 
 
 var value = (0, _reactNativeBreeze.breezeValue)(\\"bg-red-500\\");"
 `;
+
+exports[`react-native-breeze plugin configuration should parse configuration correctly 1`] = `"var __BREEZE_USER_CONFIG__ = undefined;"`;

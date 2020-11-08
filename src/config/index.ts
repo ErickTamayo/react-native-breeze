@@ -1,18 +1,14 @@
-import fs from "fs";
-import path from "path";
 import get from "lodash.get";
 import { negative, opacity } from "../helpers/misc";
 import { flattenObject } from "../helpers/objects";
+import merge from "deepmerge";
 
 import baseConfig from "./breeze.config.base";
 
+const __BREEZE_USER_CONFIG__ = undefined;
+
 const userConfig = (() => {
-  const userConfigPath = path.resolve(process.cwd(), "breeze.config.js");
-  const userConfigExists = fs.existsSync(userConfigPath);
-
-  if (!userConfigExists) return require("./breeze.config");
-
-  return require(userConfigPath);
+  return __BREEZE_USER_CONFIG__ || require("./breeze.config");
 })();
 
 type Path = Parameters<typeof get>[1];
@@ -34,22 +30,20 @@ const evaluateThemeObjectOrFunction = (objectOrFunction: any) => {
   return objectOrFunction(theme, { negative, opacity });
 };
 
-export const theme = (path: Path, defaultValue?: any) => {
+export const theme = (path: Path, defaultValue?: any): any => {
   const root = Array.isArray(path) ? path[0] : (path as string).split(".")[0];
 
   if (!root) throw new Error("Invalid path for theme");
 
   const extended = evaluateThemeObjectOrFunction(
-    config(["theme.extend", root])
+    config(["theme", "extend", root], {})
   );
-
-  if (extended) {
-    return get({ [root]: extended }, path, defaultValue);
-  }
 
   const overwritten = evaluateThemeObjectOrFunction(config(["theme", root]));
 
-  return get({ [root]: overwritten }, path, defaultValue);
+  const merged = merge(overwritten, extended);
+
+  return get({ [root]: merged }, path, defaultValue);
 };
 
 export const keys = (path: Path) => {

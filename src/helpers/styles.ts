@@ -35,51 +35,54 @@ export type BreezeStyle = {
   default?: PlatformStyle;
 };
 
-export const generateStyleFromInput = memoize(
-  (input: string): BreezeStyle => {
-    const variantKeys = ["focus", "hover", "landscape", "portrait"].join("|");
-    const platformKeys = [
-      "ios",
-      "android",
-      "macos",
-      "windows",
-      "web",
-      "native",
-    ].join("|");
-    const screenKeys = keys("screens");
+const generateStyleFromInputFn = (input: string): BreezeStyle => {
+  const variantKeys = ["focus", "hover", "landscape", "portrait"].join("|");
+  const platformKeys = [
+    "ios",
+    "android",
+    "macos",
+    "windows",
+    "web",
+    "native",
+  ].join("|");
 
-    // prettier-ignore
-    const regex = new RegExp(`(?<platform>${platformKeys})?:?(?<media>${screenKeys})?:?(?<variant>${variantKeys})?:?(?<style>[\\w-_]+)`);
+  const screenKeys = keys("screens");
 
-    const styleStrings = input
-      .split(" ")
-      .map((v) => v.trim())
-      .filter(Boolean);
+  // prettier-ignore
+  const regex = new RegExp(`(?<platform>${platformKeys})?:?(?<media>${screenKeys})?:?(?<variant>${variantKeys})?:?(?<style>[\\w-_]+)`);
 
-    return styleStrings.reduce<BreezeStyle>((acc, styleString) => {
-      const result = regex.exec(styleString);
+  const styleStrings = input
+    .split(" ")
+    .map((v) => v.trim())
+    .filter(Boolean);
 
-      if (!result) {
-        console.warn(`Could not parse ${styleString}`);
-        return acc;
-      }
+  return styleStrings.reduce<BreezeStyle>((acc, styleString) => {
+    const result = regex.exec(styleString);
 
-      const {
-        variant = "base",
-        platform = "default",
-        media,
-        style,
-      } = result.groups!;
+    if (!result) {
+      console.warn(`Could not parse ${styleString}`);
+      return acc;
+    }
 
-      const styleObject: Partial<MediaStyle> = {
-        [platform]: {
-          [theme(["screens", media], "all")]: {
-            [variant]: getStyleFromString(style),
-          },
+    const {
+      variant = "base",
+      platform = "default",
+      media,
+      style,
+    } = result.groups!;
+
+    const styleObject: Partial<MediaStyle> = {
+      [platform]: {
+        [theme(["screens", media], "all")]: {
+          [variant]: getStyleFromString(style),
         },
-      };
+      },
+    };
 
-      return merge(acc, styleObject);
-    }, {});
-  }
-);
+    return merge(acc, styleObject);
+  }, {});
+};
+
+export const generateStyleFromInput = (global as any).__DEV__
+  ? generateStyleFromInputFn
+  : memoize(generateStyleFromInputFn);
